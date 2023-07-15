@@ -16,6 +16,7 @@
 		720D9EF82A611A510070EFEA /* ShopNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF72A611A510070EFEA /* ShopNotice.swift */; };
 		720D9EFA2A611B080070EFEA /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF92A611B080070EFEA /* Event.swift */; };
 		720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EFC2A611FF60070EFEA /* EndPoint.swift */; };
+		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		720D9EF72A611A510070EFEA /* ShopNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopNotice.swift; sourceTree = "<group>"; };
 		720D9EF92A611B080070EFEA /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		720D9EFC2A611FF60070EFEA /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				720D9EFC2A611FF60070EFEA /* EndPoint.swift */,
+				72C38C6A2A62668A005C3F7D /* NetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				720D9EF82A611A510070EFEA /* ShopNotice.swift in Sources */,
 				720D9EF62A6116540070EFEA /* Contents.swift in Sources */,
 				720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */,
+				72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */,
 				720D9EFA2A611B080070EFEA /* Event.swift in Sources */,
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
 				720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */,
