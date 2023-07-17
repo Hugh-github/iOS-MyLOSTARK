@@ -16,6 +16,9 @@
 		720D9EF82A611A510070EFEA /* ShopNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF72A611A510070EFEA /* ShopNotice.swift */; };
 		720D9EFA2A611B080070EFEA /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF92A611B080070EFEA /* Event.swift */; };
 		720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EFC2A611FF60070EFEA /* EndPoint.swift */; };
+		72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */; };
+		72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AEF2A64E179001B8266 /* EndPointComponents.swift */; };
+		72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AF12A64E1A2001B8266 /* JSONManager.swift */; };
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +34,9 @@
 		720D9EF72A611A510070EFEA /* ShopNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopNotice.swift; sourceTree = "<group>"; };
 		720D9EF92A611B080070EFEA /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		720D9EFC2A611FF60070EFEA /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LOSTARKAPIService.swift; sourceTree = "<group>"; };
+		72520AEF2A64E179001B8266 /* EndPointComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointComponents.swift; sourceTree = "<group>"; };
+		72520AF12A64E1A2001B8266 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +97,9 @@
 			children = (
 				720D9EFC2A611FF60070EFEA /* EndPoint.swift */,
 				72C38C6A2A62668A005C3F7D /* NetworkManager.swift */,
+				72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */,
+				72520AEF2A64E179001B8266 /* EndPointComponents.swift */,
+				72520AF12A64E1A2001B8266 /* JSONManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -166,10 +175,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				720D9EE52A61143E0070EFEA /* ViewController.swift in Sources */,
+				72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */,
+				72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */,
 				720D9EF82A611A510070EFEA /* ShopNotice.swift in Sources */,
 				720D9EF62A6116540070EFEA /* Contents.swift in Sources */,
 				720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */,
 				72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */,
+				72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */,
 				720D9EFA2A611B080070EFEA /* Event.swift in Sources */,
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
 				720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */,
