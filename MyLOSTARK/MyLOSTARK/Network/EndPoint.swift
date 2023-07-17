@@ -27,32 +27,39 @@ struct EndPoint {
         self.httpMethod = httpMethod
         self.headers = headers
     }
-}
-
-enum Path: String {
-    case notice = "/news/notices"
-    case event = "/news/events"
-    case calendar = "/gamecontents/calendar"
-}
-
-struct Parameter {
-    let key: String
-    let value: String
-}
-
-enum HTTPMethod: String {
-    case get = "GET"
-}
-
-struct Headers {
-    let accept: String
-    let authorization: String
     
-    init(
-        accept: String = "application/json",
-        authorization: String
-    ) {
-        self.accept = accept
-        self.authorization = "bearer \(authorization)"
+    var request: URLRequest? {
+        return makeRequest()
+    }
+    
+    private func makeRequest() -> URLRequest? {
+        guard let url = self.makeURL(),
+              let queryItem = self.makeQueryItem() else {
+            return nil
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = self.httpMethod.rawValue
+        request.url?.append(queryItems: [queryItem])
+        request.setValue(headers.accept, forHTTPHeaderField: "accept")
+        request.setValue(headers.authorization, forHTTPHeaderField: "authorization")
+        
+        return request
+    }
+    
+    private func makeURL() -> URL? {
+        var url = URL(string: baseURL)
+        
+        self.path.list.forEach { path in
+            url?.appendPathComponent(path)
+        }
+        
+        return url
+    }
+    
+    private func makeQueryItem() -> URLQueryItem? {
+        guard let parameter = self.parameter else { return nil }
+        
+        return URLQueryItem(name: parameter.key, value: parameter.value)
     }
 }
