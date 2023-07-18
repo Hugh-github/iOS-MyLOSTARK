@@ -8,12 +8,14 @@
 import Foundation
 
 class NetworkManager {
-    static let shared = NetworkManager()
+    static let shared = NetworkManager(urlSession: URLSession.shared)
     
-    private init() { }
+    private let urlSession: URLSessionProtocol
     
-    var urlSession: URLSession {
-        return URLSession.shared
+    init(
+        urlSession: URLSessionProtocol
+    ) {
+        self.urlSession = urlSession
     }
     
     func execute(request: URLRequest) async throws  -> Data {

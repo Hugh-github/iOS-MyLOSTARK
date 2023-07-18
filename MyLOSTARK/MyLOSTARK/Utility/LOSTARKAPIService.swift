@@ -8,8 +8,14 @@
 import Foundation
 
 class LOSTARKAPIService {
-    let networkManager = NetworkManager.shared
-    let jsonManager = JSONManager.shared
+    private let networkManager: NetworkManager
+    private let jsonManager = JSONManager.shared
+    
+    init(
+        networkManager: NetworkManager = NetworkManager.shared
+    ) {
+        self.networkManager = networkManager
+    }
     
     func getEventList() async throws -> [Event] {
         let endPoint = EndPoint(

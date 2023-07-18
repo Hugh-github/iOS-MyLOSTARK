@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7209EE1B2A66553200F2902A /* APIServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7209EE1A2A66553200F2902A /* APIServiceTest.swift */; };
+		7209EE222A66554800F2902A /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7209EE212A66554800F2902A /* MockURLSession.swift */; };
+		7209EE252A6656D800F2902A /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7209EE232A66557700F2902A /* URLSessionProtocol.swift */; };
+		7209EE262A66572800F2902A /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7209EE232A66557700F2902A /* URLSessionProtocol.swift */; };
+		7209EE282A6660B000F2902A /* MockContentsData.json in Resources */ = {isa = PBXBuildFile; fileRef = 7209EE272A6660B000F2902A /* MockContentsData.json */; };
+		7209EE292A6664F000F2902A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
+		7209EE2A2A6664FD00F2902A /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AF12A64E1A2001B8266 /* JSONManager.swift */; };
+		7209EE2B2A66650100F2902A /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EFC2A611FF60070EFEA /* EndPoint.swift */; };
+		7209EE2C2A66650400F2902A /* EndPointComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AEF2A64E179001B8266 /* EndPointComponents.swift */; };
+		7209EE2D2A66650F00F2902A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF92A611B080070EFEA /* Event.swift */; };
+		7209EE2E2A66657D00F2902A /* LOSTARKAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */; };
+		7209EE2F2A6668A500F2902A /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF52A6116540070EFEA /* Contents.swift */; };
+		7209EE302A6668A800F2902A /* ShopNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF72A611A510070EFEA /* ShopNotice.swift */; };
+		7209EE312A666E5500F2902A /* MockContentsData.json in Resources */ = {isa = PBXBuildFile; fileRef = 7209EE272A6660B000F2902A /* MockContentsData.json */; };
 		720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EE02A61143E0070EFEA /* AppDelegate.swift */; };
 		720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EE22A61143E0070EFEA /* SceneDelegate.swift */; };
 		720D9EE52A61143E0070EFEA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EE42A61143E0070EFEA /* ViewController.swift */; };
@@ -22,7 +36,22 @@
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7209EE1C2A66553200F2902A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 720D9ED52A61143E0070EFEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 720D9EDC2A61143E0070EFEA;
+			remoteInfo = MyLOSTARK;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		7209EE182A66553200F2902A /* APIServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APIServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7209EE1A2A66553200F2902A /* APIServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceTest.swift; sourceTree = "<group>"; };
+		7209EE212A66554800F2902A /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		7209EE232A66557700F2902A /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		7209EE272A6660B000F2902A /* MockContentsData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockContentsData.json; sourceTree = "<group>"; };
 		720D9EDD2A61143E0070EFEA /* MyLOSTARK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLOSTARK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		720D9EE02A61143E0070EFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		720D9EE22A61143E0070EFEA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +70,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7209EE152A66553200F2902A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		720D9EDA2A61143E0070EFEA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,10 +87,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7209EE192A66553200F2902A /* APIServiceTest */ = {
+			isa = PBXGroup;
+			children = (
+				7209EE272A6660B000F2902A /* MockContentsData.json */,
+				7209EE212A66554800F2902A /* MockURLSession.swift */,
+				7209EE1A2A66553200F2902A /* APIServiceTest.swift */,
+			);
+			path = APIServiceTest;
+			sourceTree = "<group>";
+		};
 		720D9ED42A61143E0070EFEA = {
 			isa = PBXGroup;
 			children = (
 				720D9EDF2A61143E0070EFEA /* MyLOSTARK */,
+				7209EE192A66553200F2902A /* APIServiceTest */,
 				720D9EDE2A61143E0070EFEA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				720D9EDD2A61143E0070EFEA /* MyLOSTARK.app */,
+				7209EE182A66553200F2902A /* APIServiceTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,6 +143,7 @@
 		720D9EFB2A611FE50070EFEA /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7209EE232A66557700F2902A /* URLSessionProtocol.swift */,
 				720D9EFC2A611FF60070EFEA /* EndPoint.swift */,
 				72520AEF2A64E179001B8266 /* EndPointComponents.swift */,
 				72C38C6A2A62668A005C3F7D /* NetworkManager.swift */,
@@ -124,6 +173,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7209EE172A66553200F2902A /* APIServiceTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7209EE202A66553200F2902A /* Build configuration list for PBXNativeTarget "APIServiceTest" */;
+			buildPhases = (
+				7209EE142A66553200F2902A /* Sources */,
+				7209EE152A66553200F2902A /* Frameworks */,
+				7209EE162A66553200F2902A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7209EE1D2A66553200F2902A /* PBXTargetDependency */,
+			);
+			name = APIServiceTest;
+			productName = APIServiceTest;
+			productReference = 7209EE182A66553200F2902A /* APIServiceTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		720D9EDC2A61143E0070EFEA /* MyLOSTARK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 720D9EF12A61143F0070EFEA /* Build configuration list for PBXNativeTarget "MyLOSTARK" */;
@@ -151,6 +218,10 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					7209EE172A66553200F2902A = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 720D9EDC2A61143E0070EFEA;
+					};
 					720D9EDC2A61143E0070EFEA = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -170,16 +241,26 @@
 			projectRoot = "";
 			targets = (
 				720D9EDC2A61143E0070EFEA /* MyLOSTARK */,
+				7209EE172A66553200F2902A /* APIServiceTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7209EE162A66553200F2902A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7209EE282A6660B000F2902A /* MockContentsData.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		720D9EDB2A61143E0070EFEA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				720D9EED2A61143F0070EFEA /* LaunchScreen.storyboard in Resources */,
+				7209EE312A666E5500F2902A /* MockContentsData.json in Resources */,
 				720D9EEA2A61143F0070EFEA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,10 +268,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7209EE142A66553200F2902A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7209EE2D2A66650F00F2902A /* Event.swift in Sources */,
+				7209EE2F2A6668A500F2902A /* Contents.swift in Sources */,
+				7209EE2B2A66650100F2902A /* EndPoint.swift in Sources */,
+				7209EE2E2A66657D00F2902A /* LOSTARKAPIService.swift in Sources */,
+				7209EE2C2A66650400F2902A /* EndPointComponents.swift in Sources */,
+				7209EE292A6664F000F2902A /* NetworkManager.swift in Sources */,
+				7209EE262A66572800F2902A /* URLSessionProtocol.swift in Sources */,
+				7209EE222A66554800F2902A /* MockURLSession.swift in Sources */,
+				7209EE302A6668A800F2902A /* ShopNotice.swift in Sources */,
+				7209EE2A2A6664FD00F2902A /* JSONManager.swift in Sources */,
+				7209EE1B2A66553200F2902A /* APIServiceTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		720D9ED92A61143E0070EFEA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7209EE252A6656D800F2902A /* URLSessionProtocol.swift in Sources */,
 				720D9EE52A61143E0070EFEA /* ViewController.swift in Sources */,
 				72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */,
 				72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */,
@@ -207,6 +307,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7209EE1D2A66553200F2902A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 720D9EDC2A61143E0070EFEA /* MyLOSTARK */;
+			targetProxy = 7209EE1C2A66553200F2902A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		720D9EEB2A61143F0070EFEA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -219,6 +327,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7209EE1E2A66553200F2902A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DHoney96.APIServiceTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyLOSTARK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyLOSTARK";
+			};
+			name = Debug;
+		};
+		7209EE1F2A66553200F2902A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DHoney96.APIServiceTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyLOSTARK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyLOSTARK";
+			};
+			name = Release;
+		};
 		720D9EEF2A61143F0070EFEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -394,6 +536,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7209EE202A66553200F2902A /* Build configuration list for PBXNativeTarget "APIServiceTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7209EE1E2A66553200F2902A /* Debug */,
+				7209EE1F2A66553200F2902A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		720D9ED82A61143E0070EFEA /* Build configuration list for PBXProject "MyLOSTARK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
