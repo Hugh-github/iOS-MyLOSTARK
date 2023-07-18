@@ -33,16 +33,16 @@ struct EndPoint {
     }
     
     private func makeRequest() -> URLRequest? {
-        guard let url = self.makeURL(),
-              let queryItem = self.makeQueryItem() else {
-            return nil
-        }
+        guard let url = self.makeURL() else { return nil }
         
         var request = URLRequest(url: url)
         request.httpMethod = self.httpMethod.rawValue
-        request.url?.append(queryItems: [queryItem])
         request.setValue(headers.accept, forHTTPHeaderField: "accept")
         request.setValue(headers.authorization, forHTTPHeaderField: "authorization")
+        
+        if let queryItem = self.makeQueryItem() {
+            request.url?.append(queryItems: [queryItem])
+        }
         
         return request
     }
