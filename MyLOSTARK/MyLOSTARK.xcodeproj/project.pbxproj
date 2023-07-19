@@ -30,6 +30,7 @@
 		720D9EF82A611A510070EFEA /* ShopNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF72A611A510070EFEA /* ShopNotice.swift */; };
 		720D9EFA2A611B080070EFEA /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EF92A611B080070EFEA /* Event.swift */; };
 		720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EFC2A611FF60070EFEA /* EndPoint.swift */; };
+		722C3BCC2A678A8800E91914 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BCB2A678A8800E91914 /* MainViewModel.swift */; };
 		72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */; };
 		72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AEF2A64E179001B8266 /* EndPointComponents.swift */; };
 		72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AF12A64E1A2001B8266 /* JSONManager.swift */; };
@@ -63,6 +64,7 @@
 		720D9EF72A611A510070EFEA /* ShopNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopNotice.swift; sourceTree = "<group>"; };
 		720D9EF92A611B080070EFEA /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		720D9EFC2A611FF60070EFEA /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		722C3BCB2A678A8800E91914 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LOSTARKAPIService.swift; sourceTree = "<group>"; };
 		72520AEF2A64E179001B8266 /* EndPointComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointComponents.swift; sourceTree = "<group>"; };
 		72520AF12A64E1A2001B8266 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				72520AF62A64F674001B8266 /* Utility */,
 				720D9EFB2A611FE50070EFEA /* Network */,
 				720D9EF42A6116090070EFEA /* Model */,
+				722C3BCA2A678A7000E91914 /* ViewModel */,
 				720D9EE42A61143E0070EFEA /* ViewController.swift */,
 				720D9EE92A61143F0070EFEA /* Assets.xcassets */,
 				720D9EEB2A61143F0070EFEA /* LaunchScreen.storyboard */,
@@ -149,6 +152,14 @@
 				72C38C6A2A62668A005C3F7D /* NetworkManager.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		722C3BCA2A678A7000E91914 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				722C3BCB2A678A8800E91914 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		72520AF52A64F65D001B8266 /* DTO */ = {
@@ -295,6 +306,7 @@
 				72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */,
 				72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */,
 				720D9EF82A611A510070EFEA /* ShopNotice.swift in Sources */,
+				722C3BCC2A678A8800E91914 /* MainViewModel.swift in Sources */,
 				720D9EF62A6116540070EFEA /* Contents.swift in Sources */,
 				720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */,
 				72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */,
