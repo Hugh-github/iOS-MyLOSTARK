@@ -1,10 +1,9 @@
 //
-//  Contents.swift
+//  ContentsCalendar.swift
 //  MyLOSTARK
 //
-//  Created by dhoney96 on 2023/07/19.
+//  Created by dhoney96 on 2023/07/14.
 //
-
 
 struct Contents: Decodable {
     let categoryName: String

@@ -1,9 +1,10 @@
 //
-//  ShopNotice.swift
+//  ShopNoti.swift
 //  MyLOSTARK
 //
-//  Created by dhoney96 on 2023/07/19.
+//  Created by dhoney96 on 2023/07/14.
 //
+
 
 struct ShopNotice: Decodable {
     let title: String
