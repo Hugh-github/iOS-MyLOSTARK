@@ -28,9 +28,6 @@
 		722C3BD62A67A7AE00E91914 /* ShopNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BD52A67A7AE00E91914 /* ShopNotice.swift */; };
 		722C3BD82A67A7C900E91914 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BD72A67A7C900E91914 /* Contents.swift */; };
 		722C3BDA2A67A7E300E91914 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BD92A67A7E300E91914 /* Event.swift */; };
-		722C3BDF2A67A8F500E91914 /* ShopNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BDC2A67A8F500E91914 /* ShopNotice.swift */; };
-		722C3BE02A67A8F500E91914 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BDD2A67A8F500E91914 /* Event.swift */; };
-		722C3BE12A67A8F500E91914 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BDE2A67A8F500E91914 /* Contents.swift */; };
 		72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */; };
 		72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AEF2A64E179001B8266 /* EndPointComponents.swift */; };
 		72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AF12A64E1A2001B8266 /* JSONManager.swift */; };
@@ -65,9 +62,6 @@
 		722C3BD52A67A7AE00E91914 /* ShopNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopNotice.swift; sourceTree = "<group>"; };
 		722C3BD72A67A7C900E91914 /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
 		722C3BD92A67A7E300E91914 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		722C3BDC2A67A8F500E91914 /* ShopNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopNotice.swift; sourceTree = "<group>"; };
-		722C3BDD2A67A8F500E91914 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		722C3BDE2A67A8F500E91914 /* Contents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
 		72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LOSTARKAPIService.swift; sourceTree = "<group>"; };
 		72520AEF2A64E179001B8266 /* EndPointComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointComponents.swift; sourceTree = "<group>"; };
 		72520AF12A64E1A2001B8266 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
@@ -140,7 +134,6 @@
 		720D9EF42A6116090070EFEA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				722C3BDB2A67A8F500E91914 /* ㅇ썌 */,
 				722C3BD42A67A79F00E91914 /* DTO */,
 				72520AF12A64E1A2001B8266 /* JSONManager.swift */,
 			);
@@ -174,16 +167,6 @@
 				722C3BD92A67A7E300E91914 /* Event.swift */,
 			);
 			path = DTO;
-			sourceTree = "<group>";
-		};
-		722C3BDB2A67A8F500E91914 /* ㅇ썌 */ = {
-			isa = PBXGroup;
-			children = (
-				722C3BDC2A67A8F500E91914 /* ShopNotice.swift */,
-				722C3BDD2A67A8F500E91914 /* Event.swift */,
-				722C3BDE2A67A8F500E91914 /* Contents.swift */,
-			);
-			path = "ㅇ썌";
 			sourceTree = "<group>";
 		};
 		72520AF62A64F674001B8266 /* Utility */ = {
@@ -315,10 +298,7 @@
 				720D9EE52A61143E0070EFEA /* ViewController.swift in Sources */,
 				72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */,
 				72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */,
-				722C3BE02A67A8F500E91914 /* Event.swift in Sources */,
 				722C3BCC2A678A8800E91914 /* MainViewModel.swift in Sources */,
-				722C3BDF2A67A8F500E91914 /* ShopNotice.swift in Sources */,
-				722C3BE12A67A8F500E91914 /* Contents.swift in Sources */,
 				720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */,
 				72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */,
 				722C3BD82A67A7C900E91914 /* Contents.swift in Sources */,
