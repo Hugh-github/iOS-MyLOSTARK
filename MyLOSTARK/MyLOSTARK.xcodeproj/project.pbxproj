@@ -33,6 +33,7 @@
 		72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AF12A64E1A2001B8266 /* JSONManager.swift */; };
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 		72C47B602A6900CD007A16D1 /* MainCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C47B5F2A6900CD007A16D1 /* MainCollectionView.swift */; };
+		72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C47B622A690433007A16D1 /* CommonHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		72520AF12A64E1A2001B8266 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		72C47B5F2A6900CD007A16D1 /* MainCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionView.swift; sourceTree = "<group>"; };
+		72C47B622A690433007A16D1 /* CommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				722C3BCA2A678A7000E91914 /* ViewModel */,
 				720D9EE42A61143E0070EFEA /* MainViewController.swift */,
 				72C47B5F2A6900CD007A16D1 /* MainCollectionView.swift */,
+				72C47B622A690433007A16D1 /* CommonHeaderView.swift */,
 				720D9EE92A61143F0070EFEA /* Assets.xcassets */,
 				720D9EEB2A61143F0070EFEA /* LaunchScreen.storyboard */,
 				720D9EEE2A61143F0070EFEA /* Info.plist */,
@@ -305,6 +308,7 @@
 				722C3BE72A67ABBE00E91914 /* Event.swift in Sources */,
 				722C3BCC2A678A8800E91914 /* MainViewModel.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* ShopNotice.swift in Sources */,
+				72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */,
 				722C3BE82A67ABBE00E91914 /* Contents.swift in Sources */,
 				720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */,
 				72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */,
