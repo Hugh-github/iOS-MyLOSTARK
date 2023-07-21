@@ -9,7 +9,8 @@ import UIKit
 
 class MainCollectionView: UIView {
     private let collectionView: UICollectionView = {
-        let collectionView = UICollectionView()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = .systemGray6
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -26,8 +27,10 @@ class MainCollectionView: UIView {
     }
     
     private func setLayout() {
+        addSubview(collectionView)
+        
         NSLayoutConstraint.activate([
-            self.collectionView.topAnchor.constraint(equalTo: topAnchor),
+            self.collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             self.collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             self.collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)

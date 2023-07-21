@@ -15,7 +15,12 @@ enum MainViewSection: Int, CaseIterable {
 }
 
 class MainViewController: UIViewController {
-
+    private let mainView = MainCollectionView()
+    
+    override func loadView() {
+        self.view = mainView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
