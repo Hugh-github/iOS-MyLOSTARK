@@ -17,10 +17,28 @@ class MainCollectionView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setLayout()
+        configureCollectionView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setLayout() {
+        NSLayoutConstraint.activate([
+            self.collectionView.topAnchor.constraint(equalTo: topAnchor),
+            self.collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            self.collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    private func configureCollectionView() {
+        self.collectionView.collectionViewLayout = setSectionLayout()
+        
+        // Cell 등록하는 로직 추가
+        self.collectionView.register(VStackImageLabelCell.self, forCellWithReuseIdentifier: "CalendarAndEventCell")
     }
     
     private func setSectionLayout() -> UICollectionViewLayout {
