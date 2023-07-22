@@ -11,7 +11,7 @@ struct Contents: Decodable {
     let contentsIcon: String
     let minItemLevel: Int
     let startTimes: [String]
-    let location: String
+    let location: String?
     let rewardItems: [RewardItem]
     
     enum CodingKeys: String, CodingKey {
