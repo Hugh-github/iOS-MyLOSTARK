@@ -8,7 +8,7 @@
 import UIKit
 
 class MainCollectionView: UIView {
-    private let collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .systemGray6
         collectionView.translatesAutoresizingMaskIntoConstraints = false

@@ -5,7 +5,7 @@
 //  Created by dhoney96 on 2023/07/14.
 //
 
-struct Event: Decodable {
+struct Event: Decodable, Hashable {
     let title: String
     let thumbnail: String
     let link: String

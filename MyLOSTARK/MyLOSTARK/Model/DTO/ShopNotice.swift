@@ -5,8 +5,7 @@
 //  Created by dhoney96 on 2023/07/14.
 //
 
-
-struct ShopNotice: Decodable {
+struct ShopNotice: Decodable, Hashable {
     let title: String
     let date: String
     let link: String

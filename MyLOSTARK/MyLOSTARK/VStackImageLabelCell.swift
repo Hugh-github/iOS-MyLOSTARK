@@ -46,6 +46,11 @@ class VStackImageLabelCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setContent(text: String, image: UIImage?) {
+        self.textLabel.text = text
+        self.thumbnailView.image = image
+    }
+    
     private func addSubview() {
         addSubview(vStackView)
         self.vStackView.addArrangedSubview(thumbnailView)

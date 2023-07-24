@@ -5,7 +5,7 @@
 //  Created by dhoney96 on 2023/07/14.
 //
 
-struct Contents: Decodable {
+struct Contents: Decodable, Hashable {
     let categoryName: String
     let contentsName: String
     let contentsIcon: String
@@ -25,7 +25,7 @@ struct Contents: Decodable {
     }
 }
 
-struct RewardItem: Decodable {
+struct RewardItem: Decodable, Hashable {
     let name: String
     let icon: String
     let grade: String
