@@ -15,9 +15,9 @@ import Foundation
 class MainViewModel {
     private let apiService = LOSTARKAPIService()
     
-    private var shopNotices: Observable<[ShopNotice]?> = Observable.init([])
-    private var contents: Observable<[Contents]?> = Observable.init([])
-    private var events: Observable<[Event]?> = Observable.init([])
+    private var shopNotices: Observable<[ShopNotice]> = Observable.init([])
+    private var contents: Observable<[Contents]> = Observable.init([])
+    private var events: Observable<[Event]> = Observable.init([])
     
     var errorHandling: ((String) -> Void) = { _ in }
     
@@ -33,24 +33,37 @@ class MainViewModel {
         case event(Event)
     }
     
-    // execute를 하면 아쉬운 점은 리턴 값이 있는 경우 사용이 제한된다. (사용하기 위해서는 protocol로 추상화가 필요?)
-    // 추상화를 한다고 하더라도 화면을 구현하는 데이터가 다르기 때문에 타입 캐스팅이 필요하다.
     func execute(action: Action) -> Output {
         switch action {
         case .didTappedEvent(let index):
-            return .event(self.events.value![index])
+            return .event(self.events.value[index])
         case .didTappedCalendar(let index):
-            return .contents(self.contents.value![index])
+            return .contents(self.contents.value[index])
         case .didTappedShopNotice(let index):
-            return .shopNotice(self.shopNotices.value![index])
+            return .shopNotice(self.shopNotices.value[index])
         }
     }
     
     func fetchData() {
+        // 만약 하나의 Observable 객체를 만들어야 한다면 actor를 사용해 race condition을 배제해야 한다.
         Task {
             do {
                 self.shopNotices.value = try await apiService.getShopNoticeList()
+            } catch {
+                errorHandling("에러 발생")
+            }
+        }
+        
+        Task {
+            do {
                 self.contents.value = try await apiService.getContents()
+            } catch {
+                errorHandling("에러 발생")
+            }
+        }
+        
+        Task {
+            do {
                 self.events.value = try await apiService.getEventList()
             } catch {
                 errorHandling("에러 발생")
