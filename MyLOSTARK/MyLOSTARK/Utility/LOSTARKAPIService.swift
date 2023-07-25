@@ -54,7 +54,7 @@ class LOSTARKAPIService {
     func getShopNoticeList() async throws -> [ShopNotice] {
         let endPoint = EndPoint(
             path: .notice,
-            parameter: nil,
+            parameter: .init(key: "type", value: "상점"),
             httpMethod: .get,
             headers: .init(authorization: self.myAPIKey)
         )

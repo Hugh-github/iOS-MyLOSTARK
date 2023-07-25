@@ -9,7 +9,7 @@ import UIKit
 
 class MainCollectionView: UIView {
     let collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         collectionView.backgroundColor = .systemGray6
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -18,8 +18,8 @@ class MainCollectionView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setLayout()
         configureCollectionView()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -40,8 +40,6 @@ class MainCollectionView: UIView {
     private func configureCollectionView() {
         self.collectionView.collectionViewLayout = setSectionLayout()
         
-        // Cell 등록하는 로직 추가
-        self.collectionView.register(VStackImageLabelCell.self, forCellWithReuseIdentifier: "CalendarAndEventCell")
         self.collectionView.register(
             CommonHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,

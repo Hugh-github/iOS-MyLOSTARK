@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommonHeaderView: UIView {
+class CommonHeaderView: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title3)
