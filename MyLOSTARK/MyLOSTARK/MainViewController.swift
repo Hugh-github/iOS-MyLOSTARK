@@ -20,37 +20,7 @@ class MainViewController: UIViewController {
     
     private let mainView = MainCollectionView()
     private let viewModel = MainViewModel()
-    
-    private lazy var dataSource = DataSource(collectionView: self.mainView.collectionView) { (collectionView, indexPath, itemIdentifier) in
-        let section = MainViewSection(rawValue: indexPath.section)
-        
-        switch section {
-        case .calendar:
-            return self.mainView.collectionView.dequeueConfiguredReusableCell(
-                using: self.createCalendarSectionCell(),
-                for: indexPath,
-                item: itemIdentifier as? Contents
-            )
-        case .characterBookmark:
-            break
-        case .shopNotice:
-            return self.mainView.collectionView.dequeueConfiguredReusableCell(
-                using: self.createShopNoticeSectionCell(),
-                for: indexPath,
-                item: itemIdentifier as? ShopNotice
-            )
-        case .event:
-            return self.mainView.collectionView.dequeueConfiguredReusableCell(
-                using: self.createEventSectionCell(),
-                for: indexPath,
-                item: itemIdentifier as? Event
-            )
-        default:
-            return nil
-        }
-        
-        return UICollectionViewCell()
-    }
+    private var dataSource: DataSource!
     
     override func loadView() {
         self.view = mainView
@@ -59,37 +29,154 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        setNavigationItem()
         
-        viewModel.fetchData()
+        self.setNavigationItem()
+        self.createCell()
+        self.createHeaderView()
+        self.initailSnapshot()
+        self.subscribeViewModel()
+        
+        self.viewModel.fetchData()
     }
     
-    // MARK: 초기 Snapshot을 만들고 NSDiffableSectionSnapshot을 이용해 각각의 Section을 업데이트 한다.
+    private func createCell() {
+        let calendarRegistration = createCalendarSectionCell()
+        let shopNoticeRegistration = createShopNoticeSectionCell()
+        let eventRegistration = createEventSectionCell()
+        
+        self.dataSource = DataSource(collectionView: self.mainView.collectionView) { (collectionView, indexPath, itemIdentifier) in            
+            if let item = itemIdentifier as? Contents {
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: calendarRegistration,
+                    for: indexPath,
+                    item: item
+                )
+            } else if let item = itemIdentifier as? ShopNotice {
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: shopNoticeRegistration,
+                    for: indexPath,
+                    item: item
+                )
+            } else if let item = itemIdentifier as? Event {
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: eventRegistration,
+                    for: indexPath,
+                    item: item
+                )
+            }
+            
+            return UICollectionViewCell()
+        }
+    }
 }
 
-// MARK: Create Cell
+// MARK: Snapshot
 extension MainViewController {
-    func createCalendarSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Contents> {
+    private func initailSnapshot() {
+        var snapshot = Snapshot()
+        
+        snapshot.appendSections(MainViewSection.allCases)
+        self.dataSource.apply(snapshot)
+    }
+    
+    private func subscribeViewModel() {
+        self.subscribeContent()
+        self.subscribeShopNotice()
+        self.subscribeEvent()
+    }
+    
+    private func subscribeContent() {
+        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+        
+        self.viewModel.subcribeContent(on: self) { contents in
+            DispatchQueue.main.async {
+                sectionSnapshot.append(Array(contents.prefix(3)))
+                self.dataSource.apply(sectionSnapshot, to: .calendar)
+            }
+        }
+    }
+    
+    private func subscribeShopNotice() {
+        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+        
+        self.viewModel.subcribeShopNotice(on: self) { notice in
+            DispatchQueue.main.async {
+                sectionSnapshot.append(notice)
+                self.dataSource.apply(sectionSnapshot, to: .shopNotice)
+            }
+        }
+    }
+    
+    private func subscribeEvent() {
+        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+        
+        self.viewModel.subcribeEvent(on: self) { events in
+            DispatchQueue.main.async {
+                sectionSnapshot.append(events)
+                self.dataSource.apply(sectionSnapshot, to: .event)
+            }
+        }
+    }
+}
+
+// MARK: Create Cell & Header
+extension MainViewController {
+    private func createHeaderView() {
+        self.dataSource.supplementaryViewProvider = { (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
+            guard elementKind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+            
+            guard let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: elementKind,
+                withReuseIdentifier: "Header",
+                for: indexPath
+            ) as? CommonHeaderView else {
+                return nil
+            }
+            
+            let snapshot = self.dataSource.snapshot()
+            let section = snapshot.sectionIdentifiers[indexPath.section]
+            
+            switch section {
+            case .calendar:
+                header.configureHeader(title: "모험 섬", color: .white)
+            case .characterBookmark:
+                header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
+            case .shopNotice:
+                header.configureHeader(title: "상점 업데이트", color: .white)
+            case .event:
+                header.configureHeader(title: "Event", color: .darkGray)
+            }
+            
+            return header
+        }
+    }
+    
+    // MARK: Cell Registration쪽 수정이 필요하다.
+    private func createCalendarSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Contents> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             guard let url = URL(string: itemIdentifier.contentsIcon) else { return }
             
             ImageLoader.shared.fetch(url) { image in
-                cell.setContent(text: itemIdentifier.contentsName, image: image)
+                cell.setContent(title: itemIdentifier.contentsName, image: image)
+                cell.backgroundColor = .white
             }
         }
     }
     
-    func createEventSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Event> {
+    private func createEventSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Event> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             guard let url = URL(string: itemIdentifier.thumbnail) else { return }
             
             ImageLoader.shared.fetch(url) { image in
-                cell.setContent(text: itemIdentifier.title, image: image)
+                cell.setContent(title: itemIdentifier.title, image: image)
+                cell.backgroundColor = .darkGray
             }
         }
     }
     
-    func createShopNoticeSectionCell() -> UICollectionView.CellRegistration<UICollectionViewListCell, ShopNotice> {
+    private func createShopNoticeSectionCell() -> UICollectionView.CellRegistration<UICollectionViewListCell, ShopNotice> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             var configuration = cell.defaultContentConfiguration()
             configuration.text = itemIdentifier.title

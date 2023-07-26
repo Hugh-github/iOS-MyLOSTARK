@@ -15,7 +15,7 @@ class ImageLoader {
         return cachedImages.object(forKey: url)
     }
     
-    func fetch(_ url: URL, completion: @escaping (UIImage?) -> Void) {
+    func fetch(_ url: URL, completion: @escaping (UIImage) -> Void) {
         if let cachedImage = image(url as NSURL) {
             DispatchQueue.main.async {
                 completion(cachedImage)

@@ -70,6 +70,18 @@ class MainViewModel {
             }
         }
     }
+    
+    func subcribeContent(on object: AnyObject, handling: @escaping ([Contents]) -> Void) {
+        self.contents.addObserver(on: object, handling)
+    }
+    
+    func subcribeShopNotice(on object: AnyObject, handling: @escaping ([ShopNotice]) -> Void) {
+        self.shopNotices.addObserver(on: object, handling)
+    }
+    
+    func subcribeEvent(on object: AnyObject, handling: @escaping ([Event]) -> Void) {
+        self.events.addObserver(on: object, handling)
+    }
 }
 
 class Observable<T> {
