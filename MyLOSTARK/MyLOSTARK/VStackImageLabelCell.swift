@@ -28,18 +28,13 @@ class VStackImageLabelCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         addSubview()
         setLayout()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func prepareForReuse() {
-        self.textLabel.text = nil
-        self.thumbnailView.image = nil
     }
 
     private func addSubview() {
@@ -65,10 +60,10 @@ class VStackImageLabelCell: UICollectionViewCell {
         
         let newImage = image.resize(newWidth: thumbnailView.frame.width)
         self.thumbnailView.image = newImage
-        
-        NSLayoutConstraint.activate([
-            self.thumbnailView.heightAnchor.constraint(equalToConstant: newImage.size.height)
-        ])
+    }
+    
+    func setTextColor(_ color: UIColor) {
+        self.textLabel.textColor = color
     }
 }
 

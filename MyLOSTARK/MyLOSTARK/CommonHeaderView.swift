@@ -10,8 +10,7 @@ import UIKit
 class CommonHeaderView: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
-        label.backgroundColor = .systemBackground
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -28,6 +27,10 @@ class CommonHeaderView: UICollectionReusableView {
     }
     
     func configureHeader(title: String, color: UIColor) {
+        if title == "Event" {
+            self.titleLabel.textColor = .white
+        }
+        
         self.titleLabel.text = title
         self.backgroundColor = color
     }

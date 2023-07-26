@@ -160,8 +160,8 @@ extension MainViewController {
             
             ImageLoader.shared.fetch(url) { image in
                 cell.setContent(title: itemIdentifier.contentsName, image: image)
-                cell.backgroundColor = .white
             }
+            cell.backgroundColor = .white
         }
     }
     
@@ -171,8 +171,9 @@ extension MainViewController {
             
             ImageLoader.shared.fetch(url) { image in
                 cell.setContent(title: itemIdentifier.title, image: image)
-                cell.backgroundColor = .darkGray
             }
+            cell.backgroundColor = .darkGray
+            cell.setTextColor(.white)
         }
     }
     
