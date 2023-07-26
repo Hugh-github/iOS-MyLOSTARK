@@ -8,66 +8,81 @@
 import UIKit
 
 class VStackImageLabelCell: UICollectionViewCell {
-    private let vStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .equalCentering
-        stackView.alignment = .center
-        stackView.spacing = 5
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
-    
     private let thumbnailView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return imageView
     }()
-    
+
     private let textLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         addSubview()
         setLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setContent(text: String, image: UIImage?) {
-        self.textLabel.text = text
-        self.thumbnailView.image = image
+    override func prepareForReuse() {
+        self.textLabel.text = nil
+        self.thumbnailView.image = nil
     }
-    
+
     private func addSubview() {
-        addSubview(vStackView)
-        self.vStackView.addArrangedSubview(thumbnailView)
-        self.vStackView.addArrangedSubview(textLabel)
+        addSubview(thumbnailView)
+        addSubview(textLabel)
     }
-    
+
     private func setLayout() {
         NSLayoutConstraint.activate([
-            self.vStackView.topAnchor.constraint(equalTo: topAnchor),
-            self.vStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            self.vStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            self.vStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            self.thumbnailView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            self.thumbnailView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            self.thumbnailView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.85)
         ])
         
         NSLayoutConstraint.activate([
-            self.thumbnailView.topAnchor.constraint(equalTo: self.vStackView.topAnchor, constant: 5),
-            self.thumbnailView.widthAnchor.constraint(equalTo: self.vStackView.widthAnchor, multiplier: 0.8)
+            self.textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            self.textLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
+    }
+    
+    func setContent(title: String, image: UIImage) {
+        self.textLabel.text = title
+        
+        let newImage = image.resize(newWidth: thumbnailView.frame.width)
+        self.thumbnailView.image = newImage
+        
+        NSLayoutConstraint.activate([
+            self.thumbnailView.heightAnchor.constraint(equalToConstant: newImage.size.height)
+        ])
+    }
+}
+
+extension UIImage {
+    func resize(newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / self.size.width
+        let newHeight = self.size.height * scale
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        let newImage = renderer.image { _ in
+            draw(in: CGRect(origin: .zero, size: newSize))
+        }
+        
+        return newImage
     }
 }
