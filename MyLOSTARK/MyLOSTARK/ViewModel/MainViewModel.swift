@@ -18,34 +18,11 @@ class MainViewModel {
     private var shopNotices: Observable<[ShopNotice]> = Observable.init([])
     private var contents: Observable<[Contents]> = Observable.init([])
     private var events: Observable<[Event]> = Observable.init([])
+    private var webLink: Observable<WebConnectable?> = Observable.init(nil)
     
     var errorHandling: ((String) -> Void) = { _ in }
     
-    enum Action {
-        case didTappedCalendar(Int)
-        case didTappedEvent(Int)
-        case didTappedShopNotice(Int)
-    }
-    
-    enum Output {
-        case shopNotice(ShopNotice)
-        case contents(Contents)
-        case event(Event)
-    }
-    
-    func execute(action: Action) -> Output {
-        switch action {
-        case .didTappedEvent(let index):
-            return .event(self.events.value[index])
-        case .didTappedCalendar(let index):
-            return .contents(self.contents.value[index])
-        case .didTappedShopNotice(let index):
-            return .shopNotice(self.shopNotices.value[index])
-        }
-    }
-    
     func fetchData() {
-        // 만약 하나의 Observable 객체를 만들어야 한다면 actor를 사용해 race condition을 배제해야 한다.
         Task {
             do {
                 self.shopNotices.value = try await apiService.getShopNoticeList()
@@ -71,16 +48,37 @@ class MainViewModel {
         }
     }
     
-    func subcribeContent(on object: AnyObject, handling: @escaping ([Contents]) -> Void) {
+    func subscribeWebLink(on object: AnyObject, handling: @escaping ((WebConnectable?) -> Void)) {
+        self.webLink.addObserver(on: object, handling)
+    }
+}
+
+// MARK: Content
+extension MainViewModel {
+    func subscribeContent(on object: AnyObject, handling: @escaping ([Contents]) -> Void) {
         self.contents.addObserver(on: object, handling)
     }
-    
-    func subcribeShopNotice(on object: AnyObject, handling: @escaping ([ShopNotice]) -> Void) {
+}
+
+// MARK: ShopNotice
+extension MainViewModel {
+    func subscribeShopNotice(on object: AnyObject, handling: @escaping ([ShopNotice]) -> Void) {
         self.shopNotices.addObserver(on: object, handling)
     }
     
-    func subcribeEvent(on object: AnyObject, handling: @escaping ([Event]) -> Void) {
+    func selectShopNotice(index: Int) {
+        self.webLink.value = self.shopNotices.value[index]
+    }
+}
+
+// MARK: Event
+extension MainViewModel {
+    func subscribeEvent(on object: AnyObject, handling: @escaping ([Event]) -> Void) {
         self.events.addObserver(on: object, handling)
+    }
+    
+    func selectEvent(index: Int) {
+        self.webLink.value = self.events.value[index]
     }
 }
 

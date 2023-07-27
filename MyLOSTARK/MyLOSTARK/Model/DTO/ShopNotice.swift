@@ -5,10 +5,14 @@
 //  Created by dhoney96 on 2023/07/14.
 //
 
-struct ShopNotice: Decodable, Hashable {
+protocol WebConnectable {
+    var link: String { get }
+}
+
+struct ShopNotice: Decodable, Hashable, WebConnectable {
     let title: String
     let date: String
-    let link: String
+    var link: String
     
     enum CodingKeys: String, CodingKey {
         case title = "Title"
