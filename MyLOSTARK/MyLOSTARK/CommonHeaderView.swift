@@ -29,6 +29,8 @@ class CommonHeaderView: UICollectionReusableView {
     func configureHeader(title: String, color: UIColor) {
         if title == "Event" {
             self.titleLabel.textColor = .white
+        } else {
+            self.titleLabel.textColor = .black
         }
         
         self.titleLabel.text = title

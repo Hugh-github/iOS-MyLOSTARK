@@ -199,6 +199,7 @@ extension MainViewController {
         let infoImageButton = UIButton()
         infoImageButton.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
         infoImageButton.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
+        infoImageButton.tintColor = .lightGray
         infoImageButton.contentVerticalAlignment = .fill
         infoImageButton.contentHorizontalAlignment = .fill
         
