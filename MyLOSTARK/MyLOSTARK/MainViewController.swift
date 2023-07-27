@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     private var dataSource: DataSource!
     
     override func loadView() {
+        mainView.collectionView.delegate = self
         self.view = mainView
     }
     
@@ -70,6 +71,19 @@ class MainViewController: UIViewController {
     }
 }
 
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let webViewController = WebViewController(viewModel: self.viewModel)
+        present(webViewController, animated: false)
+        
+        if indexPath.section == 2 {
+            self.viewModel.selectShopNotice(index: indexPath.row)
+        } else if indexPath.section == 3 {
+            self.viewModel.selectEvent(index: indexPath.row)
+        }
+    }
+}
+
 // MARK: Snapshot
 extension MainViewController {
     private func initailSnapshot() {
@@ -88,7 +102,7 @@ extension MainViewController {
     private func subscribeContent() {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subcribeContent(on: self) { contents in
+        self.viewModel.subscribeContent(on: self) { contents in
             DispatchQueue.main.async {
                 sectionSnapshot.append(Array(contents.prefix(3)))
                 self.dataSource.apply(sectionSnapshot, to: .calendar)
@@ -99,7 +113,7 @@ extension MainViewController {
     private func subscribeShopNotice() {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subcribeShopNotice(on: self) { notice in
+        self.viewModel.subscribeShopNotice(on: self) { notice in
             DispatchQueue.main.async {
                 sectionSnapshot.append(notice)
                 self.dataSource.apply(sectionSnapshot, to: .shopNotice)
@@ -110,7 +124,7 @@ extension MainViewController {
     private func subscribeEvent() {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subcribeEvent(on: self) { events in
+        self.viewModel.subscribeEvent(on: self) { events in
             DispatchQueue.main.async {
                 sectionSnapshot.append(events)
                 self.dataSource.apply(sectionSnapshot, to: .event)
@@ -153,7 +167,6 @@ extension MainViewController {
         }
     }
     
-    // MARK: Cell Registration쪽 수정이 필요하다.
     private func createCalendarSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Contents> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             guard let url = URL(string: itemIdentifier.contentsIcon) else { return }
@@ -186,6 +199,7 @@ extension MainViewController {
     }
 }
 
+// MARK: Set Navigation
 extension MainViewController {
     private func setNavigationItem() {
         let logoImageView = UIImageView(image: UIImage(named: "LogoImage"))
