@@ -29,10 +29,10 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataBinding()
+        subscribeViewModel()
     }
     
-    private func dataBinding() {
+    private func subscribeViewModel() {
         self.viewModel.subscribeWebLink(on: self) { connect in
             guard let link = connect?.link,
                   let url = URL(string: link) else { return }

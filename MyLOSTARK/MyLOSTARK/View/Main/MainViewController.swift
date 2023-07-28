@@ -73,6 +73,21 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let infoViewController = ContentInfoViewController(viewModel: self.viewModel)
+            infoViewController.modalPresentationStyle = .pageSheet
+            
+            if let sheet = infoViewController.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            
+            present(infoViewController, animated: true, completion: nil)
+            self.viewModel.selectContent(index: indexPath.row)
+            
+            return
+        }
+        
         let webViewController = WebViewController(viewModel: self.viewModel)
         present(webViewController, animated: false)
         
@@ -102,7 +117,7 @@ extension MainViewController {
     private func subscribeContent() {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subscribeContent(on: self) { contents in
+        self.viewModel.subscribeContents(on: self) { contents in
             DispatchQueue.main.async {
                 sectionSnapshot.append(contents)
                 self.dataSource.apply(sectionSnapshot, to: .calendar)
