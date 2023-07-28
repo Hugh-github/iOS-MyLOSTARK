@@ -135,11 +135,7 @@
 				720D9EFB2A611FE50070EFEA /* Network */,
 				720D9EF42A6116090070EFEA /* Model */,
 				722C3BCA2A678A7000E91914 /* ViewModel */,
-				720D9EE42A61143E0070EFEA /* MainViewController.swift */,
-				72B84F112A71F8AD006656BF /* WebViewController.swift */,
-				72C47B5F2A6900CD007A16D1 /* MainCollectionView.swift */,
-				72C47B622A690433007A16D1 /* CommonHeaderView.swift */,
-				72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */,
+				72D203302A736E99005A71A2 /* View */,
 				720D9EE92A61143F0070EFEA /* Assets.xcassets */,
 				720D9EEB2A61143F0070EFEA /* LaunchScreen.storyboard */,
 				720D9EEE2A61143F0070EFEA /* Info.plist */,
@@ -193,6 +189,42 @@
 				72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		72D203302A736E99005A71A2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				72D203322A736EDF005A71A2 /* Cell */,
+				72D203312A736ECF005A71A2 /* Main */,
+				72C47B622A690433007A16D1 /* CommonHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		72D203312A736ECF005A71A2 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				720D9EE42A61143E0070EFEA /* MainViewController.swift */,
+				72B84F112A71F8AD006656BF /* WebViewController.swift */,
+				72C47B5F2A6900CD007A16D1 /* MainCollectionView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		72D203322A736EDF005A71A2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				72D203332A736EE6005A71A2 /* Main */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		72D203332A736EE6005A71A2 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
