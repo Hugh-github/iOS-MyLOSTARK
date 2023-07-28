@@ -35,6 +35,8 @@ class LOSTARKAPIService {
     }
     
     func getContents() async throws -> [Contents] {
+        let todayDate = DateFormatterManager.shared.getTodyDate()
+        
         let endPoint = EndPoint(
             path: .calendar,
             parameter: nil,
@@ -45,7 +47,11 @@ class LOSTARKAPIService {
         guard let request = endPoint.request else { throw ServiceError.fail }
         let data = try await networkManager.execute(request: request)
         let model: [Contents] = try jsonManager.decodeListData(data).filter{ content in
-            content.categoryName == "모험 섬"
+            if content.categoryName == "모험 섬" {
+                return content.startTimes.contains("\(todayDate)T11:00:00") || content.startTimes.contains("\(todayDate)T19:00:00")
+            }
+            
+            return false
         }
         
         return model

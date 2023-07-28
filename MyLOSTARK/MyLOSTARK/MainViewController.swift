@@ -104,7 +104,7 @@ extension MainViewController {
         
         self.viewModel.subscribeContent(on: self) { contents in
             DispatchQueue.main.async {
-                sectionSnapshot.append(Array(contents.prefix(3)))
+                sectionSnapshot.append(contents)
                 self.dataSource.apply(sectionSnapshot, to: .calendar)
             }
         }
