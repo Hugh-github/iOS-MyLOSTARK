@@ -18,7 +18,10 @@ class MainViewModel {
     private var shopNotices: Observable<[ShopNotice]> = Observable.init([])
     private var contents: Observable<[Contents]> = Observable.init([])
     private var events: Observable<[Event]> = Observable.init([])
+    
+    // Single Data
     private var webLink: Observable<WebConnectable?> = Observable.init(nil)
+    private var content: Observable<Contents?> = Observable.init(nil)
     
     var errorHandling: ((String) -> Void) = { _ in }
     
@@ -51,12 +54,24 @@ class MainViewModel {
     func subscribeWebLink(on object: AnyObject, handling: @escaping ((WebConnectable?) -> Void)) {
         self.webLink.addObserver(on: object, handling)
     }
+    
+    func subscribeContent(on object: AnyObject, handling: @escaping ((Contents?) -> Void)) {
+        self.content.addObserver(on: object, handling)
+    }
+    
+    func unsubscribeContent(on object: AnyObject) {
+        self.content.removeObserver(observer: object)
+    }
 }
 
 // MARK: Content
 extension MainViewModel {
-    func subscribeContent(on object: AnyObject, handling: @escaping ([Contents]) -> Void) {
+    func subscribeContents(on object: AnyObject, handling: @escaping ([Contents]) -> Void) {
         self.contents.addObserver(on: object, handling)
+    }
+    
+    func selectContent(index: Int) {
+        self.content.value = self.contents.value[index]
     }
 }
 
