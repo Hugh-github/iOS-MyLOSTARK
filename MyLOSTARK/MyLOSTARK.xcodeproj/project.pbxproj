@@ -36,6 +36,7 @@
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 		72C47B602A6900CD007A16D1 /* MainCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C47B5F2A6900CD007A16D1 /* MainCollectionView.swift */; };
 		72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C47B622A690433007A16D1 /* CommonHeaderView.swift */; };
+		72D2032F2A736AFA005A71A2 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */; };
 		72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		72C47B5F2A6900CD007A16D1 /* MainCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionView.swift; sourceTree = "<group>"; };
 		72C47B622A690433007A16D1 /* CommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeaderView.swift; sourceTree = "<group>"; };
+		72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VStackImageLabelCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */,
+				72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */,
 				72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */,
 				72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */,
+				72D2032F2A736AFA005A71A2 /* DateFormatterManager.swift in Sources */,
 				72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */,
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
 				720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */,
