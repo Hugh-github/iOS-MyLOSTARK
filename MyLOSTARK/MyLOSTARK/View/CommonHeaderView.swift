@@ -42,7 +42,7 @@ class CommonHeaderView: UICollectionReusableView {
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5)
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }
