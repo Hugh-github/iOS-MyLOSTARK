@@ -14,10 +14,12 @@ import Foundation
 
 class MainViewModel {
     private let apiService = LOSTARKAPIService()
+    private let repository = CoreDataManager.shared
     
     private var shopNotices: Observable<[ShopNotice]> = Observable.init([])
     private var contents: Observable<[Contents]> = Observable.init([])
     private var events: Observable<[Event]> = Observable.init([])
+    private var characterBookmarks: Observable<[CharacterBookmark]?> = Observable.init(nil)
     
     // Single Data
     private var webLink: Observable<WebConnectable?> = Observable.init(nil)
@@ -49,6 +51,8 @@ class MainViewModel {
                 errorHandling("에러 발생")
             }
         }
+        
+        self.characterBookmarks.value = repository.fetchCoreData()
     }
     
     func subscribeWebLink(on object: AnyObject, handling: @escaping ((WebConnectable?) -> Void)) {
@@ -94,6 +98,13 @@ extension MainViewModel {
     
     func selectEvent(index: Int) {
         self.webLink.value = self.events.value[index]
+    }
+}
+
+// MARK: Bookmark
+extension MainViewModel {
+    func subscribeBookmark(on object: AnyObject, handling: @escaping ([CharacterBookmark]?) -> Void) {
+        self.characterBookmarks.addObserver(on: object, handling)
     }
 }
 
