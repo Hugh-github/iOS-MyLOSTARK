@@ -42,7 +42,10 @@ class MainViewController: UIViewController {
 // MARK: CollectionView Delegate
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        let sectionId = self.dataSource.sectionIdentifier(for: indexPath.section)
+        
+        switch sectionId {
+        case .calendar:
             let infoViewController = ContentInfoViewController(viewModel: self.viewModel)
             infoViewController.modalPresentationStyle = .pageSheet
             
@@ -53,17 +56,20 @@ extension MainViewController: UICollectionViewDelegate {
             
             present(infoViewController, animated: true, completion: nil)
             self.viewModel.selectContent(index: indexPath.row)
-            
+        case .characterBookmark:
             return
-        }
-        
-        let webViewController = WebViewController(viewModel: self.viewModel)
-        present(webViewController, animated: false)
-        
-        if indexPath.section == 2 {
+        case .characterPlaceholder:
+            return
+        case .shopNotice:
+            let webViewController = WebViewController(viewModel: self.viewModel)
+            present(webViewController, animated: false)
             self.viewModel.selectShopNotice(index: indexPath.row)
-        } else if indexPath.section == 3 {
+        case .event:
+            let webViewController = WebViewController(viewModel: self.viewModel)
+            present(webViewController, animated: false)
             self.viewModel.selectEvent(index: indexPath.row)
+        case .none:
+            return
         }
     }
 }
