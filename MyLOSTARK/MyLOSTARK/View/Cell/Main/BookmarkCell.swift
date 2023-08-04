@@ -8,6 +8,8 @@
 import UIKit
 
 class BookmarkCell: UICollectionViewCell {
+    private let starButton = BookmarkButton()
+    
     private let jobClassImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -45,6 +47,7 @@ class BookmarkCell: UICollectionViewCell {
     
     private func addSubview() {
         addSubview(jobClassImageView)
+        addSubview(starButton)
         addSubview(itemLevelLabel)
         addSubview(nameLabel)
     }
@@ -54,6 +57,13 @@ class BookmarkCell: UICollectionViewCell {
             self.jobClassImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             self.jobClassImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             self.jobClassImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.starButton.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            self.starButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            self.starButton.widthAnchor.constraint(equalToConstant: 30),
+            self.starButton.heightAnchor.constraint(equalToConstant: 30)
         ])
 
         NSLayoutConstraint.activate([
