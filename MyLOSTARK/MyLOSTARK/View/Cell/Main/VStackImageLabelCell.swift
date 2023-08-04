@@ -10,7 +10,7 @@ import UIKit
 class VStackImageLabelCell: UICollectionViewCell {
     private let thumbnailView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +41,11 @@ class VStackImageLabelCell: UICollectionViewCell {
         addSubview(thumbnailView)
         addSubview(textLabel)
     }
+    
+    override func prepareForReuse() {
+        self.thumbnailView.image = nil
+        self.textLabel.text = nil
+    }
 
     private func setLayout() {
         NSLayoutConstraint.activate([
@@ -51,15 +56,16 @@ class VStackImageLabelCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             self.textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            self.textLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
+            self.textLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
     
-    func setContent(title: String, image: UIImage) {
+    func setContent(title: String, image: UIImage?) {
         self.textLabel.text = title
         
-        let newImage = image.resize(newWidth: thumbnailView.frame.width)
+        let newImage = image?.resize(newWidth: thumbnailView.frame.width)
         self.thumbnailView.image = newImage
+        self.thumbnailView.layoutIfNeeded()
     }
     
     func setTextColor(_ color: UIColor) {
