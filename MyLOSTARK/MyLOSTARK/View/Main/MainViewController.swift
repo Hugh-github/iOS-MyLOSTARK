@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
     enum MainViewSection: CaseIterable {
         case calendar
         case characterBookmark
+        case characterPlaceholder
         case shopNotice
         case event
     }
@@ -92,6 +93,8 @@ extension MainViewController {
                 return setCalendarLayout()
             case .characterBookmark:
                 return setBookmarkLayout()
+            case .characterPlaceholder:
+                return setPlaceholderLayout()
             case .shopNotice:
                 return setShopNoticeLayout(environment: layoutEnvironment)
             case .event:
@@ -124,11 +127,24 @@ extension MainViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.22))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = [self.getHeader()]
+        
+        return section
+    }
+    
+    private func setPlaceholderLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.22))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [self.getHeader()]
         
         return section
@@ -174,6 +190,8 @@ extension MainViewController {
         let calendarRegistration = createCalendarSectionCell()
         let shopNoticeRegistration = createShopNoticeSectionCell()
         let eventRegistration = createEventSectionCell()
+        let bookmarkRegistration = createBookmarkSectionCell()
+        let placeholderRegistration = createPlaceholderSectionCell()
         
         self.dataSource = DataSource(collectionView: self.collectionView) { (collectionView, indexPath, itemIdentifier) in
             if let item = itemIdentifier as? Contents {
@@ -182,6 +200,20 @@ extension MainViewController {
                     for: indexPath,
                     item: item
                 )
+            } else if let item = itemIdentifier as? CharacterBookmark {
+                if self.dataSource.sectionIdentifier(for: indexPath.section) == .characterBookmark {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: bookmarkRegistration,
+                        for: indexPath,
+                        item: item
+                    )
+                } else {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: placeholderRegistration,
+                        for: indexPath,
+                        item: item
+                    )
+                }
             } else if let item = itemIdentifier as? ShopNotice {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: shopNoticeRegistration,
@@ -222,6 +254,8 @@ extension MainViewController {
                 header.configureHeader(title: "모험 섬", color: .white)
             case .characterBookmark:
                 header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
+            case .characterPlaceholder:
+                header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
             case .shopNotice:
                 header.configureHeader(title: "상점 업데이트", color: .white)
             case .event:
@@ -243,6 +277,36 @@ extension MainViewController {
         }
     }
     
+    private func createBookmarkSectionCell() -> UICollectionView.CellRegistration<BookmarkCell, CharacterBookmark> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            cell.setContent(
+                image: UIImage(named: itemIdentifier.jobClass),
+                level: String(itemIdentifier.itemLevel),
+                name: itemIdentifier.name
+            )
+            cell.backgroundColor = .white
+        }
+    }
+    
+    private func createPlaceholderSectionCell() -> UICollectionView.CellRegistration<BookmarkCell, CharacterBookmark> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            cell.setContent(
+                image: UIImage(named: "placeholder"),
+                level: "등록된 캐릭터가 없습니다.",
+                name: "캐릭터를 등록해주세요"
+            )
+            cell.backgroundColor = .white
+        }
+    }
+    
+    private func createShopNoticeSectionCell() -> UICollectionView.CellRegistration<UICollectionViewListCell, ShopNotice> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            var configuration = cell.defaultContentConfiguration()
+            configuration.text = itemIdentifier.title
+            cell.contentConfiguration = configuration
+        }
+    }
+    
     private func createEventSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Event> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             guard let url = URL(string: itemIdentifier.thumbnail) else { return }
@@ -252,14 +316,6 @@ extension MainViewController {
             }
             cell.backgroundColor = .darkGray
             cell.setTextColor(.white)
-        }
-    }
-    
-    private func createShopNoticeSectionCell() -> UICollectionView.CellRegistration<UICollectionViewListCell, ShopNotice> {
-        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
-            var configuration = cell.defaultContentConfiguration()
-            configuration.text = itemIdentifier.title
-            cell.contentConfiguration = configuration
         }
     }
 }
@@ -277,6 +333,7 @@ extension MainViewController {
         self.subscribeContent()
         self.subscribeShopNotice()
         self.subscribeEvent()
+        self.subscribeBookmark()
     }
     
     private func subscribeContent() {
@@ -308,6 +365,27 @@ extension MainViewController {
             DispatchQueue.main.async {
                 sectionSnapshot.append(events)
                 self.dataSource.apply(sectionSnapshot, to: .event)
+            }
+        }
+    }
+    
+    private func subscribeBookmark() {
+        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+        var snapshot = self.dataSource.snapshot()
+        
+        self.viewModel.subscribeBookmark(on: self) { bookmarks in
+            guard let bookmarks = bookmarks else { return }
+            
+            if bookmarks.isEmpty {
+                snapshot.deleteSections([.characterBookmark])
+                self.dataSource.apply(snapshot)
+                sectionSnapshot.append([CharacterBookmark(jobClass: "placeholder", itemLevel: 0, name: "없음")])
+                self.dataSource.apply(sectionSnapshot, to: .characterPlaceholder)
+            } else {
+                snapshot.deleteSections([.characterPlaceholder])
+                self.dataSource.apply(snapshot)
+                sectionSnapshot.append(bookmarks)
+                self.dataSource.apply(sectionSnapshot, to: .characterBookmark)
             }
         }
     }
