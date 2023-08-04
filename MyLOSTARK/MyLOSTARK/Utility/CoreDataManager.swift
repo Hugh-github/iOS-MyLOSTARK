@@ -23,11 +23,11 @@ class CoreDataManager {
     }()
     
     private var context: NSManagedObjectContext {
-        return self.container.newBackgroundContext()
+        return self.container.viewContext
     }
     
     func createCoreData(_ bookmark: CharacterBookmark) {
-        guard let entity = NSEntityDescription.entity(forEntityName: "Bookmark", in: context) else {
+        guard let entity = NSEntityDescription.entity(forEntityName: "CharacterInfo", in: context) else {
             return
         }
         
