@@ -37,6 +37,7 @@
 		72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B84F112A71F8AD006656BF /* WebViewController.swift */; };
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 		72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C47B622A690433007A16D1 /* CommonHeaderView.swift */; };
+		72C8816A2A7C8CA60057FADF /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C881692A7C8CA60057FADF /* BookmarkCell.swift */; };
 		72D2032F2A736AFA005A71A2 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */; };
 		72D203352A7371C5005A71A2 /* ContentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */; };
 		72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D203362A738217005A71A2 /* HStackImageLabelCell.swift */; };
@@ -83,6 +84,7 @@
 		72B84F112A71F8AD006656BF /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		72C47B622A690433007A16D1 /* CommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeaderView.swift; sourceTree = "<group>"; };
+		72C881692A7C8CA60057FADF /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentInfoViewController.swift; sourceTree = "<group>"; };
 		72D203362A738217005A71A2 /* HStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackImageLabelCell.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			children = (
 				72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */,
 				72D203362A738217005A71A2 /* HStackImageLabelCell.swift */,
+				72C881692A7C8CA60057FADF /* BookmarkCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */,
 				72D203352A7371C5005A71A2 /* ContentInfoViewController.swift in Sources */,
 				72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */,
+				72C8816A2A7C8CA60057FADF /* BookmarkCell.swift in Sources */,
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
 				720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */,
 			);
