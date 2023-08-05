@@ -38,8 +38,8 @@ class VStackImageLabelCell: UICollectionViewCell {
     }
 
     private func addSubview() {
-        addSubview(thumbnailView)
-        addSubview(textLabel)
+        contentView.addSubview(thumbnailView)
+        contentView.addSubview(textLabel)
     }
     
     override func prepareForReuse() {

@@ -39,6 +39,10 @@ class BookmarkCell: UICollectionViewCell {
         
         addSubview()
         setLayout()
+        
+        contentView.backgroundColor = .systemGray6
+        contentView.layer.cornerRadius = 10
+        clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
@@ -46,22 +50,23 @@ class BookmarkCell: UICollectionViewCell {
     }
     
     private func addSubview() {
-        addSubview(jobClassImageView)
-        addSubview(starButton)
-        addSubview(itemLevelLabel)
-        addSubview(nameLabel)
+        contentView.addSubview(jobClassImageView)
+        contentView.addSubview(starButton)
+        contentView.addSubview(itemLevelLabel)
+        contentView.addSubview(nameLabel)
     }
     
     private func setLayout() {
         NSLayoutConstraint.activate([
             self.jobClassImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            self.jobClassImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            self.jobClassImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5)
+            self.jobClassImageView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            self.jobClassImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.45),
+            self.jobClassImageView.widthAnchor.constraint(equalTo: jobClassImageView.heightAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            self.starButton.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            self.starButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            self.starButton.topAnchor.constraint(equalTo: topAnchor),
+            self.starButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             self.starButton.widthAnchor.constraint(equalToConstant: 30),
             self.starButton.heightAnchor.constraint(equalToConstant: 30)
         ])

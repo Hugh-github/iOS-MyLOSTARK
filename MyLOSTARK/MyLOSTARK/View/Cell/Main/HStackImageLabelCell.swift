@@ -46,8 +46,8 @@ class HStackImageLabelCell: UICollectionViewCell {
     }
     
     private func addSubView() {
-        addSubview(self.iconImageView)
-        addSubview(self.nameLabel)
+        contentView.addSubview(self.iconImageView)
+        contentView.addSubview(self.nameLabel)
     }
     
     private func setLayout() {
