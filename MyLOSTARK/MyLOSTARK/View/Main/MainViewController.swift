@@ -302,12 +302,11 @@ extension MainViewController {
         }
     }
     
-    private func createPlaceholderSectionCell() -> UICollectionView.CellRegistration<BookmarkCell, CharacterBookmark> {
+    private func createPlaceholderSectionCell() -> UICollectionView.CellRegistration<BookmarkPlaceholderCell, CharacterBookmark> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.setContent(
                 image: UIImage(named: "placeholder"),
-                level: "등록된 캐릭터가 없습니다.",
-                name: "캐릭터를 등록해주세요"
+                text: "등록된 캐릭터가 없습니다."
             )
             cell.backgroundColor = .white
         }
