@@ -113,7 +113,10 @@ extension MainViewController {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 15
         
-        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+        layout.register(SectionBackgroundView.self, forDecorationViewOfKind: SectionBackgroundView.reuseIdentifier)
+        
+        return layout
     }
     
     private func setCalendarLayout() -> NSCollectionLayoutSection {
@@ -135,10 +138,15 @@ extension MainViewController {
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.22))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
+        section.interGroupSpacing = 10
         section.boundarySupplementaryItems = [self.getHeader()]
+        section.decorationItems = [
+            NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
+        ]
         
         return section
     }
