@@ -208,41 +208,42 @@ extension MainViewController {
         let placeholderRegistration = createPlaceholderSectionCell()
         
         self.dataSource = DataSource(collectionView: self.collectionView) { (collectionView, indexPath, itemIdentifier) in
-            if let item = itemIdentifier as? Contents {
+            let sectionIdentifier = self.dataSource.sectionIdentifier(for: indexPath.section)
+            
+            switch sectionIdentifier {
+            case .calendar:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: calendarRegistration,
                     for: indexPath,
-                    item: item
+                    item: itemIdentifier as? Contents
                 )
-            } else if let item = itemIdentifier as? CharacterBookmark {
-                if self.dataSource.sectionIdentifier(for: indexPath.section) == .characterBookmark {
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: bookmarkRegistration,
-                        for: indexPath,
-                        item: item
-                    )
-                } else {
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: placeholderRegistration,
-                        for: indexPath,
-                        item: item
-                    )
-                }
-            } else if let item = itemIdentifier as? ShopNotice {
+            case .characterBookmark:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: bookmarkRegistration,
+                    for: indexPath,
+                    item: itemIdentifier as? CharacterBookmark
+                )
+            case .characterPlaceholder:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: placeholderRegistration,
+                    for: indexPath,
+                    item: itemIdentifier as? CharacterBookmark
+                )
+            case .shopNotice:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: shopNoticeRegistration,
                     for: indexPath,
-                    item: item
+                    item: itemIdentifier as? ShopNotice
                 )
-            } else if let item = itemIdentifier as? Event {
+            case .event:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: eventRegistration,
                     for: indexPath,
-                    item: item
+                    item: itemIdentifier as? Event
                 )
+            case .none:
+                return UICollectionViewCell()
             }
-            
-            return UICollectionViewCell()
         }
     }
     
