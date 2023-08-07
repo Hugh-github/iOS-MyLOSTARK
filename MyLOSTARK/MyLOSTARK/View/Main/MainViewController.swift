@@ -83,7 +83,12 @@ extension MainViewController {
         self.collectionView.register(
             CommonHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: "Header"
+            withReuseIdentifier: CommonHeaderView.reuseIdentifier
+        )
+        self.collectionView.register(
+            ButtonFooterView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: ButtonFooterView.reuseIdentifier
         )
         
         view.addSubview(collectionView)
@@ -155,11 +160,14 @@ extension MainViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.22))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.17))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.getHeader()]
+        section.boundarySupplementaryItems = [self.getHeader(), self.getFooter()]
+        section.decorationItems = [
+            NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
+        ]
         
         return section
     }
@@ -167,7 +175,7 @@ extension MainViewController {
     private func setShopNoticeLayout(environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         let listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         let section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: environment)
-        section.boundarySupplementaryItems = [self.getHeader()]
+        section.boundarySupplementaryItems = [self.getHeader(), self.getFooter()]
         
         return section
     }
@@ -195,6 +203,17 @@ extension MainViewController {
         )
         
         return header
+    }
+    
+    private func getFooter() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.05))
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerSize,
+            elementKind: UICollectionView.elementKindSectionFooter,
+            alignment: .bottom
+        )
+        
+        return footer
     }
 }
 
@@ -249,35 +268,59 @@ extension MainViewController {
     
     private func createHeaderView() {
         self.dataSource.supplementaryViewProvider = { (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
-            guard elementKind == UICollectionView.elementKindSectionHeader else {
-                return nil
+            let section = self.dataSource.sectionIdentifier(for: indexPath.section)
+            
+            if elementKind == UICollectionView.elementKindSectionHeader {
+                guard let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: elementKind,
+                    withReuseIdentifier: CommonHeaderView.reuseIdentifier,
+                    for: indexPath
+                ) as? CommonHeaderView else {
+                    return nil
+                }
+                
+                switch section {
+                case .calendar:
+                    header.configureHeader(title: "모험 섬", color: .white)
+                case .characterBookmark:
+                    header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
+                case .characterPlaceholder:
+                    header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
+                case .shopNotice:
+                    header.configureHeader(title: "상점 업데이트", color: .white)
+                case .event:
+                    header.configureHeader(title: "Event", color: .darkGray)
+                case .none:
+                    break
+                }
+                
+                return header
+            } else {
+                guard let footer = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: elementKind,
+                    withReuseIdentifier: ButtonFooterView.reuseIdentifier,
+                    for: indexPath
+                ) as? ButtonFooterView else {
+                    return nil
+                }
+                
+                switch section {
+                case .calendar:
+                    break
+                case .characterBookmark:
+                    break
+                case .characterPlaceholder:
+                    footer.setTitle("추가하기 +")
+                case .shopNotice:
+                    footer.setTitle("모두 보기")
+                case .event:
+                    break
+                case .none:
+                    break
+                }
+                
+                return footer
             }
-            
-            guard let header = collectionView.dequeueReusableSupplementaryView(
-                ofKind: elementKind,
-                withReuseIdentifier: "Header",
-                for: indexPath
-            ) as? CommonHeaderView else {
-                return nil
-            }
-            
-            let snapshot = self.dataSource.snapshot()
-            let section = snapshot.sectionIdentifiers[indexPath.section]
-            
-            switch section {
-            case .calendar:
-                header.configureHeader(title: "모험 섬", color: .white)
-            case .characterBookmark:
-                header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
-            case .characterPlaceholder:
-                header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
-            case .shopNotice:
-                header.configureHeader(title: "상점 업데이트", color: .white)
-            case .event:
-                header.configureHeader(title: "Event", color: .darkGray)
-            }
-            
-            return header
         }
     }
     
@@ -366,7 +409,7 @@ extension MainViewController {
         
         self.viewModel.subscribeShopNotice(on: self) { notice in
             DispatchQueue.main.async {
-                sectionSnapshot.append(notice)
+                sectionSnapshot.append(Array(notice.prefix(3)))
                 self.dataSource.apply(sectionSnapshot, to: .shopNotice)
             }
         }

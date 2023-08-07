@@ -24,16 +24,16 @@ class BookmarkPlaceholderCell: UICollectionViewCell {
         return label
     }()
     
-    private let actionButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("캐릭터 등록하기", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.backgroundColor = .cyan
-        button.layer.cornerRadius = 5
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
+//    private let actionButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle("캐릭터 등록하기", for: .normal)
+//        button.setTitleColor(.systemBlue, for: .normal)
+//        button.backgroundColor = .cyan
+//        button.layer.cornerRadius = 5
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        return button
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,14 +49,14 @@ class BookmarkPlaceholderCell: UICollectionViewCell {
     private func addSubview() {
         contentView.addSubview(placeholderImageView)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(actionButton)
+//        contentView.addSubview(actionButton)
     }
     
     private func setLayout() {
         NSLayoutConstraint.activate([
             self.placeholderImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             self.placeholderImageView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            self.placeholderImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
+            self.placeholderImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
         ])
         
         NSLayoutConstraint.activate([
@@ -64,11 +64,11 @@ class BookmarkPlaceholderCell: UICollectionViewCell {
             self.descriptionLabel.topAnchor.constraint(equalTo: placeholderImageView.bottomAnchor, constant: 10)
         ])
         
-        NSLayoutConstraint.activate([
-            self.actionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            self.actionButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
-            self.actionButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9)
-        ])
+//        NSLayoutConstraint.activate([
+//            self.actionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            self.actionButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
+//            self.actionButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9)
+//        ])
     }
     
     func setContent(image: UIImage?, text: String?) {
