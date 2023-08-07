@@ -94,6 +94,7 @@ class ContentInfoView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         collectionView.backgroundColor = .systemCyan
         collectionView.layer.cornerRadius = 10
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -123,12 +124,12 @@ class ContentInfoView: UIView {
     
     private func setLayout() {
         NSLayoutConstraint.activate([
-            self.contentNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            self.contentNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             self.contentNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
         
         NSLayoutConstraint.activate([
-            self.rewardCollectionView.topAnchor.constraint(equalTo: self.contentNameLabel.bottomAnchor, constant: 10),
+            self.rewardCollectionView.topAnchor.constraint(equalTo: self.contentNameLabel.bottomAnchor, constant: 20),
             self.rewardCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             self.rewardCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             self.rewardCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
