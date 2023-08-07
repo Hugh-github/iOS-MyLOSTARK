@@ -252,7 +252,7 @@ extension MainViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: shopNoticeRegistration,
                     for: indexPath,
-                    item: itemIdentifier as? ShopNotice
+                    item: itemIdentifier as? Notice
                 )
             case .event:
                 return collectionView.dequeueConfiguredReusableCell(
@@ -356,7 +356,7 @@ extension MainViewController {
         }
     }
     
-    private func createShopNoticeSectionCell() -> UICollectionView.CellRegistration<UICollectionViewListCell, ShopNotice> {
+    private func createShopNoticeSectionCell() -> UICollectionView.CellRegistration<UICollectionViewListCell, Notice> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             var configuration = cell.defaultContentConfiguration()
             configuration.text = itemIdentifier.title

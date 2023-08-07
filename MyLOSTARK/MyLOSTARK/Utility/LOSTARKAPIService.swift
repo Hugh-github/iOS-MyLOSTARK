@@ -57,17 +57,17 @@ class LOSTARKAPIService {
         return model
     }
     
-    func getShopNoticeList() async throws -> [ShopNotice] {
+    func getNoticeList(_ value: String) async throws -> [Notice] {
         let endPoint = EndPoint(
             path: .notice,
-            parameter: .init(key: "type", value: "상점"),
+            parameter: .init(key: "type", value: value),
             httpMethod: .get,
             headers: .init(authorization: self.myAPIKey)
         )
         
         guard let request = endPoint.request else { throw ServiceError.fail }
         let data = try await networkManager.execute(request: request)
-        let model: [ShopNotice] = try jsonManager.decodeListData(data)
+        let model: [Notice] = try jsonManager.decodeListData(data)
         
         return model
     }

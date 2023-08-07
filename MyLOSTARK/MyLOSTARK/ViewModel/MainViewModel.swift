@@ -16,7 +16,7 @@ class MainViewModel {
     private let apiService = LOSTARKAPIService()
     private let repository = CoreDataManager.shared
     
-    private var shopNotices: Observable<[ShopNotice]> = Observable.init([])
+    private var shopNotices: Observable<[Notice]> = Observable.init([])
     private var contents: Observable<[Contents]> = Observable.init([])
     private var events: Observable<[Event]> = Observable.init([])
     private var characterBookmarks: Observable<[CharacterBookmark]?> = Observable.init(nil)
@@ -30,7 +30,7 @@ class MainViewModel {
     func fetchData() {
         Task {
             do {
-                self.shopNotices.value = try await apiService.getShopNoticeList()
+                self.shopNotices.value = try await apiService.getNoticeList("상점")
             } catch {
                 errorHandling("에러 발생")
             }
@@ -81,7 +81,7 @@ extension MainViewModel {
 
 // MARK: ShopNotice
 extension MainViewModel {
-    func subscribeShopNotice(on object: AnyObject, handling: @escaping ([ShopNotice]) -> Void) {
+    func subscribeShopNotice(on object: AnyObject, handling: @escaping ([Notice]) -> Void) {
         self.shopNotices.addObserver(on: object, handling)
     }
     
