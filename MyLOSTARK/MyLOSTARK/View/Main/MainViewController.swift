@@ -26,13 +26,13 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
         
         self.setNavigationItem()
         self.configureCollectionView()
-        self.createCell()
-        self.createHeaderView()
-        self.initailSnapshot()
+        self.configureDataSource()
+        self.configureSupplementaryView()
+        self.initialSnapshot()
         self.subscribeViewModel()
         
         self.viewModel.fetchData()
@@ -132,7 +132,7 @@ extension MainViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.getHeader()]
+        section.boundarySupplementaryItems = [self.createHeader()]
         
         return section
     }
@@ -148,7 +148,7 @@ extension MainViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.interGroupSpacing = 10
-        section.boundarySupplementaryItems = [self.getHeader()]
+        section.boundarySupplementaryItems = [self.createHeader()]
         section.decorationItems = [
             NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
         ]
@@ -164,7 +164,7 @@ extension MainViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.getHeader(), self.getFooter()]
+        section.boundarySupplementaryItems = [self.createHeader(), self.createFooter()]
         section.decorationItems = [
             NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
         ]
@@ -175,7 +175,7 @@ extension MainViewController {
     private func setShopNoticeLayout(environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         let listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         let section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: environment)
-        section.boundarySupplementaryItems = [self.getHeader(), self.getFooter()]
+        section.boundarySupplementaryItems = [self.createHeader(), self.createFooter()]
         
         return section
     }
@@ -189,12 +189,12 @@ extension MainViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
-        section.boundarySupplementaryItems = [self.getHeader()]
+        section.boundarySupplementaryItems = [self.createHeader()]
         
         return section
     }
     
-    private func getHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+    private func createHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.05))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
@@ -205,7 +205,7 @@ extension MainViewController {
         return header
     }
     
-    private func getFooter() -> NSCollectionLayoutBoundarySupplementaryItem {
+    private func createFooter() -> NSCollectionLayoutBoundarySupplementaryItem {
         let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.05))
         let footer = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: footerSize,
@@ -219,7 +219,7 @@ extension MainViewController {
 
 // MARK: Configure DataSource
 extension MainViewController {
-    private func createCell() {
+    private func configureDataSource() {
         let calendarRegistration = createCalendarSectionCell()
         let shopNoticeRegistration = createShopNoticeSectionCell()
         let eventRegistration = createEventSectionCell()
@@ -266,7 +266,7 @@ extension MainViewController {
         }
     }
     
-    private func createHeaderView() {
+    private func configureSupplementaryView() {
         self.dataSource.supplementaryViewProvider = { (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
             let section = self.dataSource.sectionIdentifier(for: indexPath.section)
             
@@ -281,13 +281,13 @@ extension MainViewController {
                 
                 switch section {
                 case .calendar:
-                    header.configureHeader(title: "모험 섬", color: .white)
+                    header.configureHeader(title: "모험 섬")
                 case .characterBookmark:
-                    header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
+                    header.configureHeader(title: "즐겨찾는 캐릭터")
                 case .characterPlaceholder:
-                    header.configureHeader(title: "즐겨찾는 캐릭터", color: .white)
+                    header.configureHeader(title: "즐겨찾는 캐릭터")
                 case .shopNotice:
-                    header.configureHeader(title: "상점 업데이트", color: .white)
+                    header.configureHeader(title: "상점 업데이트")
                 case .event:
                     header.configureHeader(title: "Event", color: .darkGray)
                 case .none:
@@ -379,10 +379,10 @@ extension MainViewController {
 
 // MARK: Snapshot
 extension MainViewController {
-    private func initailSnapshot() {
+    private func initialSnapshot() {
         var snapshot = Snapshot()
-        
         snapshot.appendSections(MainViewSection.allCases)
+        
         self.dataSource.apply(snapshot)
     }
     

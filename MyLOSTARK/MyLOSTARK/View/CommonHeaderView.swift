@@ -26,7 +26,7 @@ class CommonHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureHeader(title: String, color: UIColor) {
+    func configureHeader(title: String, color: UIColor = .white) {
         if title == "Event" {
             self.titleLabel.textColor = .white
         } else {
