@@ -36,6 +36,8 @@
 		7272CB1D2A7B32B3000D4720 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1C2A7B32B3000D4720 /* CoreDataManager.swift */; };
 		7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */; };
 		7272CB202A7B34CA000D4720 /* CharacterBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */; };
+		72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */; };
+		729187522A80B8110070BA7F /* NoticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729187512A80B8110070BA7F /* NoticeListViewController.swift */; };
 		72B02BD62A6E79EB00D5E146 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B02BD52A6E79EB00D5E146 /* ImageLoader.swift */; };
 		72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B84F112A71F8AD006656BF /* WebViewController.swift */; };
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
@@ -87,6 +89,8 @@
 		72520AF12A64E1A2001B8266 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
 		7272CB1C2A7B32B3000D4720 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterBookmark.swift; sourceTree = "<group>"; };
+		72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
+		729187512A80B8110070BA7F /* NoticeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListViewController.swift; sourceTree = "<group>"; };
 		72B02BD52A6E79EB00D5E146 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		72B84F112A71F8AD006656BF /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				722C3BCB2A678A8800E91914 /* MainViewModel.swift */,
+				72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 				720D9EE42A61143E0070EFEA /* MainViewController.swift */,
 				72B84F112A71F8AD006656BF /* WebViewController.swift */,
 				72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */,
+				729187512A80B8110070BA7F /* NoticeListViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -384,6 +390,7 @@
 				72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */,
 				72F256312A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift in Sources */,
 				72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */,
+				729187522A80B8110070BA7F /* NoticeListViewController.swift in Sources */,
 				7221E3172A807DB500035649 /* ButtonFooterView.swift in Sources */,
 				7272CB1D2A7B32B3000D4720 /* CoreDataManager.swift in Sources */,
 				7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */,
@@ -406,6 +413,7 @@
 				72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */,
 				72C8816A2A7C8CA60057FADF /* BookmarkCell.swift in Sources */,
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
+				72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */,
 				720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
