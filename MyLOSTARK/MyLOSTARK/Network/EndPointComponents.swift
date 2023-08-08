@@ -24,7 +24,7 @@ enum Path {
 
 struct Parameter {
     let key: String
-    let value: String
+    let value: String?
 }
 
 enum HTTPMethod: String {

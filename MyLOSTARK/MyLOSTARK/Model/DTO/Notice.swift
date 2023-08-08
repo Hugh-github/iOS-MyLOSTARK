@@ -11,13 +11,11 @@ protocol WebConnectable {
 
 struct Notice: Decodable, Hashable, WebConnectable {
     let title: String
-    let date: String
     var link: String
     let type: String
     
     enum CodingKeys: String, CodingKey {
         case title = "Title"
-        case date = "Date"
         case link = "Link"
         case type = "Type"
     }

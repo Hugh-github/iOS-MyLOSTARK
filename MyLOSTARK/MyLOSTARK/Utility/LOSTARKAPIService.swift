@@ -57,7 +57,7 @@ class LOSTARKAPIService {
         return model
     }
     
-    func getNoticeList(_ value: String) async throws -> [Notice] {
+    func getNoticeList(_ value: String? = nil) async throws -> [Notice] {
         let endPoint = EndPoint(
             path: .notice,
             parameter: .init(key: "type", value: value),
