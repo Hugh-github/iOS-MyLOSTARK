@@ -77,9 +77,10 @@ extension MainViewController: UICollectionViewDelegate {
 // MARK: Configure CollectionView
 extension MainViewController {
     private func configureCollectionView() {
-        self.collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: setSectionLayout())
+        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: setSectionLayout())
         self.collectionView.delegate = self
         self.collectionView.backgroundColor = .systemGray6
+        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.register(
             CommonHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -92,6 +93,13 @@ extension MainViewController {
         )
         
         view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            self.collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            self.collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            self.collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     private func setSectionLayout() -> UICollectionViewLayout {
@@ -116,7 +124,7 @@ extension MainViewController {
         }
         
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 15
+        configuration.interSectionSpacing = 10
         
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
         layout.register(SectionBackgroundView.self, forDecorationViewOfKind: SectionBackgroundView.reuseIdentifier)
@@ -128,7 +136,7 @@ extension MainViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.22))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.26))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -141,7 +149,7 @@ extension MainViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.22))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.26))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
@@ -160,7 +168,7 @@ extension MainViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.17))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.19))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -184,7 +192,7 @@ extension MainViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalHeight(0.22))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.28))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -195,7 +203,7 @@ extension MainViewController {
     }
     
     private func createHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.05))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.07))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
@@ -206,7 +214,7 @@ extension MainViewController {
     }
     
     private func createFooter() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.05))
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.07))
         let footer = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: footerSize,
             elementKind: UICollectionView.elementKindSectionFooter,
@@ -464,16 +472,5 @@ extension MainViewController {
         let leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
         
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        
-        let infoImageButton = UIButton()
-        infoImageButton.setImage(UIImage(systemName: "person.crop.circle"), for: .normal)
-        infoImageButton.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
-        infoImageButton.tintColor = .lightGray
-        infoImageButton.contentVerticalAlignment = .fill
-        infoImageButton.contentHorizontalAlignment = .fill
-        
-        let rightBarButtonItem = UIBarButtonItem(customView: infoImageButton)
-        
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
 }
