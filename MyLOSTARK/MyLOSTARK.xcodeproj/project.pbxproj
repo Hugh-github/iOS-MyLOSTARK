@@ -51,6 +51,8 @@
 		72F2562D2A7A400000D9D032 /* Bookmark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72F2562B2A7A400000D9D032 /* Bookmark.xcdatamodeld */; };
 		72F256302A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */; };
 		72F256312A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2562F2A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift */; };
+		72FA373F2A834A800052135C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FA373E2A834A800052135C /* SearchViewController.swift */; };
+		72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FA37412A834AEB0052135C /* ScheduleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,8 @@
 		72F2562C2A7A400000D9D032 /* Bookmark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bookmark.xcdatamodel; sourceTree = "<group>"; };
 		72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		72F2562F2A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		72FA373E2A834A800052135C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		72FA37412A834AEB0052135C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +232,8 @@
 			children = (
 				72D203322A736EDF005A71A2 /* Cell */,
 				72D203312A736ECF005A71A2 /* Main */,
+				72FA373D2A834A690052135C /* Search */,
+				72FA37402A834AB30052135C /* Schedule */,
 				72C47B622A690433007A16D1 /* CommonHeaderView.swift */,
 				7221E3162A807DB500035649 /* ButtonFooterView.swift */,
 				72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */,
@@ -264,6 +270,22 @@
 				724F73902A7E0DF3008923F8 /* BookmarkPlaceholderCell.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		72FA373D2A834A690052135C /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				72FA373E2A834A800052135C /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		72FA37402A834AB30052135C /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				72FA37412A834AEB0052135C /* ScheduleViewController.swift */,
+			);
+			path = Schedule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,12 +417,14 @@
 				7272CB1D2A7B32B3000D4720 /* CoreDataManager.swift in Sources */,
 				7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */,
 				72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */,
+				72FA373F2A834A800052135C /* SearchViewController.swift in Sources */,
 				724F738F2A7E054E008923F8 /* SectionBackgroundView.swift in Sources */,
 				724F73912A7E0DF3008923F8 /* BookmarkPlaceholderCell.swift in Sources */,
 				722C3BE72A67ABBE00E91914 /* Event.swift in Sources */,
 				722C3BCC2A678A8800E91914 /* MainViewModel.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */,
 				72F256302A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift in Sources */,
+				72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */,
 				72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */,
 				722C3BE82A67ABBE00E91914 /* Contents.swift in Sources */,
 				72B02BD62A6E79EB00D5E146 /* ImageLoader.swift in Sources */,

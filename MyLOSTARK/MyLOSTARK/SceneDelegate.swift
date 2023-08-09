@@ -13,13 +13,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        let navigationController = UINavigationController(rootViewController: MainViewController())
+        // TabViewController에 연결
+        let mainViewController = MainViewController()
+        let searchViewController = SearchViewController()
+        let scheduleViewController = ScheduleViewController()
         
-        window.rootViewController = navigationController
+        let firstNavigationController = UINavigationController(rootViewController: mainViewController)
+        firstNavigationController.tabBarItem.title = "메인"
+        firstNavigationController.tabBarItem.image = UIImage(systemName: "house")
+        
+        let secondNavigationController = UINavigationController(rootViewController: searchViewController)
+        secondNavigationController.tabBarItem.title = "검색"
+        secondNavigationController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        
+        let thirdNavigationController = UINavigationController(rootViewController: scheduleViewController)
+        thirdNavigationController.tabBarItem.title = "일정 관리"
+        thirdNavigationController.tabBarItem.image = UIImage(systemName: "list.clipboard")
+        
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.backgroundColor = .white
+        tabBarController.tabBar.tintColor = .systemBlue
+        tabBarController.tabBar.isTranslucent = false
+        tabBarController.setViewControllers([firstNavigationController, secondNavigationController, thirdNavigationController], animated: false)
+        
+        window.rootViewController = tabBarController
         window.makeKeyAndVisible()
         
         self.window = window
