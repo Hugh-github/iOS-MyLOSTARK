@@ -7,12 +7,14 @@
 
 import Foundation
 
-/*
- MainView에서 모든 Model은 필요하지만 모든 Model의 데이터는 필요하지 않다.
- -> 필요한 데이터만 Output으로 반환?
- */
+protocol WebConnectableViewModel {
+    var webLink: Observable<WebConnectable?> { get }
+    
+    func subscribeWebLink(on object: AnyObject, handling: @escaping ((WebConnectable?) -> Void))
+    func unsubscribeWebLink(on object: AnyObject)
+}
 
-class MainViewModel {
+class MainViewModel: WebConnectableViewModel {
     private let apiService = LOSTARKAPIService()
     private let repository = CoreDataManager.shared
     
@@ -22,7 +24,7 @@ class MainViewModel {
     private var characterBookmarks: Observable<[CharacterBookmark]?> = Observable.init(nil)
     
     // Single Data
-    private var webLink: Observable<WebConnectable?> = Observable.init(nil)
+    var webLink: Observable<WebConnectable?> = Observable.init(nil)
     private var content: Observable<Contents?> = Observable.init(nil)
     
     var errorHandling: ((String) -> Void) = { _ in }
@@ -57,6 +59,10 @@ class MainViewModel {
     
     func subscribeWebLink(on object: AnyObject, handling: @escaping ((WebConnectable?) -> Void)) {
         self.webLink.addObserver(on: object, handling)
+    }
+    
+    func unsubscribeWebLink(on object: AnyObject) {
+        self.webLink.removeObserver(observer: object)
     }
     
     func subscribeContent(on object: AnyObject, handling: @escaping ((Contents?) -> Void)) {

@@ -7,12 +7,20 @@
 
 import Foundation
 
-class NoticeViewModel {
+class NoticeViewModel: WebConnectableViewModel {
+    enum Kind {
+        case update
+        case check
+        case shop
+    }
+    
     private let apiService = LOSTARKAPIService()
     
     private var updateNotices: Observable<[Notice]> = Observable.init([])
     private var checkNotices: Observable<[Notice]> = Observable.init([])
     private var shopNotices: Observable<[Notice]> = Observable.init([])
+    
+    var webLink: Observable<WebConnectable?> = Observable.init(nil)
     
     var errorHandling: ((String) -> Void) = { _ in }
     
@@ -42,6 +50,18 @@ class NoticeViewModel {
         }
     }
     
+    func selectItem(_ kind: Kind, on index: Int) {
+        if kind == .update {
+            self.webLink.value = updateNotices.value[index - 1]
+        } else if kind == .check {
+            self.webLink.value = checkNotices.value[index - 1]
+        } else if kind == .shop {
+            self.webLink.value = shopNotices.value[index - 1]
+        }
+    }
+}
+
+extension NoticeViewModel {
     func subscribeUpdateNotices(on object: AnyObject, handling: @escaping ([Notice]) -> Void) {
         self.updateNotices.addObserver(on: object, handling)
     }
@@ -52,5 +72,13 @@ class NoticeViewModel {
     
     func subscribeShopNotices(on object: AnyObject, handling: @escaping ([Notice]) -> Void) {
         self.shopNotices.addObserver(on: object, handling)
+    }
+    
+    func subscribeWebLink(on object: AnyObject, handling: @escaping ((WebConnectable?) -> Void)) {
+        self.webLink.addObserver(on: object, handling)
+    }
+    
+    func unsubscribeWebLink(on object: AnyObject) {
+        self.webLink.removeObserver(observer: object)
     }
 }
