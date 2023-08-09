@@ -8,7 +8,7 @@
 import UIKit
 
 class ButtonFooterView: UICollectionReusableView {
-    private let button: UIButton = {
+    let button: UIButton = {
         let button = UIButton()
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.white, for: .highlighted)

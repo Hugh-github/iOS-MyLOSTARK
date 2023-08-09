@@ -9,10 +9,10 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-    private let viewModel: MainViewModel
+    private let viewModel: WebConnectableViewModel
     private var webView = WKWebView()
     
-    init(viewModel: MainViewModel) {
+    init(viewModel: WebConnectableViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -32,6 +32,12 @@ class WebViewController: UIViewController {
         subscribeViewModel()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.viewModel.unsubscribeWebLink(on: self)
+    }
+    
     private func subscribeViewModel() {
         self.viewModel.subscribeWebLink(on: self) { connect in
             guard let link = connect?.link,
@@ -39,7 +45,9 @@ class WebViewController: UIViewController {
             
             let request = URLRequest(url: url)
             
-            self.webView.load(request)
+            DispatchQueue.main.async {
+                self.webView.load(request)
+            }
         }
     }
 }

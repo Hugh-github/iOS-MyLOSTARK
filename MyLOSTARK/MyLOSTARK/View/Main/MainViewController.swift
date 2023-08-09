@@ -267,7 +267,7 @@ extension MainViewController {
     }
     
     private func configureSupplementaryView() {
-        self.dataSource.supplementaryViewProvider = { (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
+        self.dataSource.supplementaryViewProvider = { [self] (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
             let section = self.dataSource.sectionIdentifier(for: indexPath.section)
             
             if elementKind == UICollectionView.elementKindSectionHeader {
@@ -313,6 +313,7 @@ extension MainViewController {
                     footer.setTitle("추가하기 +")
                 case .shopNotice:
                     footer.setTitle("모두 보기")
+                    footer.button.addTarget(self, action: #selector(didTapViewAllButton), for: .touchUpInside)
                 case .event:
                     break
                 case .none:
@@ -324,6 +325,11 @@ extension MainViewController {
         }
     }
     
+    @objc private func didTapViewAllButton() {
+        let noticeViewController = NoticeListViewController()
+        navigationController?.pushViewController(noticeViewController, animated: true)
+    }
+ 
     private func createCalendarSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Contents> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             guard let url = URL(string: itemIdentifier.contentsIcon) else { return }

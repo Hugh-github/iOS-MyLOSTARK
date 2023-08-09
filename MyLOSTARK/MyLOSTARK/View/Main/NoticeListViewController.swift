@@ -154,9 +154,21 @@ extension NoticeListViewController {
 
 extension NoticeListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: false)
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let section = self.dataSource.sectionIdentifier(for: indexPath.section)
         
-        print(indexPath.section)
-        print(indexPath.item)
+        let webViewController = WebViewController(viewModel: self.viewModel)
+        present(webViewController, animated: true)
+        
+        switch section {
+        case .update:
+            self.viewModel.selectItem(.update, on: indexPath.item)
+        case .check:
+            self.viewModel.selectItem(.check, on: indexPath.item)
+        case .shop:
+            self.viewModel.selectItem(.shop, on: indexPath.item)
+        case .none:
+            break
+        }
     }
 }
