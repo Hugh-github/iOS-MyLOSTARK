@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
     
     private var collectionView: UICollectionView! = nil
     private var dataSource: DataSource! = nil
+    private let collectionViewLayoutBuilder = CollectionViewLayoutBuilder()
     
     private let viewModel = MainViewModel()
     
@@ -132,48 +133,41 @@ extension MainViewController {
         return layout
     }
     
-    private func setCalendarLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.26))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.createHeader()]
+    private func setCalendarLayout() -> NSCollectionLayoutSection? {
+        let section = collectionViewLayoutBuilder
+            .setItem(width: .fractionalWidth(0.33), height: .fractionalHeight(1.0))
+            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.26), direction: .horizontal)
+            .getSectionLayout()
+        section?.boundarySupplementaryItems = [self.createHeader()]
         
         return section
     }
     
-    private func setBookmarkLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    private func setBookmarkLayout() -> NSCollectionLayoutSection? {
+        let section = collectionViewLayoutBuilder
+            .setItem(width: .fractionalWidth(0.3), height: .fractionalHeight(1.0))
+            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.26), direction: .horizontal)
+            .setGroupInset(top: 10, leading: 10, bottom: 10, trailing: 10)
+            .getSectionLayout()
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.26))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        section.interGroupSpacing = 10
-        section.boundarySupplementaryItems = [self.createHeader()]
-        section.decorationItems = [
+        section?.setScrollingBehavior(.continuous)
+        section?.setGroupSpacing(10)
+        section?.boundarySupplementaryItems = [self.createHeader()]
+        section?.decorationItems = [
             NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
         ]
         
         return section
     }
     
-    private func setPlaceholderLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    private func setPlaceholderLayout() -> NSCollectionLayoutSection? {
+        let section = collectionViewLayoutBuilder
+            .setItem(width: .fractionalWidth(1.0), height: .fractionalHeight(1.0))
+            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.19), direction: .horizontal)
+            .getSectionLayout()
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.19))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.createHeader(), self.createFooter()]
-        section.decorationItems = [
+        section?.boundarySupplementaryItems = [self.createHeader(), self.createFooter()]
+        section?.decorationItems = [
             NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
         ]
         
@@ -188,16 +182,14 @@ extension MainViewController {
         return section
     }
     
-    private func setEventLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    private func setEventLayout() -> NSCollectionLayoutSection? {
+        let section = collectionViewLayoutBuilder
+            .setItem(width: .fractionalWidth(1.0), height: .fractionalHeight(1.0))
+            .setGroup(width: .fractionalWidth(0.8), height: .fractionalHeight(0.28), direction: .horizontal)
+            .getSectionLayout()
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.28))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .groupPaging
-        section.boundarySupplementaryItems = [self.createHeader()]
+        section?.setScrollingBehavior(.groupPaging)
+        section?.boundarySupplementaryItems = [self.createHeader()]
         
         return section
     }

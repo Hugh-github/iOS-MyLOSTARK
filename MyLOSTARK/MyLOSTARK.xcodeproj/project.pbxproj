@@ -47,6 +47,9 @@
 		72D203352A7371C5005A71A2 /* ContentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */; };
 		72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D203362A738217005A71A2 /* HStackImageLabelCell.swift */; };
 		72D43B2C2A7CE574007A5023 /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */; };
+		72E1929F2A87385500A735AF /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E1929E2A87385500A735AF /* Observable.swift */; };
+		72E192A12A8747E500A735AF /* WebConnectableViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E192A02A8747E500A735AF /* WebConnectableViewModelProtocol.swift */; };
+		72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */; };
 		72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */; };
 		72F2562D2A7A400000D9D032 /* Bookmark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72F2562B2A7A400000D9D032 /* Bookmark.xcdatamodeld */; };
 		72F256302A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */; };
@@ -102,6 +105,9 @@
 		72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentInfoViewController.swift; sourceTree = "<group>"; };
 		72D203362A738217005A71A2 /* HStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackImageLabelCell.swift; sourceTree = "<group>"; };
 		72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
+		72E1929E2A87385500A735AF /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		72E192A02A8747E500A735AF /* WebConnectableViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectableViewModelProtocol.swift; sourceTree = "<group>"; };
+		72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutBuilder.swift; sourceTree = "<group>"; };
 		72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VStackImageLabelCell.swift; sourceTree = "<group>"; };
 		72F2562C2A7A400000D9D032 /* Bookmark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bookmark.xcdatamodel; sourceTree = "<group>"; };
 		72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -203,6 +209,8 @@
 			children = (
 				722C3BCB2A678A8800E91914 /* MainViewModel.swift */,
 				72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */,
+				72E1929E2A87385500A735AF /* Observable.swift */,
+				72E192A02A8747E500A735AF /* WebConnectableViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -230,6 +238,7 @@
 		72D203302A736E99005A71A2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */,
 				72D203322A736EDF005A71A2 /* Cell */,
 				72D203312A736ECF005A71A2 /* Main */,
 				72FA373D2A834A690052135C /* Search */,
@@ -422,6 +431,7 @@
 				724F73912A7E0DF3008923F8 /* BookmarkPlaceholderCell.swift in Sources */,
 				722C3BE72A67ABBE00E91914 /* Event.swift in Sources */,
 				722C3BCC2A678A8800E91914 /* MainViewModel.swift in Sources */,
+				72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */,
 				72F256302A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift in Sources */,
 				72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */,
@@ -435,7 +445,9 @@
 				72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */,
 				72D203352A7371C5005A71A2 /* ContentInfoViewController.swift in Sources */,
 				72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */,
+				72E192A12A8747E500A735AF /* WebConnectableViewModelProtocol.swift in Sources */,
 				72C8816A2A7C8CA60057FADF /* BookmarkCell.swift in Sources */,
+				72E1929F2A87385500A735AF /* Observable.swift in Sources */,
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
 				72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */,
 				720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */,
