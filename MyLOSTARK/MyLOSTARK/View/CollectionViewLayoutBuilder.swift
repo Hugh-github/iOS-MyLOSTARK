@@ -12,14 +12,6 @@ enum Direction {
     case vertical
 }
 
-enum ContentInset {
-    case top(CGFloat)
-    case bottom(CGFloat)
-    case leading(CGFloat)
-    case trailing(CGFloat)
-    case all(CGFloat)
-}
-
 protocol LayoutBuilder {
     func setItem(width: NSCollectionLayoutDimension, height: NSCollectionLayoutDimension) -> CollectionViewLayoutBuilder
     

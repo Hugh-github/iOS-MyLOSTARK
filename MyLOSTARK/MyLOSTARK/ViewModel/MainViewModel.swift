@@ -8,15 +8,14 @@
 import Foundation
 
 class MainViewModel: WebConnectableViewModel {
-    private let apiService = LOSTARKAPIService()
+    private let apiService = LOSTARKAPIService.shared
     private let repository = CoreDataManager.shared
     
+    // MARK: OUTPUT
     private var shopNotices: Observable<[Notice]> = Observable.init([])
     private var contents: Observable<[Contents]> = Observable.init([])
     private var events: Observable<[Event]> = Observable.init([])
     private var characterBookmarks: Observable<[CharacterBookmark]?> = Observable.init(nil)
-    
-    // Single Data
     var webLink: Observable<WebConnectable?> = Observable.init(nil)
     private var content: Observable<Contents?> = Observable.init(nil)
     

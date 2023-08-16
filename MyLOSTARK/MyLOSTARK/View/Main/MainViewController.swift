@@ -266,6 +266,7 @@ extension MainViewController {
         }
     }
     
+    // 코드 분리
     private func configureSupplementaryView() {
         self.dataSource.supplementaryViewProvider = { [self] (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
             let section = self.dataSource.sectionIdentifier(for: indexPath.section)

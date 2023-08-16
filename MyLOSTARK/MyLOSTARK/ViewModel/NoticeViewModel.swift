@@ -14,8 +14,9 @@ class NoticeViewModel: WebConnectableViewModel {
         case shop
     }
     
-    private let apiService = LOSTARKAPIService()
+    private let apiService = LOSTARKAPIService.shared
     
+    // MARK: OUTPUT
     private var updateNotices: Observable<[Notice]> = Observable.init([])
     private var checkNotices: Observable<[Notice]> = Observable.init([])
     private var shopNotices: Observable<[Notice]> = Observable.init([])
