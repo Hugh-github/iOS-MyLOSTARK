@@ -266,7 +266,6 @@ extension MainViewController {
         }
     }
     
-    // 코드 분리
     private func configureSupplementaryView() {
         self.dataSource.supplementaryViewProvider = { [self] (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
             let section = self.dataSource.sectionIdentifier(for: indexPath.section)
@@ -306,18 +305,12 @@ extension MainViewController {
                 }
                 
                 switch section {
-                case .calendar:
-                    break
-                case .characterBookmark:
-                    break
                 case .characterPlaceholder:
                     footer.setTitle("추가하기 +")
                 case .shopNotice:
                     footer.setTitle("모두 보기")
                     footer.button.addTarget(self, action: #selector(didTapViewAllButton), for: .touchUpInside)
-                case .event:
-                    break
-                case .none:
+                default:
                     break
                 }
                 
