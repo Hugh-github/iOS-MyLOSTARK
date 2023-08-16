@@ -8,10 +8,6 @@
 import Foundation
 
 class JSONManager {
-    static let shared = JSONManager()
-    
-    private init() { }
-    
     var decoder: JSONDecoder {
         return JSONDecoder()
     }
