@@ -16,7 +16,9 @@ class Observable<T> {
     
     var value: T {
         didSet {
-            notifyObservers()
+            DispatchQueue.main.async {
+                self.notifyObservers()
+            }
         }
     }
     

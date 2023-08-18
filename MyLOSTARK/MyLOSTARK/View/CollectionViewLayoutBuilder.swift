@@ -12,16 +12,6 @@ enum Direction {
     case vertical
 }
 
-protocol LayoutBuilder {
-    func setItem(width: NSCollectionLayoutDimension, height: NSCollectionLayoutDimension) -> CollectionViewLayoutBuilder
-    
-    func setGroup(width: NSCollectionLayoutDimension, height: NSCollectionLayoutDimension, direction: Direction) -> CollectionViewLayoutBuilder
-    
-    func setGroupInset(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat) -> CollectionViewLayoutBuilder
-    
-    func getSectionLayout() -> NSCollectionLayoutSection?
-}
-
 class CollectionViewLayoutBuilder: LayoutBuilder {
     private var item: [NSCollectionLayoutItem] = []
     private var group: NSCollectionLayoutGroup?
@@ -61,15 +51,5 @@ class CollectionViewLayoutBuilder: LayoutBuilder {
         self.item.removeAll()
         
         return section
-    }
-}
-
-extension NSCollectionLayoutSection {
-    func setGroupSpacing(_ spacing: CGFloat) {
-        interGroupSpacing = spacing
-    }
-    
-    func setScrollingBehavior(_ behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior) {
-        orthogonalScrollingBehavior = behavior
     }
 }
