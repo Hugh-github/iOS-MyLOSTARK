@@ -7,79 +7,58 @@
 
 import Foundation
 
-class NoticeViewModel: WebConnectableViewModel {
-    enum Kind {
-        case update
-        case check
-        case shop
+protocol NoticeViewModelOUTPUT {
+    var updateNotices: Observable<[Notice]> { get }
+    var checkNotices: Observable<[Notice]> { get }
+    var shopNotices: Observable<[Notice]> { get }
+}
+
+class NoticeViewModel: NoticeViewModelOUTPUT, WebConnectableViewModel {
+    enum Action {
+        case viewDidLoad
+        case selectUpdateCell(Int)
+        case selectCheckCell(Int)
+        case selectShopCell(Int)
     }
     
-    private let apiService = LOSTARKAPIService.shared
+    private let noticeUseCase = NoticeUseCase()
     
     // MARK: OUTPUT
-    private var updateNotices: Observable<[Notice]> = Observable.init([])
-    private var checkNotices: Observable<[Notice]> = Observable.init([])
-    private var shopNotices: Observable<[Notice]> = Observable.init([])
-    
+    var updateNotices: Observable<[Notice]> = Observable.init([])
+    var checkNotices: Observable<[Notice]> = Observable.init([])
+    var shopNotices: Observable<[Notice]> = Observable.init([])
     var webLink: Observable<WebConnectable?> = Observable.init(nil)
     
     var errorHandling: ((String) -> Void) = { _ in }
     
-    func fetchData() {
-        Task {
-            do {
-                self.updateNotices.value = try await apiService.getNoticeList("공지")
-            } catch {
-                errorHandling("에러 발생")
+    func execute(_ action: Action) {
+        switch action {
+        case .viewDidLoad:
+            Task {
+                await self.fetchData()
             }
-        }
-        
-        Task {
-            do {
-                self.checkNotices.value = try await apiService.getNoticeList("점검")
-            } catch {
-                errorHandling("에러 발생")
-            }
-        }
-        
-        Task {
-            do {
-                self.shopNotices.value = try await apiService.getNoticeList("상점")
-            } catch {
-                errorHandling("에러 발생")
-            }
-        }
-    }
-    
-    func selectItem(_ kind: Kind, on index: Int) {
-        if kind == .update {
-            self.webLink.value = updateNotices.value[index - 1]
-        } else if kind == .check {
-            self.webLink.value = checkNotices.value[index - 1]
-        } else if kind == .shop {
-            self.webLink.value = shopNotices.value[index - 1]
+        case .selectUpdateCell(let index):
+            self.webLink.value = updateNotices.value[index]
+        case .selectCheckCell(let index):
+            self.webLink.value = checkNotices.value[index]
+        case .selectShopCell(let index):
+            self.webLink.value = shopNotices.value[index]
         }
     }
 }
 
 extension NoticeViewModel {
-    func subscribeUpdateNotices(on object: AnyObject, handling: @escaping ([Notice]) -> Void) {
-        self.updateNotices.addObserver(on: object, handling)
-    }
-    
-    func subscribeCheckNotices(on object: AnyObject, handling: @escaping ([Notice]) -> Void) {
-        self.checkNotices.addObserver(on: object, handling)
-    }
-    
-    func subscribeShopNotices(on object: AnyObject, handling: @escaping ([Notice]) -> Void) {
-        self.shopNotices.addObserver(on: object, handling)
-    }
-    
-    func subscribeWebLink(on object: AnyObject, handling: @escaping ((WebConnectable?) -> Void)) {
-        self.webLink.addObserver(on: object, handling)
-    }
-    
-    func unsubscribeWebLink(on object: AnyObject) {
-        self.webLink.removeObserver(observer: object)
+    private func fetchData() async {
+        async let updateList = try await noticeUseCase.execute("공지")
+        async let checkList = try await noticeUseCase.execute("점검")
+        async let shopList = try await noticeUseCase.execute("상점")
+        
+        do {
+            self.updateNotices.value = try await updateList
+            self.checkNotices.value = try await checkList
+            self.shopNotices.value = try await shopList
+        } catch {
+            print("에러 발생")
+        }
     }
 }
