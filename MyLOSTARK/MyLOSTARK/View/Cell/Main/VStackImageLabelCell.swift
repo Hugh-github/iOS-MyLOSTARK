@@ -20,7 +20,7 @@ class VStackImageLabelCell: UICollectionViewCell {
 
     private let textLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
 
         return label

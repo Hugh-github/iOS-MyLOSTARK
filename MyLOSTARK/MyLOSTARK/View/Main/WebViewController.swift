@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class WebViewController: UIViewController {
+final class WebViewController: UIViewController {
     private let viewModel: WebConnectableViewModel
     private var webView = WKWebView()
     
@@ -29,25 +29,25 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        subscribeViewModel()
+        self.viewModel.webLink.addObserver(on: self, loadWebView())
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        self.viewModel.unsubscribeWebLink(on: self)
+        self.viewModel.webLink.removeObserver(observer: self)
     }
     
-    private func subscribeViewModel() {
-        self.viewModel.subscribeWebLink(on: self) { connect in
+    private func loadWebView() -> ((WebConnectable?) -> Void) {
+        return { connect in
             guard let link = connect?.link,
-                  let url = URL(string: link) else { return }
+                  let url = URL(string: link) else {
+                return
+            }
             
             let request = URLRequest(url: url)
             
-            DispatchQueue.main.async {
-                self.webView.load(request)
-            }
+            self.webView.load(request)
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContentInfoViewController: UIViewController {
+final class ContentInfoViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, RewardItem>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RewardItem>
     
@@ -37,14 +37,14 @@ class ContentInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        subscribeViewModel()
+        self.viewModel.content.addObserver(on: self, applySnapshot())
         configureDataSource()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        self.viewModel.unsubscribeContent(on: self)
+        self.viewModel.content.removeObserver(observer: self)
     }
     
     private func configureDataSource() {
@@ -65,18 +65,17 @@ class ContentInfoViewController: UIViewController {
         })
     }
     
-    private func subscribeViewModel() {
+    @MainActor
+    private func applySnapshot() -> ((Contents?) -> Void) {
         var snapshot = Snapshot()
         
-        self.viewModel.subscribeContent(on: self) { content in
+        return { content in
             guard let content = content else { return }
             self.infoView.setContent(name: content.contentsName)
-
-            DispatchQueue.main.async {
-                snapshot.appendSections(Section.allCases)
-                snapshot.appendItems(content.rewardItems, toSection: .main)
-                self.dataSource.apply(snapshot)
-            }
+            
+            snapshot.appendSections(Section.allCases)
+            snapshot.appendItems(content.rewardItems, toSection: .main)
+            self.dataSource.apply(snapshot)
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<MainViewSection, AnyHashable>
     typealias Snapshot = NSDiffableDataSourceSnapshot<MainViewSection, AnyHashable>
     
@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
         case calendar
         case characterBookmark
         case characterPlaceholder
-        case shopNotice
+        case notice
         case event
     }
     
@@ -34,9 +34,9 @@ class MainViewController: UIViewController {
         self.configureDataSource()
         self.configureSupplementaryView()
         self.initialSnapshot()
-        self.subscribeViewModel()
+        self.dataBinding()
         
-        self.viewModel.fetchData()
+        self.viewModel.execute(.viewDidLoad)
     }
 }
 
@@ -56,19 +56,19 @@ extension MainViewController: UICollectionViewDelegate {
             }
             
             present(infoViewController, animated: true, completion: nil)
-            self.viewModel.selectContent(index: indexPath.row)
+            self.viewModel.execute(.selectContentCell(indexPath.row))
         case .characterBookmark:
             return
         case .characterPlaceholder:
             return
-        case .shopNotice:
+        case .notice:
             let webViewController = WebViewController(viewModel: self.viewModel)
             present(webViewController, animated: false)
-            self.viewModel.selectShopNotice(index: indexPath.row)
+            self.viewModel.execute(.selectNoticeCell(indexPath.row))
         case .event:
             let webViewController = WebViewController(viewModel: self.viewModel)
             present(webViewController, animated: false)
-            self.viewModel.selectEvent(index: indexPath.row)
+            self.viewModel.execute(.selectEventCell(indexPath.row))
         case .none:
             return
         }
@@ -115,7 +115,7 @@ extension MainViewController {
                 return setBookmarkLayout()
             case .characterPlaceholder:
                 return setPlaceholderLayout()
-            case .shopNotice:
+            case .notice:
                 return setShopNoticeLayout(environment: layoutEnvironment)
             case .event:
                 return setEventLayout()
@@ -248,7 +248,7 @@ extension MainViewController {
                     for: indexPath,
                     item: itemIdentifier as? CharacterBookmark
                 )
-            case .shopNotice:
+            case .notice:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: shopNoticeRegistration,
                     for: indexPath,
@@ -286,8 +286,8 @@ extension MainViewController {
                     header.configureHeader(title: "즐겨찾는 캐릭터")
                 case .characterPlaceholder:
                     header.configureHeader(title: "즐겨찾는 캐릭터")
-                case .shopNotice:
-                    header.configureHeader(title: "상점 업데이트")
+                case .notice:
+                    header.configureHeader(title: "공지 사항")
                 case .event:
                     header.configureHeader(title: "Event", color: .darkGray)
                 case .none:
@@ -307,7 +307,7 @@ extension MainViewController {
                 switch section {
                 case .characterPlaceholder:
                     footer.setTitle("추가하기 +")
-                case .shopNotice:
+                case .notice:
                     footer.setTitle("모두 보기")
                     footer.button.addTarget(self, action: #selector(didTapViewAllButton), for: .touchUpInside)
                 default:
@@ -386,53 +386,47 @@ extension MainViewController {
         self.dataSource.apply(snapshot)
     }
     
-    private func subscribeViewModel() {
-        self.subscribeContent()
-        self.subscribeShopNotice()
-        self.subscribeEvent()
-        self.subscribeBookmark()
+    private func dataBinding() {
+        self.viewModel.contents.addObserver(on: self, applyCalendarSnapshot())
+        self.viewModel.notices.addObserver(on: self, applyNoticeSnapshot())
+        self.viewModel.events.addObserver(on: self, applyEventSnapshot())
+        self.viewModel.bookmark.addObserver(on: self, applyBookmarkSanpshot())
     }
     
-    private func subscribeContent() {
+    private func applyCalendarSnapshot() -> (([Contents]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subscribeContents(on: self) { contents in
-            DispatchQueue.main.async {
-                sectionSnapshot.append(contents)
-                self.dataSource.apply(sectionSnapshot, to: .calendar)
-            }
+        return { contents in
+            sectionSnapshot.append(contents)
+            self.dataSource.apply(sectionSnapshot, to: .calendar)
         }
     }
     
-    private func subscribeShopNotice() {
+    private func applyNoticeSnapshot() -> (([Notice]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subscribeShopNotice(on: self) { notice in
-            DispatchQueue.main.async {
-                sectionSnapshot.append(Array(notice.prefix(3)))
-                self.dataSource.apply(sectionSnapshot, to: .shopNotice)
-            }
+        return { notices in
+            sectionSnapshot.append(notices)
+            self.dataSource.apply(sectionSnapshot, to: .notice)
         }
     }
     
-    private func subscribeEvent() {
+    private func applyEventSnapshot() -> (([Event]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subscribeEvent(on: self) { events in
-            DispatchQueue.main.async {
-                sectionSnapshot.append(events)
-                self.dataSource.apply(sectionSnapshot, to: .event)
-            }
+        return { events in
+            sectionSnapshot.append(events)
+            self.dataSource.apply(sectionSnapshot, to: .event)
         }
     }
     
-    private func subscribeBookmark() {
+    private func applyBookmarkSanpshot() -> (([CharacterBookmark]?) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         var snapshot = self.dataSource.snapshot()
-        
-        self.viewModel.subscribeBookmark(on: self) { bookmarks in
+
+        return { bookmarks in
             guard let bookmarks = bookmarks else { return }
-            
+
             if bookmarks.isEmpty {
                 snapshot.deleteSections([.characterBookmark])
                 self.dataSource.apply(snapshot)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoticeListViewController: UIViewController {
+final class NoticeListViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<NoticeSection, AnyHashable>
     
     enum NoticeSection: CaseIterable {
@@ -30,7 +30,7 @@ class NoticeListViewController: UIViewController {
         self.initialSnapshot()
         self.subscribeViewModel()
         
-        self.viewModel.fetchData()
+        self.viewModel.execute(.viewDidLoad)
     }
 }
 
@@ -110,44 +110,38 @@ extension NoticeListViewController {
     }
     
     private func subscribeViewModel() {
-        self.subscribeUpdateNotice()
-        self.subscribeCheckNotice()
-        self.subscribeShopNotice()
+        self.viewModel.updateNotices.addObserver(on: self, applyUpdateSnapshot())
+        self.viewModel.checkNotices.addObserver(on: self, applyCheckSnapshot())
+        self.viewModel.shopNotices.addObserver(on: self, applyShopSnapshot())
     }
     
-    private func subscribeUpdateNotice() {
+    private func applyUpdateSnapshot() -> (([Notice]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subscribeUpdateNotices(on: self) { notice in
-            DispatchQueue.main.async {
-                sectionSnapshot.append(["공지"])
-                sectionSnapshot.append(notice, to: "공지")
-                self.dataSource.apply(sectionSnapshot, to: .update)
-            }
+        return { notices in
+            sectionSnapshot.append(["공지"])
+            sectionSnapshot.append(notices, to: "공지")
+            self.dataSource.apply(sectionSnapshot, to: .update)
         }
     }
     
-    private func subscribeCheckNotice() {
+    private func applyCheckSnapshot() -> (([Notice]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subscribeCheckNotices(on: self) { notice in
-            DispatchQueue.main.async {
-                sectionSnapshot.append(["점검"])
-                sectionSnapshot.append(notice, to: "점검")
-                self.dataSource.apply(sectionSnapshot, to: .check)
-            }
+        return { notices in
+            sectionSnapshot.append(["점검"])
+            sectionSnapshot.append(notices, to: "점검")
+            self.dataSource.apply(sectionSnapshot, to: .check)
         }
     }
     
-    private func subscribeShopNotice() {
+    private func applyShopSnapshot() -> (([Notice]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
-        self.viewModel.subscribeShopNotices(on: self) { notice in
-            DispatchQueue.main.async {
-                sectionSnapshot.append(["상점"])
-                sectionSnapshot.append(notice, to: "상점")
-                self.dataSource.apply(sectionSnapshot, to: .shop)
-            }
+        return { notices in
+            sectionSnapshot.append(["상점"])
+            sectionSnapshot.append(notices, to: "상점")
+            self.dataSource.apply(sectionSnapshot, to: .shop)
         }
     }
 }
@@ -156,17 +150,17 @@ extension NoticeListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let section = self.dataSource.sectionIdentifier(for: indexPath.section)
-        
+
         let webViewController = WebViewController(viewModel: self.viewModel)
         present(webViewController, animated: true)
-        
+
         switch section {
         case .update:
-            self.viewModel.selectItem(.update, on: indexPath.item)
+            self.viewModel.execute(.selectUpdateCell(indexPath.row))
         case .check:
-            self.viewModel.selectItem(.check, on: indexPath.item)
+            self.viewModel.execute(.selectCheckCell(indexPath.row))
         case .shop:
-            self.viewModel.selectItem(.shop, on: indexPath.item)
+            self.viewModel.execute(.selectShopCell(indexPath.row))
         case .none:
             break
         }
