@@ -181,7 +181,6 @@
 				720D9EE02A61143E0070EFEA /* AppDelegate.swift */,
 				720D9EE22A61143E0070EFEA /* SceneDelegate.swift */,
 				72C4279A2A8F328B001C4237 /* Infra */,
-				72520AF62A64F674001B8266 /* Utility */,
 				720D9EF42A6116090070EFEA /* Domain */,
 				72C427AA2A8F373D001C4237 /* Presentation */,
 				720D9EE92A61143F0070EFEA /* Assets.xcassets */,
@@ -220,16 +219,6 @@
 				72AD6BC82A8DD9870014651B /* MainViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		72520AF62A64F674001B8266 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				72C427A52A8F3560001C4237 /* Extension */,
-				72C427A02A8F34C8001C4237 /* Protocol */,
-				72E1929E2A87385500A735AF /* Observable.swift */,
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		72C427952A8F3209001C4237 /* UseCase */ = {
@@ -312,6 +301,9 @@
 		72C427AB2A8F3787001C4237 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				72C427A02A8F34C8001C4237 /* Protocol */,
+				72C427A52A8F3560001C4237 /* Extension */,
+				72E1929E2A87385500A735AF /* Observable.swift */,
 				72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */,
 			);
 			path = Utils;
