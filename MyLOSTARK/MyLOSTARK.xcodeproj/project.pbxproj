@@ -182,10 +182,8 @@
 				720D9EE22A61143E0070EFEA /* SceneDelegate.swift */,
 				72C4279A2A8F328B001C4237 /* Infra */,
 				72520AF62A64F674001B8266 /* Utility */,
-				72E1929E2A87385500A735AF /* Observable.swift */,
 				720D9EF42A6116090070EFEA /* Domain */,
-				722C3BCA2A678A7000E91914 /* ViewModel */,
-				72D203302A736E99005A71A2 /* View */,
+				72C427AA2A8F373D001C4237 /* Presentation */,
 				720D9EE92A61143F0070EFEA /* Assets.xcassets */,
 				720D9EEB2A61143F0070EFEA /* LaunchScreen.storyboard */,
 				720D9EEE2A61143F0070EFEA /* Info.plist */,
@@ -229,6 +227,7 @@
 			children = (
 				72C427A52A8F3560001C4237 /* Extension */,
 				72C427A02A8F34C8001C4237 /* Protocol */,
+				72E1929E2A87385500A735AF /* Observable.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -298,29 +297,46 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		72D203302A736E99005A71A2 /* View */ = {
+		72C427AA2A8F373D001C4237 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */,
-				72D203322A736EDF005A71A2 /* Cell */,
+				72C427AC2A8F37DD001C4237 /* Common */,
 				72D203312A736ECF005A71A2 /* Main */,
 				72FA373D2A834A690052135C /* Search */,
 				72FA37402A834AB30052135C /* Schedule */,
-				72C47B622A690433007A16D1 /* CommonHeaderView.swift */,
-				7221E3162A807DB500035649 /* ButtonFooterView.swift */,
+				72C427AB2A8F3787001C4237 /* Utils */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		72C427AB2A8F3787001C4237 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		72C427AC2A8F37DD001C4237 /* Common */ = {
+			isa = PBXGroup;
+			children = (
 				72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */,
+				7221E3162A807DB500035649 /* ButtonFooterView.swift */,
+				72C47B622A690433007A16D1 /* CommonHeaderView.swift */,
 				724F738E2A7E054E008923F8 /* SectionBackgroundView.swift */,
 			);
-			path = View;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		72D203312A736ECF005A71A2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				72D203322A736EDF005A71A2 /* Cell */,
 				720D9EE42A61143E0070EFEA /* MainViewController.swift */,
 				72B84F112A71F8AD006656BF /* WebViewController.swift */,
 				72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */,
 				729187512A80B8110070BA7F /* NoticeListViewController.swift */,
+				722C3BCA2A678A7000E91914 /* ViewModel */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -328,20 +344,12 @@
 		72D203322A736EDF005A71A2 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				72D203332A736EE6005A71A2 /* Main */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		72D203332A736EE6005A71A2 /* Main */ = {
-			isa = PBXGroup;
-			children = (
 				72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */,
 				72D203362A738217005A71A2 /* HStackImageLabelCell.swift */,
 				72C881692A7C8CA60057FADF /* BookmarkCell.swift */,
 				724F73902A7E0DF3008923F8 /* BookmarkPlaceholderCell.swift */,
 			);
-			path = Main;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		72FA373D2A834A690052135C /* Search */ = {
