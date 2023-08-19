@@ -47,7 +47,8 @@ extension MainViewController: UICollectionViewDelegate {
         
         switch sectionId {
         case .calendar:
-            let infoViewController = ContentInfoViewController(viewModel: self.viewModel)
+            let infoViewController = ContentInfoViewController(viewModel: self.viewModel, indexPath: indexPath.row)
+            
             infoViewController.modalPresentationStyle = .pageSheet
             
             if let sheet = infoViewController.sheetPresentationController {
@@ -56,7 +57,6 @@ extension MainViewController: UICollectionViewDelegate {
             }
             
             present(infoViewController, animated: true, completion: nil)
-            self.viewModel.execute(.selectContentCell(indexPath.row))
         case .characterBookmark:
             return
         case .characterPlaceholder:

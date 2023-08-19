@@ -5,6 +5,8 @@
 //  Created by dhoney96 on 2023/07/14.
 //
 
+import Foundation
+
 struct Contents: Decodable, Hashable {
     let categoryName: String
     let contentsName: String
@@ -26,6 +28,7 @@ struct Contents: Decodable, Hashable {
 }
 
 struct RewardItem: Decodable, Hashable {
+    let id = UUID()
     let name: String
     let icon: String
     let grade: String

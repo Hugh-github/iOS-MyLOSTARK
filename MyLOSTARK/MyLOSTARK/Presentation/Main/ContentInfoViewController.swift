@@ -16,12 +16,17 @@ final class ContentInfoViewController: UIViewController {
     }
     
     private let viewModel: MainViewModel
+    private let indexPath: Int
     
     private let infoView = ContentInfoView()
     private var dataSource: DataSource!
+    private var snapshot = Snapshot()
     
-    init(viewModel: MainViewModel) {
+    init(viewModel: MainViewModel,
+         indexPath: Int)
+    {
         self.viewModel = viewModel
+        self.indexPath = indexPath
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,12 +42,14 @@ final class ContentInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.viewModel.content.addObserver(on: self, applySnapshot())
         configureDataSource()
+        self.viewModel.content.addObserver(on: self, applySnapshot())
+        
+        self.viewModel.execute(.selectContentCell(indexPath))
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
         self.viewModel.content.removeObserver(observer: self)
     }
@@ -65,15 +72,19 @@ final class ContentInfoViewController: UIViewController {
         })
     }
     
-    @MainActor
+    private func initialSection() {
+        self.snapshot.appendSections(Section.allCases)
+
+        self.dataSource.apply(snapshot)
+    }
+
     private func applySnapshot() -> ((Contents?) -> Void) {
-        var snapshot = Snapshot()
-        
-        return { content in
+        return { [weak self] content in
+            guard let self = self else { return }
             guard let content = content else { return }
             self.infoView.setContent(name: content.contentsName)
             
-            snapshot.appendSections(Section.allCases)
+            self.snapshot.appendSections(Section.allCases)
             snapshot.appendItems(content.rewardItems, toSection: .main)
             self.dataSource.apply(snapshot)
         }
@@ -102,6 +113,7 @@ class ContentInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
         addSubview()
         setLayout()
