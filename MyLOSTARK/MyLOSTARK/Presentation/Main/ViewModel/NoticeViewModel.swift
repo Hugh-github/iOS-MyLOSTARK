@@ -62,3 +62,16 @@ extension NoticeViewModel {
         }
     }
 }
+
+extension NoticeViewModel: WebViewDelegate {
+    func selectLink(linkCase: LinkCase, index: Int) {
+        if linkCase == .update {
+            self.execute(.selectUpdateCell(index))
+        } else if linkCase == .check {
+            self.execute(.selectCheckCell(index))
+        } else if linkCase == .shop {
+            self.execute(.selectShopCell(index))
+        }
+    }
+}
+

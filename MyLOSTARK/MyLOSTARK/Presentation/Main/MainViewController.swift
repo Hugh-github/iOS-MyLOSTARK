@@ -62,13 +62,20 @@ extension MainViewController: UICollectionViewDelegate {
         case .characterPlaceholder:
             return
         case .notice:
-            let webViewController = WebViewController(viewModel: self.viewModel)
+            let webViewController = WebViewController(
+                viewModel: self.viewModel,
+                linkCase: .all,
+                index: indexPath.row
+            )
             present(webViewController, animated: false)
-            self.viewModel.execute(.selectNoticeCell(indexPath.row))
         case .event:
-            let webViewController = WebViewController(viewModel: self.viewModel)
+            let webViewController = WebViewController(
+                viewModel: self.viewModel,
+                linkCase: .event,
+                index: indexPath.row
+            )
+            webViewController.delegate = viewModel
             present(webViewController, animated: false)
-            self.viewModel.execute(.selectEventCell(indexPath.row))
         case .none:
             return
         }

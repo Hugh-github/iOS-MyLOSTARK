@@ -23,6 +23,7 @@
 		720D9EEA2A61143F0070EFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 720D9EE92A61143F0070EFEA /* Assets.xcassets */; };
 		720D9EED2A61143F0070EFEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 720D9EEB2A61143F0070EFEA /* LaunchScreen.storyboard */; };
 		720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EFC2A611FF60070EFEA /* EndPoint.swift */; };
+		721476A22A932B1100156019 /* WebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721476A12A932B1100156019 /* WebViewDelegate.swift */; };
 		7221E3172A807DB500035649 /* ButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7221E3162A807DB500035649 /* ButtonFooterView.swift */; };
 		722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BE32A67ABBE00E91914 /* Notice.swift */; };
 		722C3BE72A67ABBE00E91914 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BE42A67ABBE00E91914 /* Event.swift */; };
@@ -87,6 +88,7 @@
 		720D9EEC2A61143F0070EFEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		720D9EEE2A61143F0070EFEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		720D9EFC2A611FF60070EFEA /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		721476A12A932B1100156019 /* WebViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewDelegate.swift; sourceTree = "<group>"; };
 		7221E3162A807DB500035649 /* ButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterView.swift; sourceTree = "<group>"; };
 		722C3BE32A67ABBE00E91914 /* Notice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		722C3BE42A67ABBE00E91914 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 			children = (
 				72C427A12A8F34E1001C4237 /* WebConnactable.swift */,
 				72C427A32A8F3540001C4237 /* LayoutBuilder.swift */,
+				721476A12A932B1100156019 /* WebViewDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */,
 				72AD6BC92A8DD9870014651B /* MainViewModel.swift in Sources */,
 				72FA373F2A834A800052135C /* SearchViewController.swift in Sources */,
+				721476A22A932B1100156019 /* WebViewDelegate.swift in Sources */,
 				724F738F2A7E054E008923F8 /* SectionBackgroundView.swift in Sources */,
 				724F73912A7E0DF3008923F8 /* BookmarkPlaceholderCell.swift in Sources */,
 				722C3BE72A67ABBE00E91914 /* Event.swift in Sources */,

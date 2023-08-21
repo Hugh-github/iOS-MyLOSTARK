@@ -10,10 +10,21 @@ import WebKit
 
 final class WebViewController: UIViewController {
     private let viewModel: WebConnectableViewModel
+    private let linkCase: LinkCase
+    private let index: Int
+    
+    var delegate: WebViewDelegate?
+    
     private var webView = WKWebView()
     
-    init(viewModel: WebConnectableViewModel) {
+    init(
+        viewModel: WebConnectableViewModel,
+        linkCase: LinkCase,
+        index: Int
+    ) {
         self.viewModel = viewModel
+        self.linkCase = linkCase
+        self.index = index
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -30,6 +41,7 @@ final class WebViewController: UIViewController {
         super.viewDidLoad()
         
         self.viewModel.webLink.addObserver(on: self, loadWebView())
+        delegate?.selectLink(linkCase: linkCase, index: index)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

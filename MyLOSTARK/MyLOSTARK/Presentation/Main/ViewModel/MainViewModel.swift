@@ -70,3 +70,13 @@ extension MainViewModel {
         }
     }
 }
+
+extension MainViewModel: WebViewDelegate {
+    func selectLink(linkCase: LinkCase, index: Int) {
+        if linkCase == .all {
+            self.execute(.selectNoticeCell(index))
+        } else if linkCase == .event {
+            self.execute(.selectEventCell(index))
+        }
+    }
+}
