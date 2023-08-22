@@ -9,6 +9,7 @@ enum Path {
     case notice
     case event
     case calendar
+    case character(String)
     
     var list: [String] {
         switch self {
@@ -18,6 +19,8 @@ enum Path {
             return ["news", "events"]
         case .calendar:
             return ["gamecontents", "calendar"]
+        case .character(let name):
+            return ["armories", "characters", name]
         }
     }
 }
@@ -41,5 +44,38 @@ struct Headers { // 효율적으로 바꿀 필요가 있다.
     ) {
         self.accept = accept
         self.authorization = "bearer \(authorization)"
+    }
+}
+
+// MARK: Character Profile FilterCondition
+enum FilterCondition {
+    case all
+    case profile
+    case equipment
+    case avatars
+    case combatSkills
+    case engravings
+    case cards
+    case gems
+    
+    var value: String? {
+        switch self {
+        case .all:
+            return nil
+        case .profile:
+            return "profiles+"
+        case .equipment:
+            return "equipment+"
+        case .avatars:
+            return "avatars+"
+        case .combatSkills:
+            return "combat-skills+"
+        case .engravings:
+            return "engravings+"
+        case .cards:
+            return "cards+"
+        case .gems:
+            return "gems+"
+        }
     }
 }

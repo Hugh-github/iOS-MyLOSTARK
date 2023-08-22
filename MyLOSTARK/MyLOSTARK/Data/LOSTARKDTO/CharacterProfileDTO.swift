@@ -8,16 +8,103 @@
 import Foundation
 
 struct CharacterProfileDTO: Decodable {
-    let armoryProfile: ArmoryProfileDTO
-    let armoryEquipment: ArmoryEquipmentDTO
-    let armoryEngraving: ArmoryEngravingDTO
-    let armoryCard: ArmoryCardDTO
+    let armoryProfile: ArmoryProfileDTO?
+    let armoryEquipment: ArmoryEquipmentDTO?
+    let armoryEngraving: ArmoryEngravingDTO?
+    let armoryCard: ArmoryCardDTO?
+    let armorySkills: [ArmorySkillsDTO?]
+    let armoryGem: ArmoryGemDTO?
     
     enum CodingKeys: String, CodingKey {
         case armoryProfile = "ArmoryProfile"
         case armoryEquipment = "ArmoryEquipment"
         case armoryEngraving = "ArmoryEngraving"
         case armoryCard = "ArmoryCard"
+        case armorySkills = "ArmorySkills"
+        case armoryGem = "ArmoryGem"
+    }
+}
+
+struct ArmoryGemDTO: Decodable {
+    // gems와 effect slot 끼리 매칭 시켜야 한다.
+    let gems: [GemDTO]
+    let effects: [GemEffectDTO]
+    
+    enum CodingKeys: String, CodingKey {
+        case gems = "Gems"
+        case effects = "Effects"
+    }
+}
+
+struct GemDTO: Decodable {
+    let slot: Int
+    let name: String // 정규식
+    let icon: String
+    
+    enum CodingKeys: String, CodingKey {
+        case slot = "Slot"
+        case name = "Name"
+        case icon = "Icon"
+    }
+}
+
+struct GemEffectDTO: Decodable {
+    let gemSlot: Int
+    let name: String
+    let description: String
+    
+    enum CodingKeys: String, CodingKey {
+        case gemSlot = "GemSlot"
+        case name = "Name"
+        case description = "Description"
+    }
+}
+
+struct ArmorySkillsDTO: Decodable {
+    let name: String
+    let icon: String
+    let level: Int
+    let isAwakening: Bool
+    let tripods: [TripodDTO]
+    let rune: RuneDTO?
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case icon = "Icon"
+        case level = "Level"
+        case isAwakening = "IsAwakening"
+        case tripods = "Tripods"
+        case rune = "Rune"
+    }
+}
+
+struct TripodDTO: Decodable {
+    let tier: Int
+    let slot: Int
+    let name: String
+    let icon: String
+    let level: Int
+    let isSelected: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case tier = "Tier"
+        case slot = "Slot"
+        case name = "Name"
+        case icon = "Icon"
+        case level = "Level"
+        case isSelected = "IsSelected"
+    }
+}
+
+struct RuneDTO: Decodable {
+    let name: String
+    let icon: String
+    let grade: String
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case icon = "Icon"
+        case grade = "Grade"
     }
 }
 
@@ -91,7 +178,7 @@ struct ArmoryEquipmentDTO: Decodable {
 
 struct ArmoryEngravingDTO: Decodable {
     let engravings: [EngravingDTO]
-    let effects: [EffectDTO]
+    let effects: [EngravingEffectDTO]
     
     enum CodingKeys: String, CodingKey {
         case engravings = "Engravings"
@@ -111,7 +198,7 @@ struct EngravingDTO: Decodable {
     }
 }
 
-struct EffectDTO: Decodable {
+struct EngravingEffectDTO: Decodable {
     let name: String
     let description: String
     
