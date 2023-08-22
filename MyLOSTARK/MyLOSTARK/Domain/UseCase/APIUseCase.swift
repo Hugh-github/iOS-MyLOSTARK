@@ -11,7 +11,16 @@ class ContentUseCase {
     private let apiService = LOSTARKAPIService.shared
     
     func execute() async throws -> [Contents] {
-        return try await apiService.getContents()
+        let contentList  = try await apiService.getContents()
+        let todayDate = DateFormatterManager.shared.getTodyDate()
+        
+        return contentList.filter { content in
+            if content.categoryName == "모험 섬" {
+                return content.startTimes.contains("\(todayDate)T11:00:00") || content.startTimes.contains("\(todayDate)T19:00:00")
+            }
+            
+            return false
+        }
     }
 }
 
