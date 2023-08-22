@@ -33,6 +33,7 @@
 		72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */; };
 		72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AEF2A64E179001B8266 /* EndPointComponents.swift */; };
 		72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AF12A64E1A2001B8266 /* JSONManager.swift */; };
+		726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */; };
 		7272CB1D2A7B32B3000D4720 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1C2A7B32B3000D4720 /* CoreDataManager.swift */; };
 		7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */; };
 		72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */; };
@@ -98,6 +99,7 @@
 		72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LOSTARKAPIService.swift; sourceTree = "<group>"; };
 		72520AEF2A64E179001B8266 /* EndPointComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointComponents.swift; sourceTree = "<group>"; };
 		72520AF12A64E1A2001B8266 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
+		726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfileDTO.swift; sourceTree = "<group>"; };
 		7272CB1C2A7B32B3000D4720 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterBookmark.swift; sourceTree = "<group>"; };
 		72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
@@ -159,8 +161,6 @@
 		720D9ED42A61143E0070EFEA = {
 			isa = PBXGroup;
 			children = (
-				72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */,
-				72F2562F2A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift */,
 				72F2562B2A7A400000D9D032 /* Bookmark.xcdatamodeld */,
 				720D9EDF2A61143E0070EFEA /* MyLOSTARK */,
 				7209EE192A66553200F2902A /* APIServiceTest */,
@@ -183,6 +183,7 @@
 				720D9EE02A61143E0070EFEA /* AppDelegate.swift */,
 				720D9EE22A61143E0070EFEA /* SceneDelegate.swift */,
 				72C4279A2A8F328B001C4237 /* Infra */,
+				726DF2212A9469810087A3D5 /* Data */,
 				720D9EF42A6116090070EFEA /* Domain */,
 				72C427AA2A8F373D001C4237 /* Presentation */,
 				720D9EE92A61143F0070EFEA /* Assets.xcassets */,
@@ -221,6 +222,32 @@
 				72AD6BC82A8DD9870014651B /* MainViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		726DF2212A9469810087A3D5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				726DF2232A9469B50087A3D5 /* LOSTARKDTO */,
+				726DF2222A94698E0087A3D5 /* CoreData */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		726DF2222A94698E0087A3D5 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */,
+				72F2562F2A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		726DF2232A9469B50087A3D5 /* LOSTARKDTO */ = {
+			isa = PBXGroup;
+			children = (
+				726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */,
+			);
+			path = LOSTARKDTO;
 			sourceTree = "<group>";
 		};
 		72C427952A8F3209001C4237 /* UseCase */ = {
@@ -503,6 +530,7 @@
 				72C427A72A8F3579001C4237 /* NSCollectionLayoutSection+extension.swift in Sources */,
 				72C427992A8F3260001C4237 /* DatabaseUseCase.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */,
+				726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */,
 				72F256302A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift in Sources */,
 				72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */,
 				72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */,
