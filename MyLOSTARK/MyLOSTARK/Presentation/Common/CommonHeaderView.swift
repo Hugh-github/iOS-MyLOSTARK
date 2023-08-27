@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 버튼을 하나 추가해서 커스텀 하자
 class CommonHeaderView: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -16,10 +17,19 @@ class CommonHeaderView: UICollectionReusableView {
         return label
     }()
     
+    private let button: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.systemGray, for: .normal)
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setLayout()
+        self.setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -37,12 +47,23 @@ class CommonHeaderView: UICollectionReusableView {
         self.backgroundColor = color
     }
     
+    func configureButton(title: String) {
+        self.button.isHidden = false
+        self.button.setTitle(title, for: .normal)
+    }
+    
     private func setLayout() {
         addSubview(titleLabel)
+        addSubview(button)
         
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            self.titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            self.titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            self.button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
         ])
     }
 }
