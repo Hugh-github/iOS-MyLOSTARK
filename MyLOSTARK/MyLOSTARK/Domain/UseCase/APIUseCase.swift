@@ -36,7 +36,7 @@ class NoticeUseCase {
     private let apiService = LOSTARKAPIService.shared
     
     func execute(_ type: String? = nil) async throws -> [Notice] {
-        let notices = try await apiService.getNoticeList()
+        let notices = try await apiService.getNoticeList(type)
         
         if type == nil {
             return Array(notices.prefix(5))

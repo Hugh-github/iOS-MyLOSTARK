@@ -7,7 +7,6 @@
 
 import UIKit
 
-// 버튼을 하나 추가해서 커스텀 하자
 class CommonHeaderView: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let label = UILabel()
