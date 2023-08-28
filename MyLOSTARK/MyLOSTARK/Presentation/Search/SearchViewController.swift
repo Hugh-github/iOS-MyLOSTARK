@@ -8,16 +8,49 @@
 import UIKit
 
 // Cell 커스텀 해야 한다.
-// 기존의 CommenHeaderView를 조금 수정하자.
 class SearchViewController: UIViewController {
+    private var collectionView: UICollectionView! = nil
+    private let layoutBuilder = CollectionViewLayoutBuilder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         self.configureNavigationBar()
+        self.configureCollectionView()
     }
     
+    private func configureCollectionView() {
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: setCollectionViewLayout())
+        collectionView.backgroundColor = .white
+        collectionView.register(
+            CommonHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: CommonHeaderView.reuseIdentifier
+        )
+        
+        view.addSubview(collectionView)
+    }
+    
+    private func setCollectionViewLayout() -> UICollectionViewLayout {
+        guard let section = layoutBuilder.setItem(width: .fractionalWidth(1.0), height: .fractionalHeight(1.0))
+            .setGroup(width: .fractionalHeight(1.0), height: .fractionalHeight(0.15), direction: .horizontal)
+            .getSectionLayout() else {
+            return UICollectionViewLayout()
+        }
+        section.boundarySupplementaryItems = [self.createHeader()]
+        
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+        
+    private func createHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
+        
+        return NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+    }
 }
 
 extension SearchViewController {
