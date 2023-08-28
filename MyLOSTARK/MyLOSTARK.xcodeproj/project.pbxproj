@@ -59,9 +59,6 @@
 		72E1929F2A87385500A735AF /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E1929E2A87385500A735AF /* Observable.swift */; };
 		72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */; };
 		72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */; };
-		72F2562D2A7A400000D9D032 /* Bookmark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72F2562B2A7A400000D9D032 /* Bookmark.xcdatamodeld */; };
-		72F256302A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */; };
-		72F256312A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2562F2A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift */; };
 		72FA373F2A834A800052135C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FA373E2A834A800052135C /* SearchViewController.swift */; };
 		72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FA37412A834AEB0052135C /* ScheduleViewController.swift */; };
 /* End PBXBuildFile section */
@@ -125,9 +122,6 @@
 		72E1929E2A87385500A735AF /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutBuilder.swift; sourceTree = "<group>"; };
 		72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VStackImageLabelCell.swift; sourceTree = "<group>"; };
-		72F2562C2A7A400000D9D032 /* Bookmark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bookmark.xcdatamodel; sourceTree = "<group>"; };
-		72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		72F2562F2A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		72FA373E2A834A800052135C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		72FA37412A834AEB0052135C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,7 +157,6 @@
 		720D9ED42A61143E0070EFEA = {
 			isa = PBXGroup;
 			children = (
-				72F2562B2A7A400000D9D032 /* Bookmark.xcdatamodeld */,
 				720D9EDF2A61143E0070EFEA /* MyLOSTARK */,
 				7209EE192A66553200F2902A /* APIServiceTest */,
 				720D9EDE2A61143E0070EFEA /* Products */,
@@ -230,18 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				726DF2232A9469B50087A3D5 /* LOSTARKDTO */,
-				726DF2222A94698E0087A3D5 /* CoreData */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		726DF2222A94698E0087A3D5 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				72F2562E2A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift */,
-				72F2562F2A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift */,
-			);
-			path = CoreData;
 			sourceTree = "<group>";
 		};
 		726DF2232A9469B50087A3D5 /* LOSTARKDTO */ = {
@@ -518,12 +501,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72F2562D2A7A400000D9D032 /* Bookmark.xcdatamodeld in Sources */,
 				7209EE252A6656D800F2902A /* URLSessionProtocol.swift in Sources */,
 				72D43B2C2A7CE574007A5023 /* BookmarkButton.swift in Sources */,
 				720D9EE52A61143E0070EFEA /* MainViewController.swift in Sources */,
 				72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */,
-				72F256312A7A401900D9D032 /* CharacterInfo+CoreDataProperties.swift in Sources */,
 				72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */,
 				729187522A80B8110070BA7F /* NoticeListViewController.swift in Sources */,
 				7221E3172A807DB500035649 /* ButtonFooterView.swift in Sources */,
@@ -542,7 +523,6 @@
 				72C427992A8F3260001C4237 /* DatabaseUseCase.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */,
 				726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */,
-				72F256302A7A401900D9D032 /* CharacterInfo+CoreDataClass.swift in Sources */,
 				72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */,
 				72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */,
 				722C3BE82A67ABBE00E91914 /* Contents.swift in Sources */,
@@ -825,19 +805,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		72F2562B2A7A400000D9D032 /* Bookmark.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				72F2562C2A7A400000D9D032 /* Bookmark.xcdatamodel */,
-			);
-			currentVersion = 72F2562C2A7A400000D9D032 /* Bookmark.xcdatamodel */;
-			path = Bookmark.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 720D9ED52A61143E0070EFEA /* Project object */;
 }
