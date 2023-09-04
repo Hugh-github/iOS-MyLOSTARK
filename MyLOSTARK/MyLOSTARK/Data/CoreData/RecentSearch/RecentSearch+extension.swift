@@ -23,11 +23,3 @@ extension RecentSearch {
         )
     }
 }
-
-// MARK: Domain 폴더로 이동
-struct RecentCharacterInfo {
-    let name: String
-    let jobClass: String
-    let itemLevel: String
-    let isBookmakr: Bool
-}
