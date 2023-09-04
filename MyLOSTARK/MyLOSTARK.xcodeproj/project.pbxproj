@@ -213,11 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				7209EE232A66557700F2902A /* URLSessionProtocol.swift */,
-				720D9EFC2A611FF60070EFEA /* EndPoint.swift */,
-				72520AEF2A64E179001B8266 /* EndPointComponents.swift */,
 				72C38C6A2A62668A005C3F7D /* NetworkManager.swift */,
 				72B02BD52A6E79EB00D5E146 /* ImageLoader.swift */,
-				72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -235,7 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				72AFADD42AA5EBE900D345D8 /* CoreData */,
-				726DF2232A9469B50087A3D5 /* LOSTARKDTO */,
+				72AFADDF2AA5EF7C00D345D8 /* Network */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -294,6 +291,17 @@
 				72AFADDB2AA5EE9500D345D8 /* RecentCharacterInfo.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		72AFADDF2AA5EF7C00D345D8 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */,
+				720D9EFC2A611FF60070EFEA /* EndPoint.swift */,
+				72520AEF2A64E179001B8266 /* EndPointComponents.swift */,
+				726DF2232A9469B50087A3D5 /* LOSTARKDTO */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		72C427952A8F3209001C4237 /* UseCase */ = {
