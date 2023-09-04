@@ -7,6 +7,6 @@
 
 struct CharacterBookmark: Hashable {
     var jobClass: String
-    var itemLevel: Float
+    var itemLevel: String
     var name: String
 }
