@@ -437,7 +437,7 @@ extension MainViewController {
             if bookmarks.isEmpty {
                 snapshot.deleteSections([.characterBookmark])
                 self.dataSource.apply(snapshot)
-                sectionSnapshot.append([CharacterBookmark(jobClass: "placeholder", itemLevel: 0, name: "없음")])
+                sectionSnapshot.append([CharacterBookmark(jobClass: "placeholder", itemLevel: "0", name: "없음")])
                 self.dataSource.apply(sectionSnapshot, to: .characterPlaceholder)
             } else {
                 snapshot.deleteSections([.characterPlaceholder])

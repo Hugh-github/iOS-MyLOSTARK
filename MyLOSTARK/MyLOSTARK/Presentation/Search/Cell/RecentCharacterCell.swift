@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: 즐겨 찾기 버튼 추가
 class RecentCharacterCell: UICollectionViewCell {
     private let thumbnailView: UIImageView = {
         let imageView = UIImageView()
@@ -43,6 +44,8 @@ class RecentCharacterCell: UICollectionViewCell {
         
         return label
     }()
+    
+    private let bookmarkButton = BookmarkButton()
     
     private let deleteButton: UIButton = {
         let button = UIButton()
@@ -90,6 +93,11 @@ class RecentCharacterCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             self.deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             self.deleteButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.bookmarkButton.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor, constant: -5),
+            self.bookmarkButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
 }
