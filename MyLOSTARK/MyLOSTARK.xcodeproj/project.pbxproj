@@ -277,6 +277,25 @@
 			path = RecentSearch;
 			sourceTree = "<group>";
 		};
+		72AFADDD2AA5EF1700D345D8 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				722C3BE32A67ABBE00E91914 /* Notice.swift */,
+				722C3BE42A67ABBE00E91914 /* Event.swift */,
+				722C3BE52A67ABBE00E91914 /* Contents.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		72AFADDE2AA5EF2500D345D8 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */,
+				72AFADDB2AA5EE9500D345D8 /* RecentCharacterInfo.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		72C427952A8F3209001C4237 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,11 +317,8 @@
 		72C4279D2A8F342C001C4237 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				722C3BE32A67ABBE00E91914 /* Notice.swift */,
-				722C3BE42A67ABBE00E91914 /* Event.swift */,
-				722C3BE52A67ABBE00E91914 /* Contents.swift */,
-				7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */,
-				72AFADDB2AA5EE9500D345D8 /* RecentCharacterInfo.swift */,
+				72AFADDE2AA5EF2500D345D8 /* CoreData */,
+				72AFADDD2AA5EF1700D345D8 /* Network */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
