@@ -9,7 +9,7 @@ import UIKit
 
 // TODO: 즐겨 찾기 버튼 추가
 class RecentCharacterCell: UICollectionViewCell {
-    private let thumbnailView: UIImageView = {
+    private(set) var thumbnailView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -21,13 +21,13 @@ class RecentCharacterCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.alignment = .center
+        stackView.alignment = .leading
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
-    private let nameLabel: UILabel = {
+    private(set) var nameLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
         label.tintColor = .black
@@ -36,7 +36,7 @@ class RecentCharacterCell: UICollectionViewCell {
         return label
     }()
     
-    private let levelLabel: UILabel = {
+    private(set) var levelLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .footnote)
         label.tintColor = .systemGray
@@ -45,7 +45,7 @@ class RecentCharacterCell: UICollectionViewCell {
         return label
     }()
     
-    private let bookmarkButton = BookmarkButton()
+    private(set) var bookmarkButton = BookmarkButton()
     
     private let deleteButton: UIButton = {
         let button = UIButton()
@@ -70,6 +70,7 @@ class RecentCharacterCell: UICollectionViewCell {
     private func addSubview() {
         contentView.addSubview(thumbnailView)
         contentView.addSubview(labelStackView)
+        contentView.addSubview(bookmarkButton)
         contentView.addSubview(deleteButton)
         
         labelStackView.addArrangedSubview(nameLabel)
@@ -78,25 +79,25 @@ class RecentCharacterCell: UICollectionViewCell {
     
     private func setLayout() {
         NSLayoutConstraint.activate([
-            self.thumbnailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             self.thumbnailView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            self.thumbnailView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9)
+            self.thumbnailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            self.thumbnailView.heightAnchor.constraint(equalTo: thumbnailView.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            self.labelStackView.leadingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: 10),
-            self.labelStackView.centerYAnchor.constraint(equalTo: thumbnailView.centerYAnchor),
-            self.labelStackView.heightAnchor.constraint(equalTo: thumbnailView.heightAnchor, multiplier: 0.9),
+            self.labelStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            self.labelStackView.leadingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: 20),
+            self.labelStackView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8),
             self.labelStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5)
         ])
         
         NSLayoutConstraint.activate([
-            self.deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            self.deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             self.deleteButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            self.bookmarkButton.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor, constant: -5),
+            self.bookmarkButton.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor, constant: -10),
             self.bookmarkButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
