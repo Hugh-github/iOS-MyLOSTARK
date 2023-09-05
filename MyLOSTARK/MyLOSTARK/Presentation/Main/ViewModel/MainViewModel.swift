@@ -7,7 +7,8 @@
 
 import Foundation
 
-protocol TestViewModelOUTPUT {
+// MARK: 네이밍 변경
+protocol MainViewModelOUTPUT {
     var contents: Observable<[Contents]> { get }
     var events: Observable<[Event]> { get }
     var notices: Observable<[Notice]> { get }
@@ -16,7 +17,7 @@ protocol TestViewModelOUTPUT {
 }
 
 // 정상적으로 동작한다.
-final class MainViewModel: TestViewModelOUTPUT, WebConnectableViewModel {
+final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     enum Action {
         case viewDidLoad
         case selectContentCell(Int)

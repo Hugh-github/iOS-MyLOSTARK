@@ -19,7 +19,7 @@ extension RecentSearch {
             name: name!,
             jobClass: jobClass!,
             itemLevel: itemLevel!,
-            isBookmakr: isBookmark
+            isBookmark: isBookmark
         )
     }
 }
