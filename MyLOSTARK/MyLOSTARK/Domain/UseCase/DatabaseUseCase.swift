@@ -8,9 +8,29 @@
 import Foundation
 
 class BookmarkUseCase {
-    private let manager = CoreDataManager()
+    private let storage = CoreDataBookmarkStorage()
     
     func execute() -> [CharacterBookmark] {
-        return manager.fetchCoreData()
+        do {
+            return  try storage.fetchBookmark()
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return []
+    }
+}
+
+class RecentSearchUseCase {
+    private let storage = CoreDataRecentSearchStorage()
+    
+    func execute() -> [RecentCharacterInfo] {
+        do {
+            return try storage.fetchRecentCharaterList()
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return []
     }
 }

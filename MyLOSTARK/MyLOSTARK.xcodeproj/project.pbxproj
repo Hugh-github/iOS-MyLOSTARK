@@ -65,6 +65,7 @@
 		72E1929F2A87385500A735AF /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E1929E2A87385500A735AF /* Observable.swift */; };
 		72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */; };
 		72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */; };
+		72EF81482AA6EA3400F42003 /* RecentSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EF81472AA6EA3400F42003 /* RecentSearchViewModel.swift */; };
 		72FA373F2A834A800052135C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FA373E2A834A800052135C /* SearchViewController.swift */; };
 		72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FA37412A834AEB0052135C /* ScheduleViewController.swift */; };
 /* End PBXBuildFile section */
@@ -134,6 +135,7 @@
 		72E1929E2A87385500A735AF /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutBuilder.swift; sourceTree = "<group>"; };
 		72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VStackImageLabelCell.swift; sourceTree = "<group>"; };
+		72EF81472AA6EA3400F42003 /* RecentSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchViewModel.swift; sourceTree = "<group>"; };
 		72FA373E2A834A800052135C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		72FA37412A834AEB0052135C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -404,11 +406,11 @@
 		72D203312A736ECF005A71A2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				72D203322A736EDF005A71A2 /* Cell */,
 				720D9EE42A61143E0070EFEA /* MainViewController.swift */,
 				72B84F112A71F8AD006656BF /* WebViewController.swift */,
 				72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */,
 				729187512A80B8110070BA7F /* NoticeListViewController.swift */,
+				72D203322A736EDF005A71A2 /* Cell */,
 				722C3BCA2A678A7000E91914 /* ViewModel */,
 			);
 			path = Main;
@@ -425,11 +427,20 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		72EF81462AA6E9F600F42003 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				72EF81472AA6EA3400F42003 /* RecentSearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		72FA373D2A834A690052135C /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				72CD89AC2A9C24510001ABC9 /* Cell */,
 				72FA373E2A834A800052135C /* SearchViewController.swift */,
+				72CD89AC2A9C24510001ABC9 /* Cell */,
+				72EF81462AA6E9F600F42003 /* ViewModel */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -565,6 +576,7 @@
 				72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */,
 				72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */,
 				729187522A80B8110070BA7F /* NoticeListViewController.swift in Sources */,
+				72EF81482AA6EA3400F42003 /* RecentSearchViewModel.swift in Sources */,
 				7221E3172A807DB500035649 /* ButtonFooterView.swift in Sources */,
 				7272CB1D2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift in Sources */,
 				7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */,
