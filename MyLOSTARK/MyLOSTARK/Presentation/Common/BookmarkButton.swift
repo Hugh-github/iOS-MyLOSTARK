@@ -14,13 +14,17 @@ class BookmarkButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setImage(starFillImage, for: .normal)
-        setImage(starImage, for: .highlighted)
+        setImage(starImage, for: .normal)
+        setImage(starFillImage, for: .selected)
         tintColor = .systemBlue
         translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func toggle() {
+        isSelected.toggle()
     }
 }

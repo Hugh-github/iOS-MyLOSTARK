@@ -47,7 +47,7 @@ class RecentCharacterCell: UICollectionViewCell {
     
     private(set) var bookmarkButton = BookmarkButton()
     
-    private let deleteButton: UIButton = {
+    private(set) var deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = .red

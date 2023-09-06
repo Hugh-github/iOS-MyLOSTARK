@@ -314,6 +314,7 @@ extension MainViewController {
                 switch section {
                 case .characterPlaceholder:
                     footer.setTitle("추가하기 +")
+                    footer.button.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
                 case .notice:
                     footer.setTitle("모두 보기")
                     footer.button.addTarget(self, action: #selector(didTapViewAllButton), for: .touchUpInside)
@@ -324,6 +325,11 @@ extension MainViewController {
                 return footer
             }
         }
+    }
+    
+    @objc private func didTapAddButton() {
+        // MARK: TabBar의 Index를 관리하는 타입을 만들어야 할지 고민
+        tabBarController?.selectedIndex = 1
     }
     
     @objc private func didTapViewAllButton() {
