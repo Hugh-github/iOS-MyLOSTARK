@@ -8,7 +8,7 @@
 import UIKit
 
 class CommonHeaderView: UICollectionReusableView {
-    private let titleLabel: UILabel = {
+    private(set) var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -16,7 +16,7 @@ class CommonHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private let button: UIButton = {
+    private(set) var button: UIButton = {
         let button = UIButton()
         button.setTitleColor(.systemGray, for: .normal)
         button.isHidden = true
