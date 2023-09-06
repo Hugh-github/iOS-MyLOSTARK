@@ -88,8 +88,10 @@ extension SearchViewController {
             cell.thumbnailView.image = UIImage(named: itemIdentifier.jobClass)?.resize(newWidth: cell.frame.height * 0.8)
             cell.nameLabel.text = itemIdentifier.name
             cell.levelLabel.text = itemIdentifier.itemLevel
-            cell.bookmarkButton.isHighlighted = !itemIdentifier.isBookmark
+            cell.bookmarkButton.isSelected = itemIdentifier.isBookmark
+            cell.delegate = self
             cell.bookmarkButton.addAction(self.didTapBookmarkButton(indexPath.row), for: .touchUpInside)
+//            cell.deleteButton.addAction(self.didTabDeleteButton(indexPath.row), for: .touchUpInside)
         }
         
         self.dataSource = DataSource.init(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
@@ -124,17 +126,26 @@ extension SearchViewController {
     
     private func didTabDeleteAllButton() -> UIAction {
         return UIAction { _ in
-            // MARK: 함수로 변경(CoreData에도 반영 가능하도록)
+            // MARK: 함수로 변경(CoreData에도 반영)
             self.viewModel.searchList.value.removeAll()
         }
     }
     
     private func didTapBookmarkButton(_ index: Int) -> UIAction {
-        return UIAction { _ in
-            // MARK: index를 이용해 CoreData 추가 변경
-            print("안녕")
+        return UIAction { action in
+            let button = action.sender as? BookmarkButton
+            button?.toggle()
         }
     }
+    
+//    private func didTabDeleteButton(_ index: Int) -> UIAction {
+//        // MARK: Cell 생성시 button에 action을 추가하면 문제는 변하는 index를 알 수 없다.(처음 생성시 고정된 index를 가지고 해결한다.)
+//        // sender의 superview를 이용하는 방법(sender.superview.superview) -> collectionView에서 cell을 통해 indexPath를 구할 수 있다.
+//        // delegate를 이용하는 방법
+//        return UIAction { _ in
+//            self.viewModel.searchList.value.remove(at: index)
+//        }
+//    }
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<SearchViewSection, RecentCharacterInfo>()
@@ -184,5 +195,14 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.viewModel.searchList.value.append(RecentCharacterInfo(name: searchBar.text!, jobClass: "건슬링어", itemLevel: "1565.0", isBookmark: false))
+    }
+}
+
+extension SearchViewController: RecentCharacterCellDelegate {
+    // MARK: DeleteButton 문제 해결
+    // BookmarkButton에 대해서도 고민해 보자
+    func didTabDeleteButton(cell: RecentCharacterCell) {
+        guard let index = self.collectionView.indexPath(for: cell) else { return }
+        self.viewModel.searchList.value.remove(at: index.row)
     }
 }

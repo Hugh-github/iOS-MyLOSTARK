@@ -7,8 +7,9 @@
 
 import UIKit
 
-// TODO: 즐겨 찾기 버튼 추가
 class RecentCharacterCell: UICollectionViewCell {
+    weak var delegate: RecentCharacterCellDelegate?
+    
     private(set) var thumbnailView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -61,10 +62,18 @@ class RecentCharacterCell: UICollectionViewCell {
         
         self.addSubview()
         self.setLayout()
+        self.deleteButton.addAction(didTabDeleteButton(), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func didTabDeleteButton() -> UIAction {
+        return UIAction { [weak self] _ in
+            guard let self = self else { return }
+            delegate?.didTabDeleteButton(cell: self)
+        }
     }
     
     private func addSubview() {
@@ -101,4 +110,8 @@ class RecentCharacterCell: UICollectionViewCell {
             self.bookmarkButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
+}
+
+protocol RecentCharacterCellDelegate: AnyObject {
+    func didTabDeleteButton(cell: RecentCharacterCell)
 }
