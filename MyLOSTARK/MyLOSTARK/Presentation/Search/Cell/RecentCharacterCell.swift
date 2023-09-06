@@ -62,11 +62,19 @@ class RecentCharacterCell: UICollectionViewCell {
         
         self.addSubview()
         self.setLayout()
+        self.bookmarkButton.addAction(didTabBookmarkButton(), for: .touchUpInside)
         self.deleteButton.addAction(didTabDeleteButton(), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func didTabBookmarkButton() -> UIAction {
+        return UIAction { [weak self] _ in
+            guard let self = self else { return }
+            delegate?.didTabBookmarkButton(cell: self)
+        }
     }
     
     private func didTabDeleteButton() -> UIAction {
@@ -114,4 +122,5 @@ class RecentCharacterCell: UICollectionViewCell {
 
 protocol RecentCharacterCellDelegate: AnyObject {
     func didTabDeleteButton(cell: RecentCharacterCell)
+    func didTabBookmarkButton(cell: RecentCharacterCell)
 }

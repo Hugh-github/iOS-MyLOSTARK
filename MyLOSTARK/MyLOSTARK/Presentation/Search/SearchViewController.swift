@@ -7,7 +7,6 @@
 
 import UIKit
 
-// Cell 커스텀 해야 한다.
 class SearchViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<SearchViewSection, RecentCharacterInfo>
     
@@ -90,8 +89,6 @@ extension SearchViewController {
             cell.levelLabel.text = itemIdentifier.itemLevel
             cell.bookmarkButton.isSelected = itemIdentifier.isBookmark
             cell.delegate = self
-            cell.bookmarkButton.addAction(self.didTapBookmarkButton(indexPath.row), for: .touchUpInside)
-//            cell.deleteButton.addAction(self.didTabDeleteButton(indexPath.row), for: .touchUpInside)
         }
         
         self.dataSource = DataSource.init(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
@@ -126,8 +123,7 @@ extension SearchViewController {
     
     private func didTabDeleteAllButton() -> UIAction {
         return UIAction { _ in
-            // MARK: 함수로 변경(CoreData에도 반영)
-            self.viewModel.searchList.value.removeAll()
+            self.viewModel.execute(.didTabDeleteAllButton)
         }
     }
     
@@ -137,15 +133,6 @@ extension SearchViewController {
             button?.toggle()
         }
     }
-    
-//    private func didTabDeleteButton(_ index: Int) -> UIAction {
-//        // MARK: Cell 생성시 button에 action을 추가하면 문제는 변하는 index를 알 수 없다.(처음 생성시 고정된 index를 가지고 해결한다.)
-//        // sender의 superview를 이용하는 방법(sender.superview.superview) -> collectionView에서 cell을 통해 indexPath를 구할 수 있다.
-//        // delegate를 이용하는 방법
-//        return UIAction { _ in
-//            self.viewModel.searchList.value.remove(at: index)
-//        }
-//    }
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<SearchViewSection, RecentCharacterInfo>()
@@ -199,10 +186,14 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 extension SearchViewController: RecentCharacterCellDelegate {
-    // MARK: DeleteButton 문제 해결
-    // BookmarkButton에 대해서도 고민해 보자
+    func didTabBookmarkButton(cell: RecentCharacterCell) {
+        guard let index = self.collectionView.indexPath(for: cell) else { return }
+        cell.bookmarkButton.toggle()
+        self.viewModel.execute(.didTabBookmarkButton(index.row))
+    }
+    
     func didTabDeleteButton(cell: RecentCharacterCell) {
         guard let index = self.collectionView.indexPath(for: cell) else { return }
-        self.viewModel.searchList.value.remove(at: index.row)
+        self.viewModel.execute(.didTabDeleteButton(index.row))
     }
 }

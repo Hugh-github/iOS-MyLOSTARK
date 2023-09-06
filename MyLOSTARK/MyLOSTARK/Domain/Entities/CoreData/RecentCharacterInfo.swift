@@ -9,7 +9,11 @@ struct RecentCharacterInfo: Hashable {
     let name: String
     let jobClass: String
     let itemLevel: String
-    let isBookmark: Bool
+    var isBookmark: Bool
+    
+    mutating func toggle() {
+        self.isBookmark.toggle()
+    }
     
     static func == (lhs: RecentCharacterInfo, rhs: RecentCharacterInfo) -> Bool {
         return lhs.name == rhs.name

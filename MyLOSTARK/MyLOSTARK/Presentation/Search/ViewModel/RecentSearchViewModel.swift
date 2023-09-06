@@ -15,6 +15,9 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
     enum Action {
         case viewDidLoad
         case search(String)
+        case didTabBookmarkButton(Int)
+        case didTabDeleteButton(Int)
+        case didTabDeleteAllButton
     }
     
     private let recentUseCase = RecentSearchUseCase()
@@ -27,6 +30,12 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
             self.searchList.value = recentUseCase.execute()
         case .search(_):
             break
+        case .didTabBookmarkButton(let index):
+            self.searchList.value[index].toggle()
+        case .didTabDeleteButton(let index):
+            self.searchList.value.remove(at: index)
+        case .didTabDeleteAllButton:
+            self.searchList.value.removeAll()
         }
     }
 }
