@@ -154,11 +154,11 @@ extension MainViewController {
         let section = collectionViewLayoutBuilder
             .setItem(width: .fractionalWidth(0.3), height: .fractionalHeight(1.0))
             .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.26), direction: .horizontal)
+            .setItemSpacing(10)
             .setGroupInset(top: 10, leading: 10, bottom: 10, trailing: 10)
             .getSectionLayout()
         
         section?.setScrollingBehavior(.continuous)
-        section?.setGroupSpacing(10)
         section?.boundarySupplementaryItems = [self.createHeader()]
         section?.decorationItems = [
             NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)

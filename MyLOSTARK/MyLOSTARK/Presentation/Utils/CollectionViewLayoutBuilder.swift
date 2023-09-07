@@ -39,6 +39,12 @@ class CollectionViewLayoutBuilder: LayoutBuilder {
         }
     }
     
+    func setItemSpacing(_ spacing: CGFloat) -> CollectionViewLayoutBuilder {
+        self.group?.interItemSpacing = .fixed(spacing)
+        
+        return self
+    }
+    
     func setGroupInset(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat) -> CollectionViewLayoutBuilder {
         self.group?.contentInsets = NSDirectionalEdgeInsets(top: top, leading: leading, bottom: bottom, trailing: trailing)
 
