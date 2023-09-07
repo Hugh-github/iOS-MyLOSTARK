@@ -355,6 +355,8 @@ extension MainViewController {
                 level: String(itemIdentifier.itemLevel),
                 name: itemIdentifier.name
             )
+            cell.delegate = self
+            cell.bookmarkButton.isSelected = true
             cell.backgroundColor = .white
         }
     }
@@ -407,37 +409,34 @@ extension MainViewController {
     }
     
     private func applyCalendarSnapshot() -> (([Contents]) -> Void) {
-        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-        
         return { contents in
+            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
             sectionSnapshot.append(contents)
             self.dataSource.apply(sectionSnapshot, to: .calendar)
         }
     }
     
     private func applyNoticeSnapshot() -> (([Notice]) -> Void) {
-        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-        
         return { notices in
+            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
             sectionSnapshot.append(notices)
             self.dataSource.apply(sectionSnapshot, to: .notice)
         }
     }
     
     private func applyEventSnapshot() -> (([Event]) -> Void) {
-        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-        
         return { events in
+            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
             sectionSnapshot.append(events)
             self.dataSource.apply(sectionSnapshot, to: .event)
         }
     }
     
     private func applyBookmarkSanpshot() -> (([CharacterBookmark]?) -> Void) {
-        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         var snapshot = self.dataSource.snapshot()
 
         return { bookmarks in
+            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
             guard let bookmarks = bookmarks else { return }
 
             if bookmarks.isEmpty {

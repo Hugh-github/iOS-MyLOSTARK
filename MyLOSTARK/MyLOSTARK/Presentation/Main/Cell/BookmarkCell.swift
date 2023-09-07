@@ -8,7 +8,9 @@
 import UIKit
 
 class BookmarkCell: UICollectionViewCell {
-    private let starButton = BookmarkButton()
+    weak var delegate: BookmarkCellDelegate?
+    
+    private(set) var bookmarkButton = BookmarkButton()
     
     private let jobClassImageView: UIImageView = {
         let imageView = UIImageView()
@@ -37,9 +39,10 @@ class BookmarkCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview()
-        setLayout()
+        self.addSubview()
+        self.setLayout()
         
+        self.bookmarkButton.addAction(didTabBookmarkButton(), for: .touchUpInside)
         contentView.backgroundColor = .systemGray6
         contentView.layer.cornerRadius = 10
         clipsToBounds = true
@@ -49,9 +52,16 @@ class BookmarkCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func didTabBookmarkButton() -> UIAction {
+        return UIAction { [weak self] _ in
+            guard let self = self else { return }
+            delegate?.didTabBookmarkButton(cell: self)
+        }
+    }
+    
     private func addSubview() {
         contentView.addSubview(jobClassImageView)
-        contentView.addSubview(starButton)
+        contentView.addSubview(bookmarkButton)
         contentView.addSubview(itemLevelLabel)
         contentView.addSubview(nameLabel)
     }
@@ -65,10 +75,10 @@ class BookmarkCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            self.starButton.topAnchor.constraint(equalTo: topAnchor),
-            self.starButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            self.starButton.widthAnchor.constraint(equalToConstant: 30),
-            self.starButton.heightAnchor.constraint(equalToConstant: 30)
+            self.bookmarkButton.topAnchor.constraint(equalTo: topAnchor),
+            self.bookmarkButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            self.bookmarkButton.widthAnchor.constraint(equalToConstant: 30),
+            self.bookmarkButton.heightAnchor.constraint(equalToConstant: 30)
         ])
 
         NSLayoutConstraint.activate([
@@ -87,4 +97,8 @@ class BookmarkCell: UICollectionViewCell {
         self.itemLevelLabel.text = level
         self.nameLabel.text = name
     }
+}
+
+protocol BookmarkCellDelegate: AnyObject {
+    func didTabBookmarkButton(cell: BookmarkCell)
 }
