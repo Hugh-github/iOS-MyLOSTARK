@@ -55,6 +55,14 @@ final class MainViewController: UIViewController {
     }
 }
 
+// MARK: BookmarkCell Delegate
+extension MainViewController: BookmarkCellDelegate {
+    func didTabBookmarkButton(cell: BookmarkCell) {
+        guard let index = self.collectionView.indexPath(for: cell) else { return }
+        self.viewModel.execute(.unRegistCharacter(index.row))
+    }
+}
+
 // MARK: CollectionView Delegate
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
