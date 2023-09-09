@@ -181,7 +181,9 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        self.viewModel.searchList.value.append(RecentCharacterInfo(name: searchBar.text!, jobClass: "건슬링어", itemLevel: "1565.0", isBookmark: false))
+        // Bookmark에 저장된 캐릭터를 최근 검색어에서 제거 후 다시 검색하면 Bookmark 버튼이 true 상태로 화면에 나타나지 않는다.
+        
+        self.viewModel.execute(.search(searchBar.text!))
     }
 }
 
