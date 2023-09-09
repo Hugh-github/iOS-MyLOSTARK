@@ -70,38 +70,39 @@ extension MainViewController: UICollectionViewDelegate {
         
         switch sectionId {
         case .calendar:
-            let infoViewController = ContentInfoViewController(viewModel: self.viewModel, indexPath: indexPath.row)
-            
-            infoViewController.modalPresentationStyle = .pageSheet
-            
-            if let sheet = infoViewController.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-            }
-            
-            present(infoViewController, animated: true, completion: nil)
+            self.presentContentView(indexPath.row)
         case .characterBookmark:
             return
-        case .characterPlaceholder:
-            return
         case .notice:
-            let webViewController = WebViewController(
-                viewModel: self.viewModel,
-                linkCase: .all,
-                index: indexPath.row
-            )
-            present(webViewController, animated: false)
+            self.presentWebView(.all, index: indexPath.row)
         case .event:
-            let webViewController = WebViewController(
-                viewModel: self.viewModel,
-                linkCase: .event,
-                index: indexPath.row
-            )
-            webViewController.delegate = viewModel
-            present(webViewController, animated: false)
-        case .none:
+            self.presentWebView(.event, index: indexPath.row)
+        default:
             return
         }
+    }
+    
+    private func presentContentView(_ index: Int) {
+        let infoViewController = ContentInfoViewController(viewModel: self.viewModel, indexPath: index)
+        
+        infoViewController.modalPresentationStyle = .pageSheet
+        
+        if let sheet = infoViewController.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+        }
+        
+        present(infoViewController, animated: true, completion: nil)
+    }
+    
+    private func presentWebView(_ link: LinkCase, index: Int) {
+        let webViewController = WebViewController(
+            viewModel: self.viewModel,
+            linkCase: link,
+            index: index
+        )
+        webViewController.delegate = viewModel
+        present(webViewController, animated: false)
     }
 }
 
@@ -351,7 +352,6 @@ extension MainViewController {
     }
     
     @objc private func didTapAddButton() {
-        // MARK: TabBar의 Index를 관리하는 타입을 만들어야 할지 고민
         tabBarController?.selectedIndex = 1
     }
     
