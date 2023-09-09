@@ -17,6 +17,21 @@ final class MainViewController: UIViewController {
         case characterPlaceholder
         case notice
         case event
+        
+        var headerTitle: String {
+            switch self {
+            case .calendar:
+                return "모험 섬"
+            case .characterBookmark:
+                return "즐겨찾는 캐릭터"
+            case .characterPlaceholder:
+                return "즐겨찾는 캐릭터"
+            case .notice:
+                return "공지 사항"
+            case .event:
+                return "Event"
+            }
+        }
     }
     
     private var collectionView: UICollectionView! = nil
@@ -288,15 +303,15 @@ extension MainViewController {
                 
                 switch section {
                 case .calendar:
-                    header.configureHeader(title: "모험 섬")
+                    header.configureHeader(title: section?.headerTitle)
                 case .characterBookmark:
-                    header.configureHeader(title: "즐겨찾는 캐릭터")
+                    header.configureHeader(title: section?.headerTitle)
                 case .characterPlaceholder:
-                    header.configureHeader(title: "즐겨찾는 캐릭터")
+                    header.configureHeader(title: section?.headerTitle)
                 case .notice:
-                    header.configureHeader(title: "공지 사항")
+                    header.configureHeader(title: section?.headerTitle)
                 case .event:
-                    header.configureHeader(title: "Event", color: .darkGray)
+                    header.configureHeader(title: section?.headerTitle, color: .darkGray)
                 case .none:
                     break
                 }
