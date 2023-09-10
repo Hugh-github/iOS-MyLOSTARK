@@ -14,7 +14,6 @@ class CoreDataRecentSearchStorage {
         self.coreDataStorage = coreDataStorage
     }
     
-    // MARK: Delete 추가 해야 한다.
     func fetchRecentCharaterList() throws -> [RecentCharacterInfo] {
         let request = NSFetchRequest<RecentSearch>(entityName: "RecentSearch")
         let result = try coreDataStorage.viewContext.fetch(request)
@@ -31,5 +30,29 @@ class CoreDataRecentSearchStorage {
         recentObject.setValue(search.jobClass, forKey: "jobClass")
         
         self.coreDataStorage.saveContext()
+    }
+    
+    func deleteRecentSearch(_ name: String) {
+        let request = NSFetchRequest<RecentSearch>(entityName: "RecentSearch")
+        request.predicate = NSPredicate(format: " name = %@ ", name as CVarArg)
+        
+        do {
+            guard let object = try coreDataStorage.viewContext.fetch(request).first else { return }
+            self.coreDataStorage.viewContext.delete(object)
+            self.coreDataStorage.saveContext()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func deleteAllSearch() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentSearch")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        
+        do {
+            try coreDataStorage.viewContext.execute(deleteRequest)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

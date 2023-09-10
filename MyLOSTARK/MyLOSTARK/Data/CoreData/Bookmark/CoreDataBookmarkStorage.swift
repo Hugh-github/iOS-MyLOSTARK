@@ -7,6 +7,8 @@
 
 import CoreData
 
+// MARK: Fetch를 제외한 나머지 기능들은 background에서 동작하는게 이상적이다. -> Fetch는 화면을 그리는데 직접 연관되어 있기 때문
+
 class CoreDataBookmarkStorage {
     private let coreDataStorage: CoreDataStorage
     
@@ -14,7 +16,6 @@ class CoreDataBookmarkStorage {
         self.coreDataStorage = coreDataStorage
     }
     
-    // MARK: Delete 추가 해야 한다.
     func fetchBookmark() throws -> [CharacterBookmark] {
         let request = NSFetchRequest<Bookmark>(entityName: "Bookmark")
         let result = try coreDataStorage.viewContext.fetch(request)
@@ -31,5 +32,19 @@ class CoreDataBookmarkStorage {
         bookmarkObject.setValue(characterBookmark.itemLevel, forKey: "itemLevel")
         
         self.coreDataStorage.saveContext()
+    }
+    
+    func deleteBookmark(_ name: String) { 
+        let request = NSFetchRequest<Bookmark>(entityName: "Bookmark")
+        request.predicate = NSPredicate(format: " name = %@ ", name as CVarArg)
+        
+        do {
+            guard let object = try coreDataStorage.viewContext.fetch(request).first else { return }
+            self.coreDataStorage.viewContext.delete(object)
+            self.coreDataStorage.saveContext()
+            self.coreDataStorage.viewContext.refresh(object, mergeChanges: true)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
