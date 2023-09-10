@@ -15,6 +15,10 @@ struct RecentCharacterInfo: Hashable {
         self.isBookmark.toggle()
     }
     
+    func toBookmark() -> CharacterBookmark {
+        return CharacterBookmark(jobClass: jobClass, itemLevel: itemLevel, name: name)
+    }
+    
     static func == (lhs: RecentCharacterInfo, rhs: RecentCharacterInfo) -> Bool {
         return lhs.name == rhs.name
     }
