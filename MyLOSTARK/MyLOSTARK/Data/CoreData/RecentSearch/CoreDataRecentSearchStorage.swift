@@ -33,6 +33,25 @@ class CoreDataRecentSearchStorage {
         self.coreDataStorage.saveContext()
     }
     
+    func updateResultSearch(_ search: RecentCharacterInfo) {
+        guard let name = search.name else { return }
+        
+        let request = NSFetchRequest<RecentSearch>(entityName: "RecentSearch")
+        request.predicate = NSPredicate(format: " name = %@ ", name as CVarArg)
+        
+        do {
+            guard let object = try coreDataStorage.viewContext.fetch(request).first else { return }
+            object.setValue(search.name, forKey: "name")
+            object.setValue(search.itemLevel, forKey: "itemLevel")
+            object.setValue(search.jobClass, forKey: "jobClass")
+            object.setValue(search.isBookmark, forKey: "isBookmark")
+            
+            self.coreDataStorage.saveContext()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func deleteRecentSearch(_ name: String) {
         let request = NSFetchRequest<RecentSearch>(entityName: "RecentSearch")
         request.predicate = NSPredicate(format: " name = %@ ", name as CVarArg)
