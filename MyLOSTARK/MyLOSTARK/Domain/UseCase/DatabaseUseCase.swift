@@ -8,11 +8,12 @@
 import Foundation
 
 class BookmarkUseCase {
-    private let storage = CoreDataBookmarkStorage()
+    private let bookmarkStorage = CoreDataBookmarkStorage()
+    private let recentSearchStorage = CoreDataRecentSearchStorage()
     
     func execute() -> [CharacterBookmark] {
         do {
-            return  try storage.fetchBookmark()
+            return  try bookmarkStorage.fetchBookmark()
         } catch {
             print(error.localizedDescription)
         }
@@ -21,13 +22,14 @@ class BookmarkUseCase {
     }
     
     func unRegistBookmark(_ character: CharacterBookmark) {
-        self.storage.deleteBookmark(character.name) // 최근 검색어에 반영이 안된다 (refresh가 절실하다.)
+        self.bookmarkStorage.deleteBookmark(character.name)
+        self.recentSearchStorage.updateResultSearch(character.toRecentSearch())
     }
 }
 
 class RecentSearchUseCase {
     private let recentSearchStorage = CoreDataRecentSearchStorage()
-    private let bookmarkStorage = CoreDataBookmarkStorage()
+    private let bookmarkStorage = CoreDataBookmarkStorage() // BookmarkStorage의 모든 기능이 필요하지 않기 때문에 추상화를 하는 것은 어떨까?
     
     func execute() -> [RecentCharacterInfo] {
         do {
@@ -54,8 +56,14 @@ class RecentSearchUseCase {
         self.bookmarkStorage.createBookmark(bookmark)
     }
     
+    func updateIsBookmark(_ search: RecentCharacterInfo) {
+        self.recentSearchStorage.updateResultSearch(search)
+    }
+    
     func deleteRecentSearch(_ search: RecentCharacterInfo) {
-        self.recentSearchStorage.deleteRecentSearch(search.name)
+        guard let name = search.name else { return }
+        
+        self.recentSearchStorage.deleteRecentSearch(name)
     }
     
     func deleteAllSearchList() {
