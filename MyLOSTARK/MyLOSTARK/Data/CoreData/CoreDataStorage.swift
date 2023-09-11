@@ -27,7 +27,7 @@ final class CoreDataStorage {
         return self.persistentContainer.viewContext
     }
     
-    var backgroundContext: NSManagedObjectContext {
+    private var backgroundContext: NSManagedObjectContext {
         let context = persistentContainer.newBackgroundContext() // mainContext의 Child Context를 사용한다는 의미이다.
         context.automaticallyMergesChangesFromParent = true
         return context
@@ -39,7 +39,7 @@ final class CoreDataStorage {
     
     func performBackgroundTask(_ task: @escaping (NSManagedObjectContext) -> Void) {
         backgroundContext.perform {
-            task(self.viewContext)
+            task(self.backgroundContext)
         }
     }
     

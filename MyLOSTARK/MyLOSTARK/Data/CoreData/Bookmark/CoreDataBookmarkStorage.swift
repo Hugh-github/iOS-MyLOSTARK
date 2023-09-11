@@ -27,24 +27,33 @@ class CoreDataBookmarkStorage {
     }
     
     func createBookmark(_ characterBookmark: CharacterBookmark) {
-        let bookmarkObject = NSEntityDescription.insertNewObject(forEntityName: "Bookmark", into: coreDataStorage.viewContext)
-        bookmarkObject.setValue(characterBookmark.name, forKey: "name")
-        bookmarkObject.setValue(characterBookmark.jobClass, forKey: "jobClass")
-        bookmarkObject.setValue(characterBookmark.itemLevel, forKey: "itemLevel")
-        
-        self.coreDataStorage.saveContext()
+        self.coreDataStorage.performBackgroundTask { context in
+            let bookmarkObject = NSEntityDescription.insertNewObject(forEntityName: "Bookmark", into: context)
+            bookmarkObject.setValue(characterBookmark.name, forKey: "name")
+            bookmarkObject.setValue(characterBookmark.jobClass, forKey: "jobClass")
+            bookmarkObject.setValue(characterBookmark.itemLevel, forKey: "itemLevel")
+            
+            do {
+                try context.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func deleteBookmark(_ name: String) {
-        let request = NSFetchRequest<Bookmark>(entityName: "Bookmark")
-        request.predicate = NSPredicate(format: " name = %@ ", name as CVarArg)
-        
-        do {
-            guard let object = try coreDataStorage.viewContext.fetch(request).first else { return }
-            self.coreDataStorage.viewContext.delete(object)
-            self.coreDataStorage.saveContext()
-        } catch {
-            print(error.localizedDescription)
+        self.coreDataStorage.performBackgroundTask { context in
+            let request = NSFetchRequest<Bookmark>(entityName: "Bookmark")
+            request.predicate = NSPredicate(format: " name = %@ ", name as CVarArg)
+            
+            do {
+                guard let object = try context.fetch(request).first else { return }
+                context.delete(object)
+                try context.save()
+            } catch {
+                print("bookmark 삭제 에러")
+                print(error.localizedDescription)
+            }
         }
     }
 }
