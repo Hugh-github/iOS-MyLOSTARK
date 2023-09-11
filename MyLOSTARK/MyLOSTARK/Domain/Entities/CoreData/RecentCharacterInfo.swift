@@ -6,9 +6,9 @@
 //
 
 struct RecentCharacterInfo: Hashable {
-    let name: String
-    let jobClass: String
-    let itemLevel: String
+    let name: String?
+    let jobClass: String?
+    let itemLevel: String?
     var isBookmark: Bool
     
     mutating func toggle() {
@@ -16,11 +16,11 @@ struct RecentCharacterInfo: Hashable {
     }
     
     func toBookmark() -> CharacterBookmark {
-        return CharacterBookmark(jobClass: jobClass, itemLevel: itemLevel, name: name)
+        return CharacterBookmark(jobClass: jobClass!, itemLevel: itemLevel!, name: name!)
     }
     
     static func == (lhs: RecentCharacterInfo, rhs: RecentCharacterInfo) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.name == rhs.name && lhs.isBookmark == rhs.isBookmark
     }
     
     func hash(into hasher: inout Hasher) {

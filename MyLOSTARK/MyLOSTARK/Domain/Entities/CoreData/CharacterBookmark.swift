@@ -9,4 +9,13 @@ struct CharacterBookmark: Hashable {
     var jobClass: String
     var itemLevel: String
     var name: String
+    
+    func toRecentSearch() -> RecentCharacterInfo {
+        return RecentCharacterInfo(
+            name: name,
+            jobClass: jobClass,
+            itemLevel: itemLevel,
+            isBookmark: false
+        )
+    }
 }

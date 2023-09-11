@@ -28,6 +28,7 @@ class CoreDataRecentSearchStorage {
         recentObject.setValue(search.name, forKey: "name")
         recentObject.setValue(search.itemLevel, forKey: "itemLevel")
         recentObject.setValue(search.jobClass, forKey: "jobClass")
+        recentObject.setValue(search.isBookmark, forKey: "isBookmark")
         
         self.coreDataStorage.saveContext()
     }

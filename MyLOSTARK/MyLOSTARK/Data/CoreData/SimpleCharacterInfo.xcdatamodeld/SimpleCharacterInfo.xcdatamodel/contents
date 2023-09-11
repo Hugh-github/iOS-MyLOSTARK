@@ -6,11 +6,9 @@
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="RecentSearch" representedClassName="RecentSearch" syncable="YES" codeGenerationType="class">
+        <attribute name="isBookmark" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="itemLevel" optional="YES" attributeType="String"/>
         <attribute name="jobClass" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <fetchedProperty name="isBookmark" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Bookmark" predicateString="name == $FETCH_SOURCE.name"/>
-        </fetchedProperty>
     </entity>
 </model>
