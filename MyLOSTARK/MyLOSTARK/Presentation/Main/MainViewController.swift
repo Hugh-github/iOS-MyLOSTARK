@@ -36,6 +36,7 @@ final class MainViewController: UIViewController {
     
     private var collectionView: UICollectionView! = nil
     private var dataSource: DataSource! = nil
+    private var snapshot = Snapshot()
     private let collectionViewLayoutBuilder = CollectionViewLayoutBuilder()
     
     private let viewModel = MainViewModel()
@@ -52,6 +53,12 @@ final class MainViewController: UIViewController {
         self.dataBinding()
         
         self.viewModel.execute(.viewDidLoad)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.viewModel.execute(.viewWillAppear)
     }
 }
 
@@ -418,8 +425,7 @@ extension MainViewController {
 // MARK: Snapshot
 extension MainViewController {
     private func initialSnapshot() {
-        var snapshot = Snapshot()
-        snapshot.appendSections(MainViewSection.allCases)
+        snapshot.appendSections([.calendar, .characterPlaceholder, .notice, .event])
         
         self.dataSource.apply(snapshot)
     }
@@ -432,46 +438,55 @@ extension MainViewController {
     }
     
     private func applyCalendarSnapshot() -> (([Contents]) -> Void) {
-        return { contents in
-            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-            sectionSnapshot.append(contents)
-            self.dataSource.apply(sectionSnapshot, to: .calendar)
+        return { [weak self] contents in
+            guard let self = self else { return }
+
+            snapshot.appendItems(contents, toSection: .calendar)
+            self.dataSource.apply(snapshot)
         }
     }
     
     private func applyNoticeSnapshot() -> (([Notice]) -> Void) {
-        return { notices in
-            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-            sectionSnapshot.append(notices)
-            self.dataSource.apply(sectionSnapshot, to: .notice)
+        return { [weak self] notices in
+            guard let self = self else { return }
+            
+            snapshot.appendItems(notices, toSection: .notice)
+            self.dataSource.apply(snapshot)
         }
     }
     
     private func applyEventSnapshot() -> (([Event]) -> Void) {
-        return { events in
-            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-            sectionSnapshot.append(events)
-            self.dataSource.apply(sectionSnapshot, to: .event)
+        return { [weak self] events in
+            guard let self = self else { return }
+            snapshot.appendItems(events, toSection: .event)
+            self.dataSource.apply(snapshot)
         }
     }
     
     private func applyBookmarkSanpshot() -> (([CharacterBookmark]?) -> Void) {
-        var snapshot = self.dataSource.snapshot()
-
-        return { bookmarks in
-            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-            guard let bookmarks = bookmarks else { return }
-
+        return { [weak self] bookmarks in
+            guard let bookmarks = bookmarks,
+                  let self = self else { return }
+            
             if bookmarks.isEmpty {
-                snapshot.deleteSections([.characterBookmark])
+                if snapshot.sectionIdentifiers.contains(.characterBookmark) {
+                    snapshot.deleteSections([.characterBookmark])
+                    snapshot.insertSections([.characterPlaceholder], afterSection: .calendar)
+                } else {
+                    snapshot.deleteItems(in: .characterPlaceholder)
+                }
+                
+                snapshot.appendItems([CharacterBookmark(jobClass: "", itemLevel: "", name: "")], toSection: .characterPlaceholder)
                 self.dataSource.apply(snapshot)
-                sectionSnapshot.append([CharacterBookmark(jobClass: "placeholder", itemLevel: "0", name: "없음")])
-                self.dataSource.apply(sectionSnapshot, to: .characterPlaceholder)
             } else {
-                snapshot.deleteSections([.characterPlaceholder])
+                if snapshot.sectionIdentifiers.contains(.characterPlaceholder) {
+                    snapshot.deleteSections([.characterPlaceholder])
+                    snapshot.insertSections([.characterBookmark], afterSection: .calendar)
+                } else {
+                    snapshot.deleteItems(in: .characterBookmark)
+                }
+                snapshot.appendItems(bookmarks, toSection: .characterBookmark)
                 self.dataSource.apply(snapshot)
-                sectionSnapshot.append(bookmarks)
-                self.dataSource.apply(sectionSnapshot, to: .characterBookmark)
             }
         }
     }
@@ -487,5 +502,12 @@ extension MainViewController {
         let leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
         
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+}
+
+extension NSDiffableDataSourceSnapshot {
+    mutating func deleteItems(in section: SectionIdentifierType) {
+        let itemIdentifier = itemIdentifiers(inSection: section)
+        deleteItems(itemIdentifier)
     }
 }

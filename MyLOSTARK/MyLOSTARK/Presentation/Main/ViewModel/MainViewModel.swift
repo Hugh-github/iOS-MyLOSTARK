@@ -20,9 +20,11 @@ protocol MainViewModelOUTPUT {
 final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     enum Action {
         case viewDidLoad
+        case viewWillAppear
         case selectContentCell(Int)
         case selectNoticeCell(Int)
         case selectEventCell(Int)
+        case unRegistCharacter(Int)
     }
     
     private let contentUseCase = ContentUseCase()
@@ -34,7 +36,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     var contents: Observable<[Contents]> = .init([])
     var events: Observable<[Event]> = .init([])
     var notices: Observable<[Notice]> = .init([])
-    var bookmark: Observable<[CharacterBookmark]?> = .init(nil)
+    var bookmark: Observable<[CharacterBookmark]?> = .init(nil) // 이 부분도 고민해 보자
     var content: Observable<Contents?> = .init(nil)
     var webLink: Observable<WebConnectable?> = .init(nil)
     
@@ -44,7 +46,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
             Task {
                 await self.fetchData()
             }
-            
+        case .viewWillAppear:
             self.bookmark.value = bookmarkUseCase.execute()
         case .selectContentCell(let index):
             self.content.value = contents.value[index]
@@ -52,6 +54,9 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
             self.webLink.value = notices.value[index]
         case .selectEventCell(let index):
             self.webLink.value = events.value[index]
+        case .unRegistCharacter(let index):
+            self.bookmarkUseCase.unRegistBookmark(bookmark.value![index]) // 옵셔널 바인딩 처리 필요
+            self.bookmark.value?.remove(at: index)
         }
     }
 }

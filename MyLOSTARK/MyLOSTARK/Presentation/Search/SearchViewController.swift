@@ -30,8 +30,18 @@ class SearchViewController: UIViewController {
         self.configureSupplementaryView()
         self.initialSnapshot()
         self.dataBinding()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        self.viewModel.execute(.viewDidLoad)
+        self.viewModel.execute(.viewWillAppear)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.viewModel.execute(.viewWillDisappear)
     }
 }
 
@@ -83,8 +93,9 @@ extension SearchViewController {
 extension SearchViewController {
     private func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<RecentCharacterCell, RecentCharacterInfo> { cell, indexPath, itemIdentifier in
-            // MARK: Cell 각각의 View에 직접 접근해서 설정하는 방법이 어떤지 고민해보자(supplymentaryView도 마찬가지)
-            cell.thumbnailView.image = UIImage(named: itemIdentifier.jobClass)?.resize(newWidth: cell.frame.height * 0.8)
+            guard let jobClass = itemIdentifier.jobClass else { return }
+
+            cell.thumbnailView.image = UIImage(named: jobClass)?.resize(newWidth: cell.frame.height * 0.8)
             cell.nameLabel.text = itemIdentifier.name
             cell.levelLabel.text = itemIdentifier.itemLevel
             cell.bookmarkButton.isSelected = itemIdentifier.isBookmark
@@ -113,7 +124,6 @@ extension SearchViewController {
             
             header.configureHeader(title: "최근 검색어")
             header.configureButton(title: "전체 삭제")
-            
             header.titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
             header.button.addAction(self.didTabDeleteAllButton(), for: .touchUpInside)
             
@@ -181,8 +191,6 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        // Bookmark에 저장된 캐릭터를 최근 검색어에서 제거 후 다시 검색하면 Bookmark 버튼이 true 상태로 화면에 나타나지 않는다.
-        
         self.viewModel.execute(.search(searchBar.text!))
     }
 }

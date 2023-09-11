@@ -13,7 +13,8 @@ protocol RecentSearchViewModelOUTPUT {
 
 class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
     enum Action {
-        case viewDidLoad
+        case viewWillAppear
+        case viewWillDisappear
         case search(String)
         case didTabBookmarkButton(Int)
         case didTabDeleteButton(Int)
@@ -27,8 +28,10 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
     // MARK: CoreData 연동작업 필요 
     func execute(_ action: Action) {
         switch action {
-        case .viewDidLoad:
+        case .viewWillAppear:
             self.searchList.value = recentUseCase.execute()
+        case .viewWillDisappear:
+            self.searchList.value.removeAll()
         case .search(let name):
             // MARK: Test용 코드
             let info = RecentCharacterInfo(
@@ -40,8 +43,6 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
             self.searchList.value.append(info)
             self.recentUseCase.appendSearch(info)
         case .didTabBookmarkButton(let index):
-            // MARK: toggle 상태에 따라 로직 처리
-            
             if searchList.value[index].isBookmark == false {
                 self.recentUseCase.registBookmark(searchList.value[index])
             } else {
@@ -49,6 +50,7 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
             }
             
             self.searchList.value[index].toggle()
+            self.recentUseCase.updateIsBookmark(searchList.value[index])
         case .didTabDeleteButton(let index):
             self.recentUseCase.deleteRecentSearch(searchList.value[index])
             self.searchList.value.remove(at: index)
