@@ -17,13 +17,10 @@ class CoreDataRecentSearchStorage {
         self.coreDataStorage = coreDataStorage
     }
     
-    func fetchRecentCharaterList() throws -> [RecentCharacterInfo] {
+    func fetchRecentSearch() async throws -> [RecentSearch] {
         let request = NSFetchRequest<RecentSearch>(entityName: "RecentSearch")
-        let result = try coreDataStorage.viewContext.fetch(request)
         
-        return result.map { recent in
-            recent.toDomain()
-        }
+        return try coreDataStorage.viewContext.fetch(request)
     }
     
     func createRecentSearch(_ search: RecentCharacterInfo) {
@@ -91,5 +88,9 @@ class CoreDataRecentSearchStorage {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func rollBack() {
+        self.coreDataStorage.viewContext.rollback()
     }
 }

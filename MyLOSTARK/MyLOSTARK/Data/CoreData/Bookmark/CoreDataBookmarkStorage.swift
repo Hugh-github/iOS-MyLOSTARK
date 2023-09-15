@@ -7,8 +7,6 @@
 
 import CoreData
 
-// MARK: Fetch를 제외한 나머지 기능들은 background에서 동작하는게 이상적이다. -> Fetch는 화면을 그리는데 직접 연관되어 있기 때문
-
 class CoreDataBookmarkStorage {
     private var recentSearch: RecentSearch!
     private let coreDataStorage: CoreDataStorage
@@ -17,17 +15,15 @@ class CoreDataBookmarkStorage {
         self.coreDataStorage = coreDataStorage
     }
     
-    func fetchBookmark() throws -> [CharacterBookmark] {
+    func fetchBookmark() async throws -> [Bookmark] {
         let request = NSFetchRequest<Bookmark>(entityName: "Bookmark")
-        let result = try coreDataStorage.viewContext.fetch(request)
         
-        return result.map { bookmark in
-            bookmark.toDomain()
-        }
+        return try coreDataStorage.viewContext.fetch(request)
     }
     
     func createBookmark(_ characterBookmark: CharacterBookmark) {
-        self.coreDataStorage.performBackgroundTask { context in
+        self.coreDataStorage.performBackgroundTask { [weak self] context in
+            guard let self = self else { return }
             let bookmarkObject = NSEntityDescription.insertNewObject(forEntityName: "Bookmark", into: context)
             bookmarkObject.setValue(characterBookmark.name, forKey: "name")
             bookmarkObject.setValue(characterBookmark.jobClass, forKey: "jobClass")
@@ -36,13 +32,14 @@ class CoreDataBookmarkStorage {
             do {
                 try context.save()
             } catch {
-                print(error.localizedDescription)
+                self.rollBack()
             }
         }
     }
     
     func deleteBookmark(_ name: String) {
-        self.coreDataStorage.performBackgroundTask { context in
+        self.coreDataStorage.performBackgroundTask { [weak self] context in
+            guard let self = self else { return }
             let request = NSFetchRequest<Bookmark>(entityName: "Bookmark")
             request.predicate = NSPredicate(format: " name = %@ ", name as CVarArg)
             
@@ -51,9 +48,12 @@ class CoreDataBookmarkStorage {
                 context.delete(object)
                 try context.save()
             } catch {
-                print("bookmark 삭제 에러")
-                print(error.localizedDescription)
+                self.rollBack()
             }
         }
+    }
+    
+    func rollBack() {
+        self.coreDataStorage.viewContext.rollback()
     }
 }
