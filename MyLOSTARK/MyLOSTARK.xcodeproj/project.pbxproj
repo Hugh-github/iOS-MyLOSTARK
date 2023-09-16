@@ -64,6 +64,7 @@
 		72D24B8B2AA58F290001B5E8 /* RecentSearch+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D24B8A2AA58F290001B5E8 /* RecentSearch+extension.swift */; };
 		72D43B2C2A7CE574007A5023 /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */; };
 		72DDD3692AB58B81006C3887 /* CommonCoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */; };
+		72DDD36B2AB58C4E006C3887 /* RecentSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DDD36A2AB58C4E006C3887 /* RecentSearchRepository.swift */; };
 		72E1929F2A87385500A735AF /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E1929E2A87385500A735AF /* Observable.swift */; };
 		72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */; };
 		72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */; };
@@ -138,6 +139,7 @@
 		72D24B8A2AA58F290001B5E8 /* RecentSearch+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentSearch+extension.swift"; sourceTree = "<group>"; };
 		72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
 		72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCoreDataUseCase.swift; sourceTree = "<group>"; };
+		72DDD36A2AB58C4E006C3887 /* RecentSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchRepository.swift; sourceTree = "<group>"; };
 		72E1929E2A87385500A735AF /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutBuilder.swift; sourceTree = "<group>"; };
 		72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VStackImageLabelCell.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				72CBDE072AB1BFEE003C7F64 /* BookmarkRepository.swift */,
+				72DDD36A2AB58C4E006C3887 /* RecentSearchRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
 				72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */,
 				72AFADDA2AA5EDAD00D345D8 /* CoreDataBookmarkStorage.swift in Sources */,
+				72DDD36B2AB58C4E006C3887 /* RecentSearchRepository.swift in Sources */,
 				72C427A92A8F35BF001C4237 /* UIImage+extension.swift in Sources */,
 				720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */,
 				72C427A22A8F34E1001C4237 /* WebConnactable.swift in Sources */,
