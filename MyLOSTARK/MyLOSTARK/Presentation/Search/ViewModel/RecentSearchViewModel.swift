@@ -21,15 +21,17 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
         case didTabDeleteAllButton
     }
     
-    private let recentUseCase = RecentSearchUseCase()
+    private let fetchCoreDataUseCase = FetchCoreDataUseCase<RecentCharacterInfo>(repository: RecentSearchRepository())
+    private let coreDataUseCase = CharacterInfoCoreDataUseCase()
     
     var searchList: Observable<[RecentCharacterInfo]> = .init([])
     
-    // MARK: CoreData 연동작업 필요 
     func execute(_ action: Action) {
         switch action {
         case .viewWillAppear:
-            self.searchList.value = recentUseCase.execute()
+            Task {
+                await self.fetchCoreData()
+            }
         case .viewWillDisappear:
             self.searchList.value.removeAll()
         case .search(let name):
@@ -41,22 +43,30 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
                 isBookmark: false
             )
             self.searchList.value.append(info)
-            self.recentUseCase.appendSearch(info)
+            self.coreDataUseCase.appendSearch(info)
         case .didTabBookmarkButton(let index):
             if searchList.value[index].isBookmark == false {
-                self.recentUseCase.registBookmark(searchList.value[index])
+                self.coreDataUseCase.registBookmark(searchList.value[index])
             } else {
-                self.recentUseCase.unRegistBookmark(searchList.value[index])
+                self.coreDataUseCase.unRegistBookmark(searchList.value[index])
             }
             
             self.searchList.value[index].toggle()
-            self.recentUseCase.updateIsBookmark(searchList.value[index])
+            self.coreDataUseCase.updateRecentSearch(searchList.value[index])
         case .didTabDeleteButton(let index):
-            self.recentUseCase.deleteRecentSearch(searchList.value[index])
+            self.coreDataUseCase.deleteRecentSearch(searchList.value[index])
             self.searchList.value.remove(at: index)
         case .didTabDeleteAllButton:
-            self.recentUseCase.deleteAllSearchList()
+            self.coreDataUseCase.deleteAllSearchList()
             self.searchList.value.removeAll()
         }
+    }
+}
+
+extension RecentSearchViewModel {
+    private func fetchCoreData() async {
+        async let searchList = fetchCoreDataUseCase.execute()
+        
+        self.searchList.value = await searchList
     }
 }

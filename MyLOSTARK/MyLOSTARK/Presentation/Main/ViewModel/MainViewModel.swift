@@ -30,24 +30,32 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     private let contentUseCase = ContentUseCase()
     private let eventUseCase = EventUseCase()
     private let noticeUseCase = NoticeUseCase()
-    private let bookmarkUseCase = BookmarkUseCase()
+    private let fetchCoreDataUseCase = FetchCoreDataUseCase<CharacterBookmark>(repository: BookmarkRepository())
+    private let coreDataUseCase: CommonCoreDataUseCase
+
     
     // MARK: OUTPUT
     var contents: Observable<[Contents]> = .init([])
     var events: Observable<[Event]> = .init([])
     var notices: Observable<[Notice]> = .init([])
-    var bookmark: Observable<[CharacterBookmark]?> = .init(nil) // 이 부분도 고민해 보자
+    var bookmark: Observable<[CharacterBookmark]?> = .init(nil)
     var content: Observable<Contents?> = .init(nil)
     var webLink: Observable<WebConnectable?> = .init(nil)
+    
+    init(coreDataUseCase: CommonCoreDataUseCase = CharacterInfoCoreDataUseCase()) {
+        self.coreDataUseCase = coreDataUseCase
+    }
     
     func execute(_ action: Action) {
         switch action {
         case .viewDidLoad:
             Task {
-                await self.fetchData()
+                await self.fetchAPIData()
             }
         case .viewWillAppear:
-            self.bookmark.value = bookmarkUseCase.execute()
+            Task {
+                await self.fetchCoreData()
+            }
         case .selectContentCell(let index):
             self.content.value = contents.value[index]
         case .selectNoticeCell(let index):
@@ -55,14 +63,14 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
         case .selectEventCell(let index):
             self.webLink.value = events.value[index]
         case .unRegistCharacter(let index):
-            self.bookmarkUseCase.unRegistBookmark(bookmark.value![index]) // 옵셔널 바인딩 처리 필요
+            self.coreDataUseCase.unRegistBookmark(bookmark.value![index])
             self.bookmark.value?.remove(at: index)
         }
     }
 }
 
 extension MainViewModel {
-    private func fetchData() async {
+    private func fetchAPIData() async {
         async let contentList = self.contentUseCase.execute()
         async let noticeList = self.noticeUseCase.execute()
         async let eventList = self.eventUseCase.execute()
@@ -74,6 +82,12 @@ extension MainViewModel {
         } catch {
             print("에러 발생")
         }
+    }
+    
+    private func fetchCoreData() async {
+        async let bookmarkList = self.fetchCoreDataUseCase.execute()
+        
+        self.bookmark.value = await bookmarkList
     }
 }
 
