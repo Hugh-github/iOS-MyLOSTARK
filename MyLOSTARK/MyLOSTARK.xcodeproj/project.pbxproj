@@ -47,7 +47,7 @@
 		72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B84F112A71F8AD006656BF /* WebViewController.swift */; };
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 		72C427972A8F3245001C4237 /* APIUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427962A8F3245001C4237 /* APIUseCase.swift */; };
-		72C427992A8F3260001C4237 /* CoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427982A8F3260001C4237 /* CoreDataUseCase.swift */; };
+		72C427992A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427982A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift */; };
 		72C4279F2A8F34C5001C4237 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */; };
 		72C427A22A8F34E1001C4237 /* WebConnactable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427A12A8F34E1001C4237 /* WebConnactable.swift */; };
 		72C427A42A8F3540001C4237 /* LayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427A32A8F3540001C4237 /* LayoutBuilder.swift */; };
@@ -63,6 +63,7 @@
 		72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D203362A738217005A71A2 /* HStackImageLabelCell.swift */; };
 		72D24B8B2AA58F290001B5E8 /* RecentSearch+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D24B8A2AA58F290001B5E8 /* RecentSearch+extension.swift */; };
 		72D43B2C2A7CE574007A5023 /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */; };
+		72DDD3692AB58B81006C3887 /* CommonCoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */; };
 		72E1929F2A87385500A735AF /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E1929E2A87385500A735AF /* Observable.swift */; };
 		72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */; };
 		72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */; };
@@ -121,7 +122,7 @@
 		72B84F112A71F8AD006656BF /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		72C427962A8F3245001C4237 /* APIUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUseCase.swift; sourceTree = "<group>"; };
-		72C427982A8F3260001C4237 /* CoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataUseCase.swift; sourceTree = "<group>"; };
+		72C427982A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInfoCoreDataUseCase.swift; sourceTree = "<group>"; };
 		72C427A12A8F34E1001C4237 /* WebConnactable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnactable.swift; sourceTree = "<group>"; };
 		72C427A32A8F3540001C4237 /* LayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutBuilder.swift; sourceTree = "<group>"; };
 		72C427A62A8F3579001C4237 /* NSCollectionLayoutSection+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionLayoutSection+extension.swift"; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 		72D203362A738217005A71A2 /* HStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackImageLabelCell.swift; sourceTree = "<group>"; };
 		72D24B8A2AA58F290001B5E8 /* RecentSearch+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentSearch+extension.swift"; sourceTree = "<group>"; };
 		72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
+		72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCoreDataUseCase.swift; sourceTree = "<group>"; };
 		72E1929E2A87385500A735AF /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutBuilder.swift; sourceTree = "<group>"; };
 		72E589382A6A336C00604BA8 /* VStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VStackImageLabelCell.swift; sourceTree = "<group>"; };
@@ -318,7 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				72C427962A8F3245001C4237 /* APIUseCase.swift */,
-				72C427982A8F3260001C4237 /* CoreDataUseCase.swift */,
+				72C427982A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift */,
 				72FB5D862AB4779400EC087E /* FetchCoreDataUseCase.swift */,
 			);
 			path = UseCase;
@@ -474,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				72FB5D892AB4785D00EC087E /* DefaultRepository.swift */,
+				72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				7272CB1D2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift in Sources */,
 				7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */,
 				72C427A42A8F3540001C4237 /* LayoutBuilder.swift in Sources */,
+				72DDD3692AB58B81006C3887 /* CommonCoreDataUseCase.swift in Sources */,
 				72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */,
 				72AD6BC92A8DD9870014651B /* MainViewModel.swift in Sources */,
 				72FA373F2A834A800052135C /* SearchViewController.swift in Sources */,
@@ -617,7 +621,7 @@
 				72FB5D8A2AB4785D00EC087E /* DefaultRepository.swift in Sources */,
 				72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */,
 				72C427A72A8F3579001C4237 /* NSCollectionLayoutSection+extension.swift in Sources */,
-				72C427992A8F3260001C4237 /* CoreDataUseCase.swift in Sources */,
+				72C427992A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */,
 				726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */,
 				72CBDE082AB1BFEE003C7F64 /* BookmarkRepository.swift in Sources */,
