@@ -37,7 +37,7 @@ final class MainViewController: UIViewController {
     private var collectionView: UICollectionView! = nil
     private var dataSource: DataSource! = nil
     private var snapshot = Snapshot()
-    private let collectionViewLayoutBuilder = CollectionViewLayoutBuilder()
+    private let director = CollectionLayoutDirector()
     
     private let viewModel = MainViewModel()
     
@@ -148,15 +148,15 @@ extension MainViewController {
             
             switch sectionKind {
             case .calendar:
-                return setCalendarLayout()
+                return self.director.getCalendarLayout()
             case .characterBookmark:
-                return setBookmarkLayout()
+                return self.director.getBookmarkLayout()
             case .characterPlaceholder:
-                return setPlaceholderLayout()
+                return self.director.getPlaceHolderLayout()
             case .notice:
-                return setShopNoticeLayout(environment: layoutEnvironment)
+                return self.director.getShopNoticeLayout(environment: layoutEnvironment)
             case .event:
-                return setEventLayout()
+                return self.director.getEventLayout()
             case .none:
                 return nil
             }
@@ -169,89 +169,6 @@ extension MainViewController {
         layout.register(SectionBackgroundView.self, forDecorationViewOfKind: SectionBackgroundView.reuseIdentifier)
         
         return layout
-    }
-    
-    private func setCalendarLayout() -> NSCollectionLayoutSection? {
-        let section = collectionViewLayoutBuilder
-            .setItem(width: .fractionalWidth(0.33), height: .fractionalHeight(1.0))
-            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.26), direction: .horizontal)
-            .getSectionLayout()
-        section?.boundarySupplementaryItems = [self.createHeader()]
-        
-        return section
-    }
-    
-    private func setBookmarkLayout() -> NSCollectionLayoutSection? {
-        let section = collectionViewLayoutBuilder
-            .setItem(width: .fractionalWidth(0.3), height: .fractionalHeight(1.0))
-            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.26), direction: .horizontal)
-            .setItemSpacing(10)
-            .setGroupInset(top: 10, leading: 10, bottom: 10, trailing: 10)
-            .getSectionLayout()
-        
-        section?.setScrollingBehavior(.continuous)
-        section?.boundarySupplementaryItems = [self.createHeader()]
-        section?.decorationItems = [
-            NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
-        ]
-        
-        return section
-    }
-    
-    private func setPlaceholderLayout() -> NSCollectionLayoutSection? {
-        let section = collectionViewLayoutBuilder
-            .setItem(width: .fractionalWidth(1.0), height: .fractionalHeight(1.0))
-            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.19), direction: .horizontal)
-            .getSectionLayout()
-        
-        section?.boundarySupplementaryItems = [self.createHeader(), self.createFooter()]
-        section?.decorationItems = [
-            NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundView.reuseIdentifier)
-        ]
-        
-        return section
-    }
-    
-    private func setShopNoticeLayout(environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        let section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: environment)
-        section.boundarySupplementaryItems = [self.createHeader(), self.createFooter()]
-        
-        return section
-    }
-    
-    private func setEventLayout() -> NSCollectionLayoutSection? {
-        let section = collectionViewLayoutBuilder
-            .setItem(width: .fractionalWidth(1.0), height: .fractionalHeight(1.0))
-            .setGroup(width: .fractionalWidth(0.8), height: .fractionalHeight(0.28), direction: .horizontal)
-            .getSectionLayout()
-        
-        section?.setScrollingBehavior(.groupPaging)
-        section?.boundarySupplementaryItems = [self.createHeader()]
-        
-        return section
-    }
-    
-    private func createHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.07))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerSize,
-            elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top
-        )
-        
-        return header
-    }
-    
-    private func createFooter() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.07))
-        let footer = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: footerSize,
-            elementKind: UICollectionView.elementKindSectionFooter,
-            alignment: .bottom
-        )
-        
-        return footer
     }
 }
 
