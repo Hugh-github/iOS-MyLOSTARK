@@ -5,7 +5,7 @@
 //  Created by dhoney96 on 2023/09/16.
 //
 
-class RecentSearchRepository: DefualtRepository {
+class RecentSearchRepository: DefaultRepository {
     typealias T = RecentCharacterInfo
     
     private let recentSearchStorage = CoreDataRecentSearchStorage()
