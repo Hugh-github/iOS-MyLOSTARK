@@ -5,13 +5,11 @@
 //  Created by dhoney96 on 2023/09/05.
 //
 
-import Foundation
-
-protocol RecentSearchViewModelOUTPUT {
-    var searchList: Observable<[RecentCharacterInfo]> { get }
+protocol RecentSearchListViewModelOUTPUT {
+    var itemList: Observable<[RecentSearchItemViewModel]> { get }
 }
 
-class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
+class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
     enum Action {
         case viewWillAppear
         case viewWillDisappear
@@ -24,7 +22,7 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
     private let fetchCoreDataUseCase = FetchCoreDataUseCase<RecentCharacterInfo>(repository: RecentSearchRepository())
     private let coreDataUseCase = CharacterInfoCoreDataUseCase()
     
-    var searchList: Observable<[RecentCharacterInfo]> = .init([])
+    var itemList: Observable<[RecentSearchItemViewModel]> = .init([])
     
     func execute(_ action: Action) {
         switch action {
@@ -33,40 +31,43 @@ class RecentSearchViewModel: RecentSearchViewModelOUTPUT {
                 await self.fetchCoreData()
             }
         case .viewWillDisappear:
-            self.searchList.value.removeAll()
+            self.itemList.value.removeAll()
         case .search(let name):
             // MARK: Test용 코드
-            let info = RecentCharacterInfo(
+            let info = RecentSearchItemViewModel(
                 name: name,
                 jobClass: "슬레이어",
                 itemLevel: "1600",
                 isBookmark: false
             )
-            self.searchList.value.append(info)
-            self.coreDataUseCase.appendSearch(info)
+            
+            self.itemList.value.append(info)
+            self.coreDataUseCase.appendSearch(info.toDomain())
         case .didTabBookmarkButton(let index):
-            if searchList.value[index].isBookmark == false {
-                self.coreDataUseCase.registBookmark(searchList.value[index])
+            if itemList.value[index].isBookmark == false {
+                self.coreDataUseCase.registBookmark(itemList.value[index].toDomain())
             } else {
-                self.coreDataUseCase.unRegistBookmark(searchList.value[index])
+                self.coreDataUseCase.unRegistBookmark(itemList.value[index].toDomain())
             }
             
-            self.searchList.value[index].toggle()
-            self.coreDataUseCase.updateRecentSearch(searchList.value[index])
+            self.itemList.value[index].toggle()
+            self.coreDataUseCase.updateRecentSearch(itemList.value[index].toDomain())
         case .didTabDeleteButton(let index):
-            self.coreDataUseCase.deleteRecentSearch(searchList.value[index])
-            self.searchList.value.remove(at: index)
+            self.coreDataUseCase.deleteRecentSearch(itemList.value[index].toDomain())
+            self.itemList.value.remove(at: index)
         case .didTabDeleteAllButton:
             self.coreDataUseCase.deleteAllSearchList()
-            self.searchList.value.removeAll()
+            self.itemList.value.removeAll()
         }
     }
 }
 
-extension RecentSearchViewModel {
+extension RecentSearchListViewModel {
     private func fetchCoreData() async {
         async let searchList = fetchCoreDataUseCase.execute()
         
-        self.searchList.value = await searchList
+        self.itemList.value = await searchList.map{ info in
+            RecentSearchItemViewModel(search: info)
+        }
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<SearchViewSection, RecentCharacterInfo>
+    typealias DataSource = UICollectionViewDiffableDataSource<SearchViewSection, RecentSearchItemViewModel>
     
     enum SearchViewSection: CaseIterable {
         case main
@@ -18,7 +18,7 @@ class SearchViewController: UIViewController {
     private var dataSource: DataSource! = nil
     private let layoutBuilder = CollectionViewLayoutBuilder()
     
-    private let viewModel = RecentSearchViewModel()
+    private let viewModel = RecentSearchListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class SearchViewController: UIViewController {
         self.configureDataSource()
         self.configureSupplementaryView()
         self.initialSnapshot()
-        self.dataBinding()
+        self.dataBinding(to: viewModel)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,10 +92,9 @@ extension SearchViewController {
 // MARK: ConfigureDataSource
 extension SearchViewController {
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<RecentCharacterCell, RecentCharacterInfo> { cell, indexPath, itemIdentifier in
-            guard let jobClass = itemIdentifier.jobClass else { return }
-
-            cell.thumbnailView.image = UIImage(named: jobClass)?.resize(newWidth: cell.frame.height * 0.8)
+        let cellRegistration = UICollectionView.CellRegistration<RecentCharacterCell, RecentSearchItemViewModel> { cell, indexPath, itemIdentifier in
+            
+            cell.thumbnailView.image = UIImage(named: itemIdentifier.jobClass)?.resize(newWidth: cell.frame.height * 0.8)
             cell.nameLabel.text = itemIdentifier.name
             cell.levelLabel.text = itemIdentifier.itemLevel
             cell.bookmarkButton.isSelected = itemIdentifier.isBookmark
@@ -145,7 +144,7 @@ extension SearchViewController {
     }
     
     private func initialSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<SearchViewSection, RecentCharacterInfo>()
+        var snapshot = NSDiffableDataSourceSnapshot<SearchViewSection, RecentSearchItemViewModel>()
         snapshot.appendSections(SearchViewSection.allCases)
         
         self.dataSource.apply(snapshot)
@@ -154,10 +153,10 @@ extension SearchViewController {
 
 // MARK: DataBinding
 extension SearchViewController {
-    private func dataBinding() {
-        self.viewModel.searchList.addObserver(on: self) { searchList in
-            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<RecentCharacterInfo>()
-            sectionSnapshot.append(searchList)
+    private func dataBinding(to viewModel: RecentSearchListViewModel) {
+        viewModel.itemList.addObserver(on: self) { item in
+            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<RecentSearchItemViewModel>()
+            sectionSnapshot.append(item)
             self.dataSource.apply(sectionSnapshot, to: .main, animatingDifferences: true)
         }
     }
