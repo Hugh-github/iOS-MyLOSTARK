@@ -5,12 +5,10 @@
 //  Created by dhoney96 on 2023/08/07.
 //
 
-import Foundation
-
 protocol NoticeViewModelOUTPUT {
-    var updateNotices: Observable<[Notice]> { get }
-    var checkNotices: Observable<[Notice]> { get }
-    var shopNotices: Observable<[Notice]> { get }
+    var updateNotices: Observable<[NoticeItemViewModel]> { get }
+    var checkNotices: Observable<[NoticeItemViewModel]> { get }
+    var shopNotices: Observable<[NoticeItemViewModel]> { get }
 }
 
 class NoticeViewModel: NoticeViewModelOUTPUT, WebConnectableViewModel {
@@ -21,15 +19,19 @@ class NoticeViewModel: NoticeViewModelOUTPUT, WebConnectableViewModel {
         case selectShopCell(Int)
     }
     
-    private let noticeUseCase = NoticeUseCase()
+    private let noticeUseCase: FetchNoticeAPIUseCase
     
     // MARK: OUTPUT
-    var updateNotices: Observable<[Notice]> = Observable.init([])
-    var checkNotices: Observable<[Notice]> = Observable.init([])
-    var shopNotices: Observable<[Notice]> = Observable.init([])
+    var updateNotices: Observable<[NoticeItemViewModel]> = Observable.init([])
+    var checkNotices: Observable<[NoticeItemViewModel]> = Observable.init([])
+    var shopNotices: Observable<[NoticeItemViewModel]> = Observable.init([])
     var webLink: Observable<WebConnectable?> = Observable.init(nil)
     
     var errorHandling: ((String) -> Void) = { _ in }
+    
+    init(noticeUseCase: FetchNoticeAPIUseCase) {
+        self.noticeUseCase = noticeUseCase
+    }
     
     func execute(_ action: Action) {
         switch action {
@@ -49,14 +51,14 @@ class NoticeViewModel: NoticeViewModelOUTPUT, WebConnectableViewModel {
 
 extension NoticeViewModel {
     private func fetchData() async {
-        async let updateList = try await noticeUseCase.execute("공지")
-        async let checkList = try await noticeUseCase.execute("점검")
-        async let shopList = try await noticeUseCase.execute("상점")
+        async let updateList = try await noticeUseCase.execute(.update)
+        async let checkList = try await noticeUseCase.execute(.check)
+        async let shopList = try await noticeUseCase.execute(.all)
         
         do {
-            self.updateNotices.value = try await updateList
-            self.checkNotices.value = try await checkList
-            self.shopNotices.value = try await shopList
+            self.updateNotices.value = try await updateList.map(NoticeItemViewModel.init)
+            self.checkNotices.value = try await checkList.map(NoticeItemViewModel.init)
+            self.shopNotices.value = try await shopList.map(NoticeItemViewModel.init)
         } catch {
             print("에러 발생")
         }
@@ -74,4 +76,3 @@ extension NoticeViewModel: WebViewDelegate {
         }
     }
 }
-

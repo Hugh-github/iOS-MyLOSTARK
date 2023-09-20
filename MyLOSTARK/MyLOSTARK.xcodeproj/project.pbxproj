@@ -34,6 +34,11 @@
 		72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */; };
 		72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AEF2A64E179001B8266 /* EndPointComponents.swift */; };
 		72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72520AF12A64E1A2001B8266 /* JSONManager.swift */; };
+		725971D92ABAD08C0080E318 /* NoticeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725971D82ABAD08C0080E318 /* NoticeItemViewModel.swift */; };
+		725971DB2ABAD0C40080E318 /* NoticeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725971DA2ABAD0C40080E318 /* NoticeDTO.swift */; };
+		725971DF2ABAD1140080E318 /* NoticeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725971DE2ABAD1140080E318 /* NoticeRepository.swift */; };
+		725971E12ABAD1420080E318 /* DefaultNoticeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725971E02ABAD1420080E318 /* DefaultNoticeRepository.swift */; };
+		725971E32ABAD1730080E318 /* FetchNoticeAPIUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725971E22ABAD1730080E318 /* FetchNoticeAPIUseCase.swift */; };
 		726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */; };
 		7272CB1D2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1C2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift */; };
 		7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */; };
@@ -112,6 +117,11 @@
 		72520AED2A64D0C1001B8266 /* LOSTARKAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LOSTARKAPIService.swift; sourceTree = "<group>"; };
 		72520AEF2A64E179001B8266 /* EndPointComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointComponents.swift; sourceTree = "<group>"; };
 		72520AF12A64E1A2001B8266 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
+		725971D82ABAD08C0080E318 /* NoticeItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeItemViewModel.swift; sourceTree = "<group>"; };
+		725971DA2ABAD0C40080E318 /* NoticeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDTO.swift; sourceTree = "<group>"; };
+		725971DE2ABAD1140080E318 /* NoticeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepository.swift; sourceTree = "<group>"; };
+		725971E02ABAD1420080E318 /* DefaultNoticeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNoticeRepository.swift; sourceTree = "<group>"; };
+		725971E22ABAD1730080E318 /* FetchNoticeAPIUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchNoticeAPIUseCase.swift; sourceTree = "<group>"; };
 		726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfileDTO.swift; sourceTree = "<group>"; };
 		7272CB1C2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRecentSearchStorage.swift; sourceTree = "<group>"; };
 		7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterBookmark.swift; sourceTree = "<group>"; };
@@ -241,8 +251,26 @@
 			children = (
 				72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */,
 				72AD6BC82A8DD9870014651B /* MainViewModel.swift */,
+				725971D82ABAD08C0080E318 /* NoticeItemViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		725971DC2ABAD0F50080E318 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				72CBDE072AB1BFEE003C7F64 /* BookmarkRepository.swift */,
+				72DDD36A2AB58C4E006C3887 /* RecentSearchRepository.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		725971DD2ABAD0FC0080E318 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				725971DE2ABAD1140080E318 /* NoticeRepository.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		726DF2212A9469810087A3D5 /* Data */ = {
@@ -259,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */,
+				725971DA2ABAD0C40080E318 /* NoticeDTO.swift */,
 			);
 			path = LOSTARKDTO;
 			sourceTree = "<group>";
@@ -328,6 +357,7 @@
 				72C427962A8F3245001C4237 /* APIUseCase.swift */,
 				72C427982A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift */,
 				72FB5D862AB4779400EC087E /* FetchCoreDataUseCase.swift */,
+				725971E22ABAD1730080E318 /* FetchNoticeAPIUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -416,8 +446,8 @@
 		72CBDE062AB1BFCF003C7F64 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				72CBDE072AB1BFEE003C7F64 /* BookmarkRepository.swift */,
-				72DDD36A2AB58C4E006C3887 /* RecentSearchRepository.swift */,
+				725971DC2ABAD0F50080E318 /* CoreData */,
+				725971DD2ABAD0FC0080E318 /* Network */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -485,6 +515,7 @@
 			isa = PBXGroup;
 			children = (
 				72FB5D892AB4785D00EC087E /* DefaultRepository.swift */,
+				725971E02ABAD1420080E318 /* DefaultNoticeRepository.swift */,
 				72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */,
 			);
 			path = Utils;
@@ -608,6 +639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7209EE252A6656D800F2902A /* URLSessionProtocol.swift in Sources */,
+				725971DB2ABAD0C40080E318 /* NoticeDTO.swift in Sources */,
 				72D43B2C2A7CE574007A5023 /* BookmarkButton.swift in Sources */,
 				72FB5D872AB4779400EC087E /* FetchCoreDataUseCase.swift in Sources */,
 				720D9EE52A61143E0070EFEA /* MainViewController.swift in Sources */,
@@ -617,6 +649,7 @@
 				72EF81482AA6EA3400F42003 /* RecentSearchListViewModel.swift in Sources */,
 				7221E3172A807DB500035649 /* ButtonFooterView.swift in Sources */,
 				7272CB1D2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift in Sources */,
+				725971E12ABAD1420080E318 /* DefaultNoticeRepository.swift in Sources */,
 				7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */,
 				72C427A42A8F3540001C4237 /* LayoutBuilder.swift in Sources */,
 				72DDD3692AB58B81006C3887 /* CommonCoreDataUseCase.swift in Sources */,
@@ -632,6 +665,7 @@
 				72C427A72A8F3579001C4237 /* NSCollectionLayoutSection+extension.swift in Sources */,
 				72C427992A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */,
+				725971E32ABAD1730080E318 /* FetchNoticeAPIUseCase.swift in Sources */,
 				726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */,
 				72CBDE082AB1BFEE003C7F64 /* BookmarkRepository.swift in Sources */,
 				72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */,
@@ -641,6 +675,7 @@
 				720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */,
 				72CD89B62A9C7DCF0001ABC9 /* SimpleCharacterInfo.xcdatamodeld in Sources */,
 				72B146A62AB7047000840853 /* CollectionLayoutDirector.swift in Sources */,
+				725971DF2ABAD1140080E318 /* NoticeRepository.swift in Sources */,
 				72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */,
 				72CD89AE2A9C24790001ABC9 /* RecentCharacterCell.swift in Sources */,
 				723BD31D2AB9B19000EFA8AF /* RecentSearchItemViewModel.swift in Sources */,
@@ -656,6 +691,7 @@
 				72C8816A2A7C8CA60057FADF /* BookmarkCell.swift in Sources */,
 				72AFADD02AA5E86700D345D8 /* Bookmark+extension.swift in Sources */,
 				72E1929F2A87385500A735AF /* Observable.swift in Sources */,
+				725971D92ABAD08C0080E318 /* NoticeItemViewModel.swift in Sources */,
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
 				72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */,
 				72AFADDA2AA5EDAD00D345D8 /* CoreDataBookmarkStorage.swift in Sources */,

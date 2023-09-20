@@ -39,13 +39,15 @@ final class MainViewController: UIViewController {
     private var snapshot = Snapshot()
     private let director = CollectionLayoutDirector()
     
-    private let viewModel = MainViewModel()
+    private var noticeRepository: DefaultNoticeRepository! = nil
+    private var viewModel: MainViewModel! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         self.setNavigationItem()
+        self.createViewModel()
         self.configureCollectionView()
         self.configureDataSource()
         self.configureSupplementaryView()
@@ -59,6 +61,11 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.viewModel.execute(.viewWillAppear)
+    }
+    
+    private func createViewModel() {
+        self.noticeRepository = NoticeRepository()
+        self.viewModel = MainViewModel(noticeUseCase: FetchNoticeAPIUseCase(repository: noticeRepository))
     }
 }
 
@@ -93,6 +100,7 @@ extension MainViewController: UICollectionViewDelegate {
         let infoViewController = ContentInfoViewController(viewModel: self.viewModel, indexPath: index)
         
         infoViewController.modalPresentationStyle = .pageSheet
+        
         
         if let sheet = infoViewController.sheetPresentationController {
             sheet.detents = [.medium()]
@@ -176,7 +184,7 @@ extension MainViewController {
 extension MainViewController {
     private func configureDataSource() {
         let calendarRegistration = createCalendarSectionCell()
-        let shopNoticeRegistration = createShopNoticeSectionCell()
+        let noticeRegistration = createNoticeSectionCell()
         let eventRegistration = createEventSectionCell()
         let bookmarkRegistration = createBookmarkSectionCell()
         let placeholderRegistration = createPlaceholderSectionCell()
@@ -205,9 +213,9 @@ extension MainViewController {
                 )
             case .notice:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: shopNoticeRegistration,
+                    using: noticeRegistration,
                     for: indexPath,
-                    item: itemIdentifier as? Notice
+                    item: itemIdentifier as? NoticeItemViewModel
                 )
             case .event:
                 return collectionView.dequeueConfiguredReusableCell(
@@ -280,7 +288,7 @@ extension MainViewController {
     }
     
     @objc private func didTapViewAllButton() {
-        let noticeViewController = NoticeListViewController()
+        let noticeViewController = NoticeListViewController(repository: noticeRepository)
         navigationController?.pushViewController(noticeViewController, animated: true)
     }
  
@@ -318,7 +326,7 @@ extension MainViewController {
         }
     }
     
-    private func createShopNoticeSectionCell() -> UICollectionView.CellRegistration<UICollectionViewListCell, Notice> {
+    private func createNoticeSectionCell() -> UICollectionView.CellRegistration<UICollectionViewListCell, NoticeItemViewModel> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             var configuration = cell.defaultContentConfiguration()
             configuration.text = itemIdentifier.title
@@ -363,7 +371,7 @@ extension MainViewController {
         }
     }
     
-    private func applyNoticeSnapshot() -> (([Notice]) -> Void) {
+    private func applyNoticeSnapshot() -> (([NoticeItemViewModel]) -> Void) {
         return { [weak self] notices in
             guard let self = self else { return }
             

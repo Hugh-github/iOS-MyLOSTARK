@@ -11,12 +11,11 @@ import Foundation
 protocol MainViewModelOUTPUT {
     var contents: Observable<[Contents]> { get }
     var events: Observable<[Event]> { get }
-    var notices: Observable<[Notice]> { get }
+    var notices: Observable<[NoticeItemViewModel]> { get }
     var bookmark: Observable<[CharacterBookmark]?> { get }
     var content: Observable<Contents?> { get }
 }
 
-// 정상적으로 동작한다.
 final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     enum Action {
         case viewDidLoad
@@ -29,21 +28,25 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     
     private let contentUseCase = ContentUseCase()
     private let eventUseCase = EventUseCase()
-    private let noticeUseCase = NoticeUseCase()
     private let fetchCoreDataUseCase = FetchCoreDataUseCase<CharacterBookmark>(repository: BookmarkRepository())
     private let coreDataUseCase: CommonCoreDataUseCase
+    private let noticeUseCase: FetchNoticeAPIUseCase
 
     
     // MARK: OUTPUT
     var contents: Observable<[Contents]> = .init([])
     var events: Observable<[Event]> = .init([])
-    var notices: Observable<[Notice]> = .init([])
+    var notices: Observable<[NoticeItemViewModel]> = .init([])
     var bookmark: Observable<[CharacterBookmark]?> = .init(nil)
     var content: Observable<Contents?> = .init(nil)
     var webLink: Observable<WebConnectable?> = .init(nil)
     
-    init(coreDataUseCase: CommonCoreDataUseCase = CharacterInfoCoreDataUseCase()) {
+    init(
+        coreDataUseCase: CommonCoreDataUseCase = CharacterInfoCoreDataUseCase(),
+        noticeUseCase: FetchNoticeAPIUseCase
+    ) {
         self.coreDataUseCase = coreDataUseCase
+        self.noticeUseCase = noticeUseCase
     }
     
     func execute(_ action: Action) {
@@ -72,12 +75,12 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
 extension MainViewModel {
     private func fetchAPIData() async {
         async let contentList = self.contentUseCase.execute()
-        async let noticeList = self.noticeUseCase.execute()
+        async let noticeList = self.noticeUseCase.execute(.all)
         async let eventList = self.eventUseCase.execute()
         
         do {
             self.contents.value = try await contentList
-            self.notices.value = try await noticeList
+            self.notices.value = try await noticeList.map(NoticeItemViewModel.init)
             self.events.value = try await eventList
         } catch {
             print("에러 발생")

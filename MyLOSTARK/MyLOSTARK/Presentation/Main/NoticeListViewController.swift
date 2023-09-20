@@ -19,18 +19,33 @@ final class NoticeListViewController: UIViewController {
     private var collectionView: UICollectionView! = nil
     private var dataSource: DataSource! = nil
         
-    private let viewModel = NoticeViewModel()
+    private var viewModel: NoticeViewModel! = nil
+    private var repository: DefaultNoticeRepository
+    
+    init(repository: DefaultNoticeRepository) {
+        self.repository = repository
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         navigationItem.title = "업데이트 내역"
         view.backgroundColor = .white
         
+        self.createViewModel()
         self.configureCollectionView()
         self.configureDataSource()
         self.initialSnapshot()
         self.subscribeViewModel()
         
         self.viewModel.execute(.viewDidLoad)
+    }
+    
+    private func createViewModel() {
+        self.viewModel = NoticeViewModel(noticeUseCase: FetchNoticeAPIUseCase(repository: repository))
     }
 }
 
@@ -74,13 +89,13 @@ extension NoticeListViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: cellRegistration,
                     for: indexPath,
-                    item: itemIdentifier as? Notice
+                    item: itemIdentifier as? NoticeItemViewModel
                 )
             }
         }
     }
     
-    private func createCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Notice> {
+    private func createCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, NoticeItemViewModel> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             var content = cell.defaultContentConfiguration()
             content.text = itemIdentifier.title
@@ -115,7 +130,7 @@ extension NoticeListViewController {
         self.viewModel.shopNotices.addObserver(on: self, applyShopSnapshot())
     }
     
-    private func applyUpdateSnapshot() -> (([Notice]) -> Void) {
+    private func applyUpdateSnapshot() -> (([NoticeItemViewModel]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
         return { notices in
@@ -125,7 +140,7 @@ extension NoticeListViewController {
         }
     }
     
-    private func applyCheckSnapshot() -> (([Notice]) -> Void) {
+    private func applyCheckSnapshot() -> (([NoticeItemViewModel]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
         return { notices in
@@ -135,7 +150,7 @@ extension NoticeListViewController {
         }
     }
     
-    private func applyShopSnapshot() -> (([Notice]) -> Void) {
+    private func applyShopSnapshot() -> (([NoticeItemViewModel]) -> Void) {
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         
         return { notices in
