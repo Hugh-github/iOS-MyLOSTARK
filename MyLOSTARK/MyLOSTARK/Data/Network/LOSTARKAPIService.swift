@@ -52,7 +52,7 @@ class LOSTARKAPIService {
         return model
     }
     
-    func getNoticeList(_ value: String? = nil) async throws -> [Notice] {
+    func getNoticeList(_ value: String? = nil) async throws -> [NoticeDTO] {
         let endPoint = EndPoint(
             path: .notice,
             parameter: .init(key: "type", value: value),
@@ -62,7 +62,7 @@ class LOSTARKAPIService {
         
         guard let request = endPoint.request else { throw ServiceError.fail }
         let data = try await networkManager.execute(request: request)
-        let model: [Notice] = try jsonManager.decodeListData(data)
+        let model: [NoticeDTO] = try jsonManager.decodeListData(data)
         
         return model
     }
