@@ -34,7 +34,7 @@ enum HTTPMethod: String {
     case get = "GET"
 }
 
-struct Headers { // 효율적으로 바꿀 필요가 있다.
+struct Headers {
     let accept: String
     let authorization: String
     
