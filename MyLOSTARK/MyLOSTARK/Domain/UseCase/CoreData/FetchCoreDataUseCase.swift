@@ -6,9 +6,9 @@
 //
 
 class FetchCoreDataUseCase<T> {
-    private let repository: any DefaultRepository
+    private let repository: any DefaultCoreDataRepository
     
-    init(repository: any DefaultRepository) {
+    init(repository: any DefaultCoreDataRepository) {
         self.repository = repository
     }
     
