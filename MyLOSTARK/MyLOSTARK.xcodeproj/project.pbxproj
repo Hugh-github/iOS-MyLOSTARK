@@ -440,7 +440,7 @@
 		72C427AA2A8F373D001C4237 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				72C427AC2A8F37DD001C4237 /* Common */,
+				72C427AC2A8F37DD001C4237 /* CustomUI */,
 				72D203312A736ECF005A71A2 /* Main */,
 				72FA373D2A834A690052135C /* Search */,
 				72FA37402A834AB30052135C /* Schedule */,
@@ -461,7 +461,7 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		72C427AC2A8F37DD001C4237 /* Common */ = {
+		72C427AC2A8F37DD001C4237 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
 				72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */,
@@ -469,7 +469,7 @@
 				72C47B622A690433007A16D1 /* CommonHeaderView.swift */,
 				724F738E2A7E054E008923F8 /* SectionBackgroundView.swift */,
 			);
-			path = Common;
+			path = CustomUI;
 			sourceTree = "<group>";
 		};
 		72CBDE062AB1BFCF003C7F64 /* Repository */ = {
