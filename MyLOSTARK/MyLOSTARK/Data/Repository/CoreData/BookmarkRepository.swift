@@ -5,7 +5,7 @@
 //  Created by dhoney96 on 2023/09/13.
 //
 
-class BookmarkRepository: DefaultRepository {
+class BookmarkRepository: DefaultCoreDataRepository, InteractiveBookmarkRepository {
     typealias T = CharacterBookmark
     
     private let bookmarkStorage = CoreDataBookmarkStorage()
