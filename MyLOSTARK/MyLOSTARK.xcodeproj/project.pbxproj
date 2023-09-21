@@ -51,10 +51,15 @@
 		72AFADDC2AA5EE9500D345D8 /* RecentCharacterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AFADDB2AA5EE9500D345D8 /* RecentCharacterInfo.swift */; };
 		72B02BD62A6E79EB00D5E146 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B02BD52A6E79EB00D5E146 /* ImageLoader.swift */; };
 		72B146A62AB7047000840853 /* CollectionLayoutDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B146A52AB7047000840853 /* CollectionLayoutDirector.swift */; };
+		72B17D5D2ABC5ADD00D51E1B /* DefaultSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B17D5C2ABC5ADD00D51E1B /* DefaultSearchUseCase.swift */; };
+		72B17D602ABC5B1900D51E1B /* InteractiveBookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B17D5F2ABC5B1900D51E1B /* InteractiveBookmarkRepository.swift */; };
+		72B17D622ABC5B6900D51E1B /* InteractiveSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B17D612ABC5B6900D51E1B /* InteractiveSearchRepository.swift */; };
+		72B17D642ABC5B8900D51E1B /* DefaultRecentSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B17D632ABC5B8900D51E1B /* DefaultRecentSearchRepository.swift */; };
+		72B17D662ABC5BB400D51E1B /* BookmarkItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B17D652ABC5BB400D51E1B /* BookmarkItemViewModel.swift */; };
 		72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B84F112A71F8AD006656BF /* WebViewController.swift */; };
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 		72C427972A8F3245001C4237 /* APIUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427962A8F3245001C4237 /* APIUseCase.swift */; };
-		72C427992A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427982A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift */; };
+		72C427992A8F3260001C4237 /* InterActionCoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427982A8F3260001C4237 /* InterActionCoreDataUseCase.swift */; };
 		72C4279F2A8F34C5001C4237 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */; };
 		72C427A22A8F34E1001C4237 /* WebConnactable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427A12A8F34E1001C4237 /* WebConnactable.swift */; };
 		72C427A42A8F3540001C4237 /* LayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427A32A8F3540001C4237 /* LayoutBuilder.swift */; };
@@ -70,7 +75,6 @@
 		72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D203362A738217005A71A2 /* HStackImageLabelCell.swift */; };
 		72D24B8B2AA58F290001B5E8 /* RecentSearch+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D24B8A2AA58F290001B5E8 /* RecentSearch+extension.swift */; };
 		72D43B2C2A7CE574007A5023 /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */; };
-		72DDD3692AB58B81006C3887 /* CommonCoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */; };
 		72DDD36B2AB58C4E006C3887 /* RecentSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DDD36A2AB58C4E006C3887 /* RecentSearchRepository.swift */; };
 		72E1929F2A87385500A735AF /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E1929E2A87385500A735AF /* Observable.swift */; };
 		72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */; };
@@ -79,7 +83,7 @@
 		72FA373F2A834A800052135C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FA373E2A834A800052135C /* SearchViewController.swift */; };
 		72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FA37412A834AEB0052135C /* ScheduleViewController.swift */; };
 		72FB5D872AB4779400EC087E /* FetchCoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FB5D862AB4779400EC087E /* FetchCoreDataUseCase.swift */; };
-		72FB5D8A2AB4785D00EC087E /* DefaultRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FB5D892AB4785D00EC087E /* DefaultRepository.swift */; };
+		72FB5D8A2AB4785D00EC087E /* DefaultCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FB5D892AB4785D00EC087E /* DefaultCoreDataRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,10 +138,15 @@
 		72AFADDB2AA5EE9500D345D8 /* RecentCharacterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCharacterInfo.swift; sourceTree = "<group>"; };
 		72B02BD52A6E79EB00D5E146 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		72B146A52AB7047000840853 /* CollectionLayoutDirector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionLayoutDirector.swift; sourceTree = "<group>"; };
+		72B17D5C2ABC5ADD00D51E1B /* DefaultSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchUseCase.swift; sourceTree = "<group>"; };
+		72B17D5F2ABC5B1900D51E1B /* InteractiveBookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveBookmarkRepository.swift; sourceTree = "<group>"; };
+		72B17D612ABC5B6900D51E1B /* InteractiveSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveSearchRepository.swift; sourceTree = "<group>"; };
+		72B17D632ABC5B8900D51E1B /* DefaultRecentSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRecentSearchRepository.swift; sourceTree = "<group>"; };
+		72B17D652ABC5BB400D51E1B /* BookmarkItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkItemViewModel.swift; sourceTree = "<group>"; };
 		72B84F112A71F8AD006656BF /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		72C427962A8F3245001C4237 /* APIUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUseCase.swift; sourceTree = "<group>"; };
-		72C427982A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInfoCoreDataUseCase.swift; sourceTree = "<group>"; };
+		72C427982A8F3260001C4237 /* InterActionCoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterActionCoreDataUseCase.swift; sourceTree = "<group>"; };
 		72C427A12A8F34E1001C4237 /* WebConnactable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnactable.swift; sourceTree = "<group>"; };
 		72C427A32A8F3540001C4237 /* LayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutBuilder.swift; sourceTree = "<group>"; };
 		72C427A62A8F3579001C4237 /* NSCollectionLayoutSection+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionLayoutSection+extension.swift"; sourceTree = "<group>"; };
@@ -152,7 +161,6 @@
 		72D203362A738217005A71A2 /* HStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackImageLabelCell.swift; sourceTree = "<group>"; };
 		72D24B8A2AA58F290001B5E8 /* RecentSearch+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentSearch+extension.swift"; sourceTree = "<group>"; };
 		72D43B2B2A7CE574007A5023 /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
-		72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCoreDataUseCase.swift; sourceTree = "<group>"; };
 		72DDD36A2AB58C4E006C3887 /* RecentSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchRepository.swift; sourceTree = "<group>"; };
 		72E1929E2A87385500A735AF /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		72E192A22A874FFE00A735AF /* CollectionViewLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutBuilder.swift; sourceTree = "<group>"; };
@@ -161,7 +169,7 @@
 		72FA373E2A834A800052135C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		72FA37412A834AEB0052135C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		72FB5D862AB4779400EC087E /* FetchCoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCoreDataUseCase.swift; sourceTree = "<group>"; };
-		72FB5D892AB4785D00EC087E /* DefaultRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRepository.swift; sourceTree = "<group>"; };
+		72FB5D892AB4785D00EC087E /* DefaultCoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCoreDataRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,9 +257,10 @@
 		722C3BCA2A678A7000E91914 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */,
 				72AD6BC82A8DD9870014651B /* MainViewModel.swift */,
+				72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */,
 				725971D82ABAD08C0080E318 /* NoticeItemViewModel.swift */,
+				72B17D652ABC5BB400D51E1B /* BookmarkItemViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -351,12 +360,32 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		72B17D5B2ABC5AA700D51E1B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				72FB5D862AB4779400EC087E /* FetchCoreDataUseCase.swift */,
+				72C427982A8F3260001C4237 /* InterActionCoreDataUseCase.swift */,
+				72B17D5C2ABC5ADD00D51E1B /* DefaultSearchUseCase.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		72B17D5E2ABC5B0400D51E1B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				72FB5D892AB4785D00EC087E /* DefaultCoreDataRepository.swift */,
+				72B17D5F2ABC5B1900D51E1B /* InteractiveBookmarkRepository.swift */,
+				72B17D612ABC5B6900D51E1B /* InteractiveSearchRepository.swift */,
+				72B17D632ABC5B8900D51E1B /* DefaultRecentSearchRepository.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		72C427952A8F3209001C4237 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				72B17D5B2ABC5AA700D51E1B /* CoreData */,
 				72C427962A8F3245001C4237 /* APIUseCase.swift */,
-				72C427982A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift */,
-				72FB5D862AB4779400EC087E /* FetchCoreDataUseCase.swift */,
 				725971E22ABAD1730080E318 /* FetchNoticeAPIUseCase.swift */,
 			);
 			path = UseCase;
@@ -514,9 +543,8 @@
 		72FB5D882AB4784800EC087E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				72FB5D892AB4785D00EC087E /* DefaultRepository.swift */,
+				72B17D5E2ABC5B0400D51E1B /* CoreData */,
 				725971E02ABAD1420080E318 /* DefaultNoticeRepository.swift */,
-				72DDD3682AB58B81006C3887 /* CommonCoreDataUseCase.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -644,6 +672,7 @@
 				72FB5D872AB4779400EC087E /* FetchCoreDataUseCase.swift in Sources */,
 				720D9EE52A61143E0070EFEA /* MainViewController.swift in Sources */,
 				72520AF22A64E1A2001B8266 /* JSONManager.swift in Sources */,
+				72B17D662ABC5BB400D51E1B /* BookmarkItemViewModel.swift in Sources */,
 				72E589392A6A336C00604BA8 /* VStackImageLabelCell.swift in Sources */,
 				729187522A80B8110070BA7F /* NoticeListViewController.swift in Sources */,
 				72EF81482AA6EA3400F42003 /* RecentSearchListViewModel.swift in Sources */,
@@ -652,18 +681,18 @@
 				725971E12ABAD1420080E318 /* DefaultNoticeRepository.swift in Sources */,
 				7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */,
 				72C427A42A8F3540001C4237 /* LayoutBuilder.swift in Sources */,
-				72DDD3692AB58B81006C3887 /* CommonCoreDataUseCase.swift in Sources */,
 				72520AEE2A64D0C1001B8266 /* LOSTARKAPIService.swift in Sources */,
 				72AD6BC92A8DD9870014651B /* MainViewModel.swift in Sources */,
 				72FA373F2A834A800052135C /* SearchViewController.swift in Sources */,
 				721476A22A932B1100156019 /* WebViewDelegate.swift in Sources */,
 				724F738F2A7E054E008923F8 /* SectionBackgroundView.swift in Sources */,
+				72B17D642ABC5B8900D51E1B /* DefaultRecentSearchRepository.swift in Sources */,
 				724F73912A7E0DF3008923F8 /* BookmarkPlaceholderCell.swift in Sources */,
 				722C3BE72A67ABBE00E91914 /* Event.swift in Sources */,
-				72FB5D8A2AB4785D00EC087E /* DefaultRepository.swift in Sources */,
+				72FB5D8A2AB4785D00EC087E /* DefaultCoreDataRepository.swift in Sources */,
 				72E192A32A874FFE00A735AF /* CollectionViewLayoutBuilder.swift in Sources */,
 				72C427A72A8F3579001C4237 /* NSCollectionLayoutSection+extension.swift in Sources */,
-				72C427992A8F3260001C4237 /* CharacterInfoCoreDataUseCase.swift in Sources */,
+				72C427992A8F3260001C4237 /* InterActionCoreDataUseCase.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */,
 				725971E32ABAD1730080E318 /* FetchNoticeAPIUseCase.swift in Sources */,
 				726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */,
@@ -672,6 +701,7 @@
 				72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */,
 				722C3BE82A67ABBE00E91914 /* Contents.swift in Sources */,
 				72B02BD62A6E79EB00D5E146 /* ImageLoader.swift in Sources */,
+				72B17D5D2ABC5ADD00D51E1B /* DefaultSearchUseCase.swift in Sources */,
 				720D9EE12A61143E0070EFEA /* AppDelegate.swift in Sources */,
 				72CD89B62A9C7DCF0001ABC9 /* SimpleCharacterInfo.xcdatamodeld in Sources */,
 				72B146A62AB7047000840853 /* CollectionLayoutDirector.swift in Sources */,
@@ -684,6 +714,7 @@
 				72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */,
 				72D2032F2A736AFA005A71A2 /* DateFormatterManager.swift in Sources */,
 				72C427972A8F3245001C4237 /* APIUseCase.swift in Sources */,
+				72B17D602ABC5B1900D51E1B /* InteractiveBookmarkRepository.swift in Sources */,
 				72D24B8B2AA58F290001B5E8 /* RecentSearch+extension.swift in Sources */,
 				72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */,
 				72D203352A7371C5005A71A2 /* ContentInfoViewController.swift in Sources */,
@@ -691,6 +722,7 @@
 				72C8816A2A7C8CA60057FADF /* BookmarkCell.swift in Sources */,
 				72AFADD02AA5E86700D345D8 /* Bookmark+extension.swift in Sources */,
 				72E1929F2A87385500A735AF /* Observable.swift in Sources */,
+				72B17D622ABC5B6900D51E1B /* InteractiveSearchRepository.swift in Sources */,
 				725971D92ABAD08C0080E318 /* NoticeItemViewModel.swift in Sources */,
 				720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */,
 				72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */,

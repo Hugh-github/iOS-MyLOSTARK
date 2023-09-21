@@ -18,13 +18,17 @@ class SearchViewController: UIViewController {
     private var dataSource: DataSource! = nil
     private let layoutBuilder = CollectionViewLayoutBuilder()
     
-    private let viewModel = RecentSearchListViewModel()
+    
+    private var fetchRepo: (any DefaultCoreDataRepository)! = nil
+    private var searchRepo: DefaultRecentSearchRepository! = nil
+    private var viewModel: RecentSearchListViewModel! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         self.configureNavigationBar()
+        self.createViewModel()
         self.configureCollectionView()
         self.configureDataSource()
         self.configureSupplementaryView()
@@ -42,6 +46,14 @@ class SearchViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         self.viewModel.execute(.viewWillDisappear)
+    }
+    
+    private func createViewModel() {
+        let repo = RecentSearchRepository()
+        self.fetchRepo = repo
+        self.searchRepo = repo
+        
+        self.viewModel = RecentSearchListViewModel(fetchRepo: fetchRepo, searchRepo: searchRepo)
     }
 }
 

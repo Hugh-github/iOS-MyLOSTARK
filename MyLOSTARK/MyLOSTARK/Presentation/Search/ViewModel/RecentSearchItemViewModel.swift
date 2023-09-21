@@ -43,8 +43,11 @@ extension RecentSearchItemViewModel {
         self.isBookmark.toggle()
     }
     
-    // viewModel에서 Domain에 데이터를 전달하기 위해 toDomain 함수가 반드시 필요한지 고민할 필요는 있다.
-    func toDomain() -> RecentCharacterInfo {
+    func toSearchEntity() -> RecentCharacterInfo {
         return RecentCharacterInfo(name: name, jobClass: jobClass, itemLevel: itemLevel, isBookmark: isBookmark)
+    }
+    
+    func toBookmarkEntity() -> CharacterBookmark {
+        return CharacterBookmark(jobClass: jobClass, itemLevel: itemLevel, name: name)
     }
 }

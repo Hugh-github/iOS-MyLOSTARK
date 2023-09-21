@@ -7,12 +7,11 @@
 
 import Foundation
 
-// MARK: 네이밍 변경
 protocol MainViewModelOUTPUT {
     var contents: Observable<[Contents]> { get }
     var events: Observable<[Event]> { get }
     var notices: Observable<[NoticeItemViewModel]> { get }
-    var bookmark: Observable<[CharacterBookmark]?> { get }
+    var bookmark: Observable<[BookmarkItemViewModel]?> { get }
     var content: Observable<Contents?> { get }
 }
 
@@ -29,7 +28,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     private let contentUseCase = ContentUseCase()
     private let eventUseCase = EventUseCase()
     private let fetchCoreDataUseCase = FetchCoreDataUseCase<CharacterBookmark>(repository: BookmarkRepository())
-    private let coreDataUseCase: CommonCoreDataUseCase
+    private let interactiveUseCase: InterActionCoreDataUseCase
     private let noticeUseCase: FetchNoticeAPIUseCase
 
     
@@ -37,15 +36,15 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     var contents: Observable<[Contents]> = .init([])
     var events: Observable<[Event]> = .init([])
     var notices: Observable<[NoticeItemViewModel]> = .init([])
-    var bookmark: Observable<[CharacterBookmark]?> = .init(nil)
+    var bookmark: Observable<[BookmarkItemViewModel]?> = .init(nil)
     var content: Observable<Contents?> = .init(nil)
     var webLink: Observable<WebConnectable?> = .init(nil)
     
     init(
-        coreDataUseCase: CommonCoreDataUseCase = CharacterInfoCoreDataUseCase(),
+        interactiveUseCase: InterActionCoreDataUseCase,
         noticeUseCase: FetchNoticeAPIUseCase
     ) {
-        self.coreDataUseCase = coreDataUseCase
+        self.interactiveUseCase = interactiveUseCase
         self.noticeUseCase = noticeUseCase
     }
     
@@ -66,7 +65,10 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
         case .selectEventCell(let index):
             self.webLink.value = events.value[index]
         case .unRegistCharacter(let index):
-            self.coreDataUseCase.unRegistBookmark(bookmark.value![index])
+            guard let bookmark = self.bookmark.value?[index] else { return }
+            
+            self.interactiveUseCase.unregist(bookmark.toBookmarkEntity())
+            self.interactiveUseCase.update(bookmark.toSearchEntity())
             self.bookmark.value?.remove(at: index)
         }
     }
@@ -90,7 +92,7 @@ extension MainViewModel {
     private func fetchCoreData() async {
         async let bookmarkList = self.fetchCoreDataUseCase.execute()
         
-        self.bookmark.value = await bookmarkList
+        self.bookmark.value = await bookmarkList.map(BookmarkItemViewModel.init)
     }
 }
 

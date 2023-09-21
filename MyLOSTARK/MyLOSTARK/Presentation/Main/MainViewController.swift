@@ -65,7 +65,10 @@ final class MainViewController: UIViewController {
     
     private func createViewModel() {
         self.noticeRepository = NoticeRepository()
-        self.viewModel = MainViewModel(noticeUseCase: FetchNoticeAPIUseCase(repository: noticeRepository))
+        self.viewModel = MainViewModel(
+            interactiveUseCase: InterActionCoreDataUseCase(),
+            noticeUseCase: FetchNoticeAPIUseCase(repository: noticeRepository)
+        )
     }
 }
 
@@ -203,13 +206,13 @@ extension MainViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: bookmarkRegistration,
                     for: indexPath,
-                    item: itemIdentifier as? CharacterBookmark
+                    item: itemIdentifier as? BookmarkItemViewModel
                 )
             case .characterPlaceholder:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: placeholderRegistration,
                     for: indexPath,
-                    item: itemIdentifier as? CharacterBookmark
+                    item: itemIdentifier as? BookmarkItemViewModel
                 )
             case .notice:
                 return collectionView.dequeueConfiguredReusableCell(
@@ -303,7 +306,7 @@ extension MainViewController {
         }
     }
     
-    private func createBookmarkSectionCell() -> UICollectionView.CellRegistration<BookmarkCell, CharacterBookmark> {
+    private func createBookmarkSectionCell() -> UICollectionView.CellRegistration<BookmarkCell, BookmarkItemViewModel> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.setContent(
                 image: UIImage(named: itemIdentifier.jobClass),
@@ -316,7 +319,7 @@ extension MainViewController {
         }
     }
     
-    private func createPlaceholderSectionCell() -> UICollectionView.CellRegistration<BookmarkPlaceholderCell, CharacterBookmark> {
+    private func createPlaceholderSectionCell() -> UICollectionView.CellRegistration<BookmarkPlaceholderCell, BookmarkItemViewModel> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.setContent(
                 image: UIImage(named: "placeholder"),
@@ -388,7 +391,7 @@ extension MainViewController {
         }
     }
     
-    private func applyBookmarkSanpshot() -> (([CharacterBookmark]?) -> Void) {
+    private func applyBookmarkSanpshot() -> (([BookmarkItemViewModel]?) -> Void) {
         return { [weak self] bookmarks in
             guard let bookmarks = bookmarks,
                   let self = self else { return }
@@ -401,7 +404,7 @@ extension MainViewController {
                     snapshot.deleteItems(in: .characterPlaceholder)
                 }
                 
-                snapshot.appendItems([CharacterBookmark(jobClass: "", itemLevel: "", name: "")], toSection: .characterPlaceholder)
+                snapshot.appendItems([BookmarkItemViewModel()], toSection: .characterPlaceholder)
                 self.dataSource.apply(snapshot)
             } else {
                 if snapshot.sectionIdentifiers.contains(.characterPlaceholder) {

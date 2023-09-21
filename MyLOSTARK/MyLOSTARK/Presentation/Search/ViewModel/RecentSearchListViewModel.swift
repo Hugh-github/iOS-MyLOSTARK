@@ -19,10 +19,16 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
         case didTabDeleteAllButton
     }
     
-    private let fetchCoreDataUseCase = FetchCoreDataUseCase<RecentCharacterInfo>(repository: RecentSearchRepository())
-    private let coreDataUseCase = CharacterInfoCoreDataUseCase()
+    private let fetchCoreDataUseCase: FetchCoreDataUseCase<RecentCharacterInfo>
+    private let searchUseCase: DefaultSearchUseCase
+    private let interactiveUseCase = InterActionCoreDataUseCase()
     
     var itemList: Observable<[RecentSearchItemViewModel]> = .init([])
+    
+    init(fetchRepo: any DefaultCoreDataRepository, searchRepo: DefaultRecentSearchRepository) {
+        self.fetchCoreDataUseCase = FetchCoreDataUseCase<RecentCharacterInfo>(repository: fetchRepo)
+        self.searchUseCase = DefaultSearchUseCase(repository: searchRepo)
+    }
     
     func execute(_ action: Action) {
         switch action {
@@ -42,21 +48,21 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
             )
             
             self.itemList.value.append(info)
-            self.coreDataUseCase.appendSearch(info.toDomain())
+            self.searchUseCase.create(info.toSearchEntity())
         case .didTabBookmarkButton(let index):
             if itemList.value[index].isBookmark == false {
-                self.coreDataUseCase.registBookmark(itemList.value[index].toDomain())
+                self.interactiveUseCase.regist(itemList.value[index].toBookmarkEntity())
             } else {
-                self.coreDataUseCase.unRegistBookmark(itemList.value[index].toDomain())
+                self.interactiveUseCase.unregist(itemList.value[index].toBookmarkEntity())
             }
             
             self.itemList.value[index].toggle()
-            self.coreDataUseCase.updateRecentSearch(itemList.value[index].toDomain())
+            self.interactiveUseCase.update(itemList.value[index].toSearchEntity())
         case .didTabDeleteButton(let index):
-            self.coreDataUseCase.deleteRecentSearch(itemList.value[index].toDomain())
+            self.searchUseCase.delete(itemList.value[index].toSearchEntity())
             self.itemList.value.remove(at: index)
         case .didTabDeleteAllButton:
-            self.coreDataUseCase.deleteAllSearchList()
+            self.searchUseCase.deleteAll()
             self.itemList.value.removeAll()
         }
     }
