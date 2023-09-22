@@ -37,7 +37,7 @@ class LOSTARKAPIService {
         return model
     }
     
-    func getContents() async throws -> [Contents] {
+    func getContents() async throws -> [ContentsDTO] {
         let endPoint = EndPoint(
             path: .calendar,
             parameter: nil,
@@ -47,7 +47,7 @@ class LOSTARKAPIService {
         
         guard let request = endPoint.request else { throw ServiceError.fail }
         let data = try await networkManager.execute(request: request)
-        let model: [Contents] = try jsonManager.decodeListData(data)
+        let model: [ContentsDTO] = try jsonManager.decodeListData(data)
         
         return model
     }
