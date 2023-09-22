@@ -7,7 +7,7 @@
 
 class NoticeRepository: DefaultNoticeRepository { // Notice는 Generic 하게 만들기 힘들다.
     private var cacheRepository = [NoticeType: [NoticeDTO]]()
-    private let apiService = LOSTARKAPIService()
+    private let apiService = LOSTARKAPIService.shared
     
     func fetch(_ type: NoticeType) async throws -> [Notice] {
         if let data = cacheRepository[type] {
