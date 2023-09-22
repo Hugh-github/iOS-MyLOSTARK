@@ -200,7 +200,7 @@ extension MainViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: calendarRegistration,
                     for: indexPath,
-                    item: itemIdentifier as? Contents
+                    item: itemIdentifier as? CalendarViewModel
                 )
             case .characterBookmark:
                 return collectionView.dequeueConfiguredReusableCell(
@@ -295,7 +295,7 @@ extension MainViewController {
         navigationController?.pushViewController(noticeViewController, animated: true)
     }
  
-    private func createCalendarSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Contents> {
+    private func createCalendarSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, CalendarViewModel> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             guard let url = URL(string: itemIdentifier.contentsIcon) else { return }
             
@@ -365,7 +365,7 @@ extension MainViewController {
         self.viewModel.bookmark.addObserver(on: self, applyBookmarkSanpshot())
     }
     
-    private func applyCalendarSnapshot() -> (([Contents]) -> Void) {
+    private func applyCalendarSnapshot() -> (([CalendarViewModel]) -> Void) {
         return { [weak self] contents in
             guard let self = self else { return }
 

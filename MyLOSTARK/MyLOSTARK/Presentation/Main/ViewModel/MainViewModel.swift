@@ -8,11 +8,11 @@
 import Foundation
 
 protocol MainViewModelOUTPUT {
-    var contents: Observable<[Contents]> { get }
+    var contents: Observable<[CalendarViewModel]> { get }
     var events: Observable<[Event]> { get }
     var notices: Observable<[NoticeItemViewModel]> { get }
     var bookmark: Observable<[BookmarkItemViewModel]?> { get }
-    var content: Observable<Contents?> { get }
+    var content: Observable<CalendarViewModel?> { get }
 }
 
 final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
@@ -25,7 +25,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
         case unRegistCharacter(Int)
     }
     
-    private let contentUseCase = ContentUseCase()
+    private let contentUseCase = ContentUseCase(repository: ContentsRepository())
     private let eventUseCase = EventUseCase()
     private let fetchCoreDataUseCase = FetchCoreDataUseCase<CharacterBookmark>(repository: BookmarkRepository())
     private let interactiveUseCase: InterActionCoreDataUseCase
@@ -33,11 +33,11 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
 
     
     // MARK: OUTPUT
-    var contents: Observable<[Contents]> = .init([])
+    var contents: Observable<[CalendarViewModel]> = .init([])
     var events: Observable<[Event]> = .init([])
     var notices: Observable<[NoticeItemViewModel]> = .init([])
     var bookmark: Observable<[BookmarkItemViewModel]?> = .init(nil)
-    var content: Observable<Contents?> = .init(nil)
+    var content: Observable<CalendarViewModel?> = .init(nil)
     var webLink: Observable<WebConnectable?> = .init(nil)
     
     init(
@@ -81,7 +81,7 @@ extension MainViewModel {
         async let eventList = self.eventUseCase.execute()
         
         do {
-            self.contents.value = try await contentList
+            self.contents.value = try await contentList.map(CalendarViewModel.init)
             self.notices.value = try await noticeList.map(NoticeItemViewModel.init)
             self.events.value = try await eventList
         } catch {

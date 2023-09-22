@@ -8,8 +8,8 @@
 import UIKit
 
 final class ContentInfoViewController: UIViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, RewardItem>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RewardItem>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, RewardItemViewModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RewardItemViewModel>
     
     enum Section: CaseIterable {
         case main
@@ -55,7 +55,7 @@ final class ContentInfoViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<HStackImageLabelCell, RewardItem>.init { cell, indexPath, itemIdentifier in
+        let cellRegistration = UICollectionView.CellRegistration<HStackImageLabelCell, RewardItemViewModel>.init { cell, indexPath, itemIdentifier in
             guard let url = URL(string: itemIdentifier.icon) else { return }
             
             ImageLoader.shared.fetch(url) { image in
@@ -78,14 +78,14 @@ final class ContentInfoViewController: UIViewController {
         self.dataSource.apply(snapshot)
     }
 
-    private func applySnapshot() -> ((Contents?) -> Void) {
+    private func applySnapshot() -> ((CalendarViewModel?) -> Void) {
         return { [weak self] content in
             guard let self = self else { return }
             guard let content = content else { return }
             self.infoView.setContent(name: content.contentsName)
             
             self.snapshot.appendSections(Section.allCases)
-            snapshot.appendItems(content.rewardItems, toSection: .main)
+            snapshot.appendItems(content.rewards, toSection: .main)
             self.dataSource.apply(snapshot)
         }
     }
