@@ -165,7 +165,7 @@ extension MainViewController {
             case .characterPlaceholder:
                 return self.director.getPlaceHolderLayout()
             case .notice:
-                return self.director.getShopNoticeLayout(environment: layoutEnvironment)
+                return self.director.getNoticeLayout(environment: layoutEnvironment)
             case .event:
                 return self.director.getEventLayout()
             case .none:

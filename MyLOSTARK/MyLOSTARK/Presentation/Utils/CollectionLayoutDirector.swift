@@ -51,7 +51,7 @@ class CollectionLayoutDirector {
         return section
     }
     
-    func getShopNoticeLayout(environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+    func getNoticeLayout(environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         let listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         let section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: environment)
         section.boundarySupplementaryItems = [self.getHeader(), self.getFooter()]
