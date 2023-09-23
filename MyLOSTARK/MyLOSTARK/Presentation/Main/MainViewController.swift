@@ -224,7 +224,7 @@ extension MainViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: eventRegistration,
                     for: indexPath,
-                    item: itemIdentifier as? Event
+                    item: itemIdentifier as? EventViewModel
                 )
             case .none:
                 return UICollectionViewCell()
@@ -337,7 +337,7 @@ extension MainViewController {
         }
     }
     
-    private func createEventSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, Event> {
+    private func createEventSectionCell() -> UICollectionView.CellRegistration<VStackImageLabelCell, EventViewModel> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             guard let url = URL(string: itemIdentifier.thumbnail) else { return }
             
@@ -383,7 +383,7 @@ extension MainViewController {
         }
     }
     
-    private func applyEventSnapshot() -> (([Event]) -> Void) {
+    private func applyEventSnapshot() -> (([EventViewModel]) -> Void) {
         return { [weak self] events in
             guard let self = self else { return }
             snapshot.appendItems(events, toSection: .event)

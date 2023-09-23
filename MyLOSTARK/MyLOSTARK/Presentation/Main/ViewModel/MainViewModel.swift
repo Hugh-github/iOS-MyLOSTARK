@@ -9,7 +9,7 @@ import Foundation
 
 protocol MainViewModelOUTPUT {
     var contents: Observable<[CalendarViewModel]> { get }
-    var events: Observable<[Event]> { get }
+    var events: Observable<[EventViewModel]> { get }
     var notices: Observable<[NoticeItemViewModel]> { get }
     var bookmark: Observable<[BookmarkItemViewModel]?> { get }
     var content: Observable<CalendarViewModel?> { get }
@@ -26,7 +26,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     }
     
     private let contentUseCase = ContentUseCase(repository: ContentsRepository())
-    private let eventUseCase = EventUseCase()
+    private let eventUseCase = EventUseCase(repository: EventRepository())
     private let fetchCoreDataUseCase = FetchCoreDataUseCase<CharacterBookmark>(repository: BookmarkRepository())
     private let interactiveUseCase: InterActionCoreDataUseCase
     private let noticeUseCase: FetchNoticeAPIUseCase
@@ -34,7 +34,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     
     // MARK: OUTPUT
     var contents: Observable<[CalendarViewModel]> = .init([])
-    var events: Observable<[Event]> = .init([])
+    var events: Observable<[EventViewModel]> = .init([])
     var notices: Observable<[NoticeItemViewModel]> = .init([])
     var bookmark: Observable<[BookmarkItemViewModel]?> = .init(nil)
     var content: Observable<CalendarViewModel?> = .init(nil)
@@ -83,7 +83,7 @@ extension MainViewModel {
         do {
             self.contents.value = try await contentList.map(CalendarViewModel.init)
             self.notices.value = try await noticeList.map(NoticeItemViewModel.init)
-            self.events.value = try await eventList
+            self.events.value = try await eventList.map(EventViewModel.init)
         } catch {
             print("에러 발생")
         }
