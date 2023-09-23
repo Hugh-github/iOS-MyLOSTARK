@@ -22,7 +22,7 @@ class LOSTARKAPIService {
         self.networkManager = networkManager
     }
     
-    func getEventList() async throws -> [Event] {
+    func getEventList() async throws -> [EventDTO] {
         let endPoint = EndPoint(
             path: .event,
             parameter: nil,
@@ -32,7 +32,7 @@ class LOSTARKAPIService {
         
         guard let request = endPoint.request else { throw ServiceError.fail }
         let data = try await networkManager.execute(request: request)
-        let model: [Event] = try jsonManager.decodeListData(data)
+        let model: [EventDTO] = try jsonManager.decodeListData(data)
         
         return model
     }
