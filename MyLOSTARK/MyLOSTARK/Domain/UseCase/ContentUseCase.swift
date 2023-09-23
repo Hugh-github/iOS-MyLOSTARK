@@ -7,7 +7,7 @@
 
 class ContentUseCase {
     private let dateFormatter = DateFormatterManager.shared
-    private let repository: any DefaultFetchListDataRepository // fetch를 통해 가져오는 타입이 [Any]이다.
+    private let repository: any DefaultFetchAPIDataRepository // fetch를 통해 가져오는 타입이 [Any]이다.
     
     private var categoryKeyword: String {
         return "모험 섬"
@@ -21,7 +21,7 @@ class ContentUseCase {
         return "\(dateFormatter.getTodyDate())T19:00:00"
     }
     
-    init(repository: any DefaultFetchListDataRepository) {
+    init(repository: any DefaultFetchAPIDataRepository) {
         self.repository = repository
     }
     

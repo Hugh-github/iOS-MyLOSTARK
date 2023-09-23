@@ -5,8 +5,8 @@
 //  Created by dhoney96 on 2023/09/22.
 //
 
-protocol DefaultFetchListDataRepository {
+protocol DefaultFetchAPIDataRepository {
     associatedtype ResultDTO
     
-    func fetch() async throws -> [ResultDTO]
+    func fetch() async throws -> ResultDTO
 }

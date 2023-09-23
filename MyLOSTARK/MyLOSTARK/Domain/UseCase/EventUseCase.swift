@@ -6,9 +6,9 @@
 //
 
 class EventUseCase {
-    private let repository: any DefaultFetchListDataRepository
+    private let repository: any DefaultFetchAPIDataRepository
     
-    init(repository: any DefaultFetchListDataRepository) {
+    init(repository: any DefaultFetchAPIDataRepository) {
         self.repository = repository
     }
     

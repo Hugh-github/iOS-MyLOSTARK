@@ -5,8 +5,8 @@
 //  Created by dhoney96 on 2023/09/23.
 //
 
-class EventRepository: DefaultFetchListDataRepository {
-    typealias ResultDTO = Event
+class EventRepository: DefaultFetchAPIDataRepository {
+    typealias ResultDTO = [Event]
     
     private let apiService = LOSTARKAPIService.shared
     
