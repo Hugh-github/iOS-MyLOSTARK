@@ -54,7 +54,12 @@ final class MainViewController: UIViewController {
         self.initialSnapshot()
         self.dataBinding()
         
-        self.viewModel.execute(.viewDidLoad)
+        showSpinner()
+        self.viewModel.execute(.viewDidLoad({
+            DispatchQueue.main.async {
+                self.hideSpinner()
+            }
+        }))
     }
     
     override func viewWillAppear(_ animated: Bool) {

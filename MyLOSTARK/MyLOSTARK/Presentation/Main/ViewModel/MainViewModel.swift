@@ -17,7 +17,7 @@ protocol MainViewModelOUTPUT {
 
 final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     enum Action {
-        case viewDidLoad
+        case viewDidLoad(() -> Void)
         case viewWillAppear
         case selectContentCell(Int)
         case selectNoticeCell(Int)
@@ -50,9 +50,10 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     
     func execute(_ action: Action) {
         switch action {
-        case .viewDidLoad:
+        case .viewDidLoad(let completionHandler):
             Task {
                 await self.fetchAPIData()
+                completionHandler()
             }
         case .viewWillAppear:
             Task {
