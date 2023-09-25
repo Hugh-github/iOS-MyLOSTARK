@@ -39,7 +39,7 @@
 		725971DF2ABAD1140080E318 /* NoticeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725971DE2ABAD1140080E318 /* NoticeRepository.swift */; };
 		725971E12ABAD1420080E318 /* DefaultNoticeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725971E02ABAD1420080E318 /* DefaultNoticeRepository.swift */; };
 		725971E32ABAD1730080E318 /* FetchNoticeAPIUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725971E22ABAD1730080E318 /* FetchNoticeAPIUseCase.swift */; };
-		726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */; };
+		726DF2252A9469E60087A3D5 /* ArmoryProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DF2242A9469E60087A3D5 /* ArmoryProfileDTO.swift */; };
 		7272CB1D2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1C2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift */; };
 		7272CB1F2A7B3499000D4720 /* CharacterBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */; };
 		72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */; };
@@ -61,7 +61,7 @@
 		72C204D72ABE9F45006048E2 /* EventDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C204D62ABE9F45006048E2 /* EventDTO.swift */; };
 		72C204D92ABEA09F006048E2 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C204D82ABEA09F006048E2 /* EventViewModel.swift */; };
 		72C204DB2ABEB8C4006048E2 /* CharacterProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C204DA2ABEB8C4006048E2 /* CharacterProfileRepository.swift */; };
-		72C204DD2ABEB90E006048E2 /* CharacterProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C204DC2ABEB90E006048E2 /* CharacterProfile.swift */; };
+		72C204DD2ABEB90E006048E2 /* ArmoryProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C204DC2ABEB90E006048E2 /* ArmoryProfile.swift */; };
 		72C204DF2ABEC657006048E2 /* CharacterProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C204DE2ABEC657006048E2 /* CharacterProfileUseCase.swift */; };
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
 		72C427972A8F3245001C4237 /* EventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427962A8F3245001C4237 /* EventUseCase.swift */; };
@@ -138,7 +138,7 @@
 		725971DE2ABAD1140080E318 /* NoticeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepository.swift; sourceTree = "<group>"; };
 		725971E02ABAD1420080E318 /* DefaultNoticeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNoticeRepository.swift; sourceTree = "<group>"; };
 		725971E22ABAD1730080E318 /* FetchNoticeAPIUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchNoticeAPIUseCase.swift; sourceTree = "<group>"; };
-		726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfileDTO.swift; sourceTree = "<group>"; };
+		726DF2242A9469E60087A3D5 /* ArmoryProfileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmoryProfileDTO.swift; sourceTree = "<group>"; };
 		7272CB1C2A7B32B3000D4720 /* CoreDataRecentSearchStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRecentSearchStorage.swift; sourceTree = "<group>"; };
 		7272CB1E2A7B3499000D4720 /* CharacterBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterBookmark.swift; sourceTree = "<group>"; };
 		72884D7E2A80F5D3002DB0B0 /* NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 		72C204D62ABE9F45006048E2 /* EventDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDTO.swift; sourceTree = "<group>"; };
 		72C204D82ABEA09F006048E2 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		72C204DA2ABEB8C4006048E2 /* CharacterProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfileRepository.swift; sourceTree = "<group>"; };
-		72C204DC2ABEB90E006048E2 /* CharacterProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfile.swift; sourceTree = "<group>"; };
+		72C204DC2ABEB90E006048E2 /* ArmoryProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmoryProfile.swift; sourceTree = "<group>"; };
 		72C204DE2ABEC657006048E2 /* CharacterProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfileUseCase.swift; sourceTree = "<group>"; };
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		72C427962A8F3245001C4237 /* EventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUseCase.swift; sourceTree = "<group>"; };
@@ -326,7 +326,7 @@
 				72C82F072ABDAEE8009636C2 /* ContentsDTO.swift */,
 				725971DA2ABAD0C40080E318 /* NoticeDTO.swift */,
 				72C204D62ABE9F45006048E2 /* EventDTO.swift */,
-				726DF2242A9469E60087A3D5 /* CharacterProfileDTO.swift */,
+				726DF2242A9469E60087A3D5 /* ArmoryProfileDTO.swift */,
 			);
 			path = LOSTARKDTO;
 			sourceTree = "<group>";
@@ -366,7 +366,7 @@
 				722C3BE32A67ABBE00E91914 /* Notice.swift */,
 				722C3BE42A67ABBE00E91914 /* Event.swift */,
 				722C3BE52A67ABBE00E91914 /* Contents.swift */,
-				72C204DC2ABEB90E006048E2 /* CharacterProfile.swift */,
+				72C204DC2ABEB90E006048E2 /* ArmoryProfile.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -731,7 +731,7 @@
 				72C427992A8F3260001C4237 /* InterActionCoreDataUseCase.swift in Sources */,
 				722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */,
 				725971E32ABAD1730080E318 /* FetchNoticeAPIUseCase.swift in Sources */,
-				726DF2252A9469E60087A3D5 /* CharacterProfileDTO.swift in Sources */,
+				726DF2252A9469E60087A3D5 /* ArmoryProfileDTO.swift in Sources */,
 				72CBDE082AB1BFEE003C7F64 /* BookmarkRepository.swift in Sources */,
 				72FA37422A834AEB0052135C /* ScheduleViewController.swift in Sources */,
 				72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */,
@@ -749,7 +749,7 @@
 				72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */,
 				72CD89AE2A9C24790001ABC9 /* RecentCharacterCell.swift in Sources */,
 				723BD31D2AB9B19000EFA8AF /* RecentSearchItemViewModel.swift in Sources */,
-				72C204DD2ABEB90E006048E2 /* CharacterProfile.swift in Sources */,
+				72C204DD2ABEB90E006048E2 /* ArmoryProfile.swift in Sources */,
 				72C82F082ABDAEE8009636C2 /* ContentsDTO.swift in Sources */,
 				72AFADDC2AA5EE9500D345D8 /* RecentCharacterInfo.swift in Sources */,
 				72C204D52ABE9EA9006048E2 /* EventRepository.swift in Sources */,

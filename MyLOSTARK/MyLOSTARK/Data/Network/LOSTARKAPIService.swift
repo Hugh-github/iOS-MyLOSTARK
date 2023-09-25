@@ -79,7 +79,7 @@ class LOSTARKAPIService {
 //            headers: .init(authorization: self.myAPIKey)
 //        )
         let endPoint = EndPoint(
-            path: .character(name),
+            path: .profile(name),
             parameter: nil,
             httpMethod: .get,
             headers: .init(authorization: self.myAPIKey)

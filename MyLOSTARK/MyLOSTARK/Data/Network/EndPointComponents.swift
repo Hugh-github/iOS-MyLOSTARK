@@ -9,7 +9,8 @@ enum Path {
     case notice
     case event
     case calendar
-    case character(String)
+    case profile(String)
+    case equipment(String)
     
     var list: [String] {
         switch self {
@@ -19,8 +20,10 @@ enum Path {
             return ["news", "events"]
         case .calendar:
             return ["gamecontents", "calendar"]
-        case .character(let name):
-            return ["armories", "characters", name]
+        case .profile(let name):
+            return ["armories", "characters", name, "profiles"]
+        case .equipment(let name):
+            return ["armories", "characters", name, "equipment"]
         }
     }
 }
