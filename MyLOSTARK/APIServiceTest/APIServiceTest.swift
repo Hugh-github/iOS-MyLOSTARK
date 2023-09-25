@@ -30,14 +30,14 @@ final class APIServiceTest: XCTestCase {
         // given
         let expectation = XCTestExpectation(description: "APIServiceExpectation")
         let result = [
-            Event(
+            EventDTO(
                 title: "소울이터 사전등록",
                 thumbnail: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/5765b4f7954a4d6f9a32ba13772b8852.jpg",
                 link: "https://lostark.game.onstove.com/Promotion/Reservation/230705",
                 startDate: "2023-07-05T06:00:00",
                 endDate: "2023-07-19T06:00:00"
             ),
-            Event(
+            EventDTO(
                 title: "2023 썸머 POINT 빙고",
                 thumbnail: "https://cdn-lostark.game.onstove.com/uploadfiles/banner/d8cc023db09e427e9ebd708076c09fbb.jpg",
                 link: "https://lostark.game.onstove.com/Promotion/Bingo/230628",

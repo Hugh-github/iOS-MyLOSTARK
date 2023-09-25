@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EventDTO: Decodable {
+struct EventDTO: Decodable, Equatable {
     let title: String
     let thumbnail: String
     let link: String
