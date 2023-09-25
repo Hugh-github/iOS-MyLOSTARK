@@ -20,6 +20,11 @@ class NetworkManager {
         let (data, response) = try await urlSession.data(for: request)
         try handleHttpError(from: response)
         
+        let nsData = data as NSData
+        if nsData.length <= 4  {
+            throw NetworkError.emptyData
+        }
+        
         return data
     }
     
@@ -47,4 +52,5 @@ enum NetworkError: Error {
     case redirectionError
     case clientError
     case serverError
+    case emptyData
 }
