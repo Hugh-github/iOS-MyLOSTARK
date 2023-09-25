@@ -5,6 +5,8 @@
 //  Created by dhoney96 on 2023/09/05.
 //
 
+import Foundation
+
 protocol RecentSearchListViewModelOUTPUT {
     var itemList: Observable<[RecentSearchItemViewModel]> { get }
 }
@@ -22,8 +24,11 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
     private let fetchCoreDataUseCase: FetchCoreDataUseCase<RecentCharacterInfo>
     private let searchUseCase: DefaultSearchUseCase
     private let interactiveUseCase = InterActionCoreDataUseCase()
+    private let profileUseCase = CharacterProfileUseCase(repository: CharacterProfileRepository())
     
     var itemList: Observable<[RecentSearchItemViewModel]> = .init([])
+    
+    var errorHandling: ((String) -> Void) = { _ in }
     
     init(fetchRepo: any DefaultCoreDataRepository, searchRepo: DefaultRecentSearchRepository) {
         self.fetchCoreDataUseCase = FetchCoreDataUseCase<RecentCharacterInfo>(repository: fetchRepo)
@@ -39,16 +44,11 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
         case .viewWillDisappear:
             self.itemList.value.removeAll()
         case .search(let name):
-            // MARK: Test용 코드
-            let info = RecentSearchItemViewModel(
-                name: name,
-                jobClass: "슬레이어",
-                itemLevel: "1600",
-                isBookmark: false
-            )
+            self.profileUseCase.request = .init(name: name)
             
-            self.itemList.value.append(info)
-            self.searchUseCase.create(info.toSearchEntity())
+            Task {
+                await self.startSearch()
+            }
         case .didTabBookmarkButton(let index):
             if itemList.value[index].isBookmark == false {
                 self.interactiveUseCase.regist(itemList.value[index].toBookmarkEntity())
@@ -74,6 +74,18 @@ extension RecentSearchListViewModel {
         
         self.itemList.value = await searchList.map{ info in
             RecentSearchItemViewModel(search: info)
+        }
+    }
+    
+    private func startSearch() async {
+        do {
+            try await self.profileUseCase.execute()
+        } catch NetworkError.emptyData {
+            DispatchQueue.main.async {
+                self.errorHandling("등록된 캐릭터가 없습니다.")
+            }
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }

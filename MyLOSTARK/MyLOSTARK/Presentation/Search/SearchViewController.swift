@@ -33,6 +33,8 @@ class SearchViewController: UIViewController {
         self.configureDataSource()
         self.configureSupplementaryView()
         self.initialSnapshot()
+        self.setErrorHandling()
+        
         self.dataBinding(to: viewModel)
     }
     
@@ -163,13 +165,23 @@ extension SearchViewController {
     }
 }
 
-// MARK: DataBinding
+// MARK: DataBinding & Error Handling
 extension SearchViewController {
     private func dataBinding(to viewModel: RecentSearchListViewModel) {
         viewModel.itemList.addObserver(on: self) { item in
             var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<RecentSearchItemViewModel>()
             sectionSnapshot.append(item)
             self.dataSource.apply(sectionSnapshot, to: .main, animatingDifferences: true)
+        }
+    }
+    
+    private func setErrorHandling() {
+        self.viewModel.errorHandling = { message in
+            let alert = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "확인", style: .cancel)
+            
+            alert.addAction(action)
+            self.present(alert, animated: true)
         }
     }
 }
@@ -197,12 +209,13 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = nil
         searchBar.setShowsCancelButton(false, animated: true)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.viewModel.execute(.search(searchBar.text!))
+        
+        // 화면 전환하는 메서드?
     }
 }
 
