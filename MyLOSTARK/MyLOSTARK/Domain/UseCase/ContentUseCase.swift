@@ -30,7 +30,9 @@ class ContentUseCase {
         
         return entity.filter { content in
             if content.categoryName == categoryKeyword {
-                if content.startTimes.contains(amStartTime) || content.startTimes.contains(pmStartTime) {
+                guard let startTimes = content.startTimes else { return false }
+                
+                if startTimes.contains(amStartTime) || startTimes.contains(pmStartTime) {
                     return true
                 }
             }

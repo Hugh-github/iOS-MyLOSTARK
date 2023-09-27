@@ -86,7 +86,7 @@ extension MainViewModel {
             self.notices.value = try await noticeList.map(NoticeItemViewModel.init)
             self.events.value = try await eventList.map(EventViewModel.init)
         } catch {
-            print("에러 발생")
+            print(error)
         }
     }
     

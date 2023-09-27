@@ -12,7 +12,7 @@ struct Contents {
     let contentsName: String
     let contentsIcon: String
     let minItemLevel: Int
-    let startTimes: [String]
+    let startTimes: [String]?
     let location: String?
     let rewardItems: [RewardItem]
 }
