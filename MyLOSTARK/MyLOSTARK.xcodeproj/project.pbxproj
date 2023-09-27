@@ -64,6 +64,8 @@
 		72C204DD2ABEB90E006048E2 /* ArmoryProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C204DC2ABEB90E006048E2 /* ArmoryProfile.swift */; };
 		72C204DF2ABEC657006048E2 /* CharacterProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C204DE2ABEC657006048E2 /* CharacterProfileUseCase.swift */; };
 		72C38C6B2A62668A005C3F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C38C6A2A62668A005C3F7D /* NetworkManager.swift */; };
+		72C3C6432AC3E8A7003BC2F0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C3C6422AC3E8A7003BC2F0 /* ProfileViewController.swift */; };
+		72C3C6452AC3EDBD003BC2F0 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C3C6442AC3EDBD003BC2F0 /* ProfileViewModel.swift */; };
 		72C427972A8F3245001C4237 /* EventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427962A8F3245001C4237 /* EventUseCase.swift */; };
 		72C427992A8F3260001C4237 /* InterActionCoreDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C427982A8F3260001C4237 /* InterActionCoreDataUseCase.swift */; };
 		72C4279F2A8F34C5001C4237 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */; };
@@ -164,6 +166,8 @@
 		72C204DC2ABEB90E006048E2 /* ArmoryProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmoryProfile.swift; sourceTree = "<group>"; };
 		72C204DE2ABEC657006048E2 /* CharacterProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfileUseCase.swift; sourceTree = "<group>"; };
 		72C38C6A2A62668A005C3F7D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		72C3C6422AC3E8A7003BC2F0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		72C3C6442AC3EDBD003BC2F0 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		72C427962A8F3245001C4237 /* EventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUseCase.swift; sourceTree = "<group>"; };
 		72C427982A8F3260001C4237 /* InterActionCoreDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterActionCoreDataUseCase.swift; sourceTree = "<group>"; };
 		72C427A12A8F34E1001C4237 /* WebConnactable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnactable.swift; sourceTree = "<group>"; };
@@ -554,6 +558,7 @@
 			children = (
 				72EF81472AA6EA3400F42003 /* RecentSearchListViewModel.swift */,
 				723BD31C2AB9B19000EFA8AF /* RecentSearchItemViewModel.swift */,
+				72C3C6442AC3EDBD003BC2F0 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -562,6 +567,7 @@
 			isa = PBXGroup;
 			children = (
 				72FA373E2A834A800052135C /* SearchViewController.swift */,
+				72C3C6422AC3E8A7003BC2F0 /* ProfileViewController.swift */,
 				72CD89AC2A9C24510001ABC9 /* Cell */,
 				72EF81462AA6E9F600F42003 /* ViewModel */,
 			);
@@ -740,6 +746,7 @@
 				72C47B632A690433007A16D1 /* CommonHeaderView.swift in Sources */,
 				722C3BE82A67ABBE00E91914 /* Contents.swift in Sources */,
 				72C82F0E2ABDAFB4009636C2 /* CalendarViewModel.swift in Sources */,
+				72C3C6432AC3E8A7003BC2F0 /* ProfileViewController.swift in Sources */,
 				72B02BD62A6E79EB00D5E146 /* ImageLoader.swift in Sources */,
 				72F20B692AC1C586006BA162 /* UIViewController+extension.swift in Sources */,
 				72C82F062ABDAEB2009636C2 /* ContentsRepository.swift in Sources */,
@@ -777,6 +784,7 @@
 				72884D7F2A80F5D3002DB0B0 /* NoticeViewModel.swift in Sources */,
 				72C204D72ABE9F45006048E2 /* EventDTO.swift in Sources */,
 				72AFADDA2AA5EDAD00D345D8 /* CoreDataBookmarkStorage.swift in Sources */,
+				72C3C6452AC3EDBD003BC2F0 /* ProfileViewModel.swift in Sources */,
 				72DDD36B2AB58C4E006C3887 /* RecentSearchRepository.swift in Sources */,
 				72C427A92A8F35BF001C4237 /* UIImage+extension.swift in Sources */,
 				720D9EE32A61143E0070EFEA /* SceneDelegate.swift in Sources */,
