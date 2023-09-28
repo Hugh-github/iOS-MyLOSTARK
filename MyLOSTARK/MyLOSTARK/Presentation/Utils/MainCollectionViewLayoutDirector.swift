@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CollectionLayoutDirector {
+class MainCollectionViewLayoutDirector {
     private let builder = CollectionViewLayoutBuilder()
     
     func getCalendarLayout() -> NSCollectionLayoutSection? {
@@ -72,7 +72,7 @@ class CollectionLayoutDirector {
     }
 }
 
-extension CollectionLayoutDirector {
+extension MainCollectionViewLayoutDirector {
     private func getHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.07))
         let header = NSCollectionLayoutBoundarySupplementaryItem(

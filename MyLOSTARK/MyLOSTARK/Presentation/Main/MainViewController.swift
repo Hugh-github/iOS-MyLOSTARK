@@ -37,7 +37,7 @@ final class MainViewController: UIViewController {
     private var collectionView: UICollectionView! = nil
     private var dataSource: DataSource! = nil
     private var snapshot = Snapshot()
-    private let director = CollectionLayoutDirector()
+    private let director = MainCollectionViewLayoutDirector()
     
     private var noticeRepository: DefaultNoticeRepository! = nil
     private var viewModel: MainViewModel! = nil
