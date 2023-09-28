@@ -206,6 +206,7 @@ extension SearchViewController {
         searchController.searchBar.delegate = self
         
         navigationItem.searchController = searchController
+        navigationItem.backButtonDisplayMode = .minimal
         navigationItem.title = "캐릭터 검색"
         navigationController?.navigationBar.prefersLargeTitles = true
     }

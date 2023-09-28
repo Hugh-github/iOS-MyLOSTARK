@@ -15,7 +15,7 @@ class CharacterProfileUseCase {
     var request: RequestValue = RequestValue(name: "") // 수정
     
     init(
-        repository: DefaultFetchProfileRepository
+        repository: DefaultFetchProfileRepository = CharacterProfileRepository()
     ) {
         self.repository = repository
     }

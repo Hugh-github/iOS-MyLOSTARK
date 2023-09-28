@@ -75,10 +75,10 @@ struct CharacterStatsViewModel {
 
 struct CharacterTendencyViewModel {
     let type: String
-    let point: String
+    let point: Int
     
     init(tendency: Tendencies) {
-        self.point = tendency.type
+        self.type = tendency.type
         self.point = tendency.point
     }
 }
