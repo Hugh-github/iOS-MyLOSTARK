@@ -28,6 +28,7 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
     
     var itemList: Observable<[RecentSearchItemViewModel]> = .init([])
     
+    var searchCompletionHandler: ((CharacterProfileUseCase) -> Void) = { _ in }
     var errorHandling: ((String) -> Void) = { _ in }
     
     init(fetchRepo: any DefaultCoreDataRepository, searchRepo: DefaultRecentSearchRepository) {
@@ -80,6 +81,10 @@ extension RecentSearchListViewModel {
     private func startSearch() async {
         do {
             try await self.profileUseCase.execute()
+            
+            DispatchQueue.main.async {
+                self.searchCompletionHandler(self.profileUseCase)
+            }
         } catch NetworkError.emptyData {
             DispatchQueue.main.async {
                 self.errorHandling("등록된 캐릭터가 없습니다.")

@@ -34,6 +34,7 @@ class SearchViewController: UIViewController {
         self.configureSupplementaryView()
         self.initialSnapshot()
         self.setErrorHandling()
+        self.setSearchCompletionHandler()
         
         self.dataBinding(to: viewModel)
     }
@@ -184,6 +185,14 @@ extension SearchViewController {
             self.present(alert, animated: true)
         }
     }
+    
+    private func setSearchCompletionHandler() {
+        self.viewModel.searchCompletionHandler = { usecase in
+            let profileController = ProfileViewController(profileUseCase: usecase)
+            
+            self.navigationController?.pushViewController(profileController, animated: true)
+        }
+    }
 }
 
 extension SearchViewController {
@@ -214,8 +223,6 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.viewModel.execute(.search(searchBar.text!))
-        
-        // 화면 전환하는 메서드?
     }
 }
 
