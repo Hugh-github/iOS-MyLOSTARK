@@ -42,12 +42,14 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.prefersLargeTitles = true
         self.viewModel.execute(.viewWillAppear)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        navigationController?.navigationBar.prefersLargeTitles = false
         self.viewModel.execute(.viewWillDisappear)
     }
     
@@ -208,7 +210,6 @@ extension SearchViewController {
         navigationItem.searchController = searchController
         navigationItem.backButtonDisplayMode = .minimal
         navigationItem.title = "캐릭터 검색"
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
