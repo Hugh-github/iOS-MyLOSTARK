@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
         case tendency
         
         static var selectSectionItem: [String] {
-            return ["스탯", "장비", "스킬"]
+            return ["특성", "장비", "스킬"]
         }
     }
     
@@ -41,6 +41,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: BookmarkButton())
         
         self.createCollectionView()
         self.createViewModel()

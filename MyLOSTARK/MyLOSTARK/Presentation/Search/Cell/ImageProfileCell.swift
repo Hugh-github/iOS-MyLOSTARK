@@ -22,13 +22,13 @@ class ImageProfileCell: UICollectionViewCell {
     
     var server: String = "" {
         didSet {
-            self.profileServerLabel.text = server
+            self.profileServerLabel.text = "@ \(server)"
         }
     }
     
     var jobClass: String = "" {
         didSet {
-            self.profileClassLabel.text = jobClass
+            self.profileClassLabel.text = "@ \(jobClass)"
         }
     }
     
@@ -64,9 +64,19 @@ class ImageProfileCell: UICollectionViewCell {
     private let profileNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         
         return label
+    }()
+    
+    private let tagStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
     }()
     
     private let profileServerLabel: UILabel = {
@@ -85,10 +95,58 @@ class ImageProfileCell: UICollectionViewCell {
         return label
     }()
     
+    private let levelContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    private let levelStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    private let levelTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "전투"
+        
+        return label
+    }()
+    
     private let profileLevelLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        return label
+    }()
+    
+    private let itemLevelStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    private let itemLevelTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "아이템"
         
         return label
     }()
@@ -120,10 +178,20 @@ class ImageProfileCell: UICollectionViewCell {
         contentView.addSubview(profileStackView)
         
         self.profileStackView.addArrangedSubview(profileNameLabel)
-        self.profileStackView.addArrangedSubview(profileServerLabel)
-        self.profileStackView.addArrangedSubview(profileClassLabel)
-        self.profileStackView.addArrangedSubview(profileLevelLabel)
-        self.profileStackView.addArrangedSubview(profileItemLevelLabel)
+        self.profileStackView.addArrangedSubview(tagStackView)
+        self.profileStackView.addArrangedSubview(levelContentStackView)
+        
+        self.tagStackView.addArrangedSubview(profileServerLabel)
+        self.tagStackView.addArrangedSubview(profileClassLabel)
+        
+        self.levelContentStackView.addArrangedSubview(levelStackView)
+        self.levelContentStackView.addArrangedSubview(itemLevelStackView)
+        
+        self.levelStackView.addArrangedSubview(levelTitleLabel)
+        self.levelStackView.addArrangedSubview(profileLevelLabel)
+        
+        self.itemLevelStackView.addArrangedSubview(itemLevelTitleLabel)
+        self.itemLevelStackView.addArrangedSubview(profileItemLevelLabel)
     }
     
     private func setLayout() {
