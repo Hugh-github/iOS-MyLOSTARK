@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
         case stat
         case tendency
         
-        var selectSectionItem: [String] {
+        static var selectSectionItem: [String] {
             return ["스탯", "장비", "스킬"]
         }
     }
@@ -89,32 +89,35 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<ImageProfileCell, CharacterProfileViewModel> { cell, indexPath, item in
-            guard let imageURL = item.characterImage,
-                  let url = URL(string: imageURL) else { return }
-            
-            ImageLoader.shared.fetch(url) { image in
-                cell.name = item.characterName
-                cell.server = item.serverName
-                cell.jobClass = item.characterClassName
-                cell.level = item.characterLevel
-                cell.itemLevel = item.itemAvgLevel
-                cell.image = image
-            }
-        }
+        let imageProfileCellRegistration = createImageProfileCellRegistration()
+        let selectContentCellRegistration = createContentSelectCell()
         
         self.dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: itemIdentifier as? CharacterProfileViewModel
-            )
+            let sectionIdentifier = self.dataSource.sectionIdentifier(for: indexPath.section)
+            
+            switch sectionIdentifier {
+            case .imageProfile:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: imageProfileCellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier as? CharacterProfileViewModel
+                )
+            case .select:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: selectContentCellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier as? String
+                )
+            default:
+                return nil
+            }
         }
     }
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<ProfileViewSection, AnyHashable>()
-        snapshot.appendSections([.imageProfile])
+        snapshot.appendSections([.imageProfile, .select])
+        snapshot.appendItems(ProfileViewSection.selectSectionItem, toSection: .select)
         
         self.dataSource.apply(snapshot)
     }
@@ -124,6 +127,30 @@ class ProfileViewController: UIViewController {
             var snapshot = self.dataSource.snapshot()
             snapshot.appendItems([profile], toSection: .imageProfile)
             self.dataSource.apply(snapshot)
+        }
+    }
+}
+
+extension ProfileViewController {
+    func createImageProfileCellRegistration() -> UICollectionView.CellRegistration<ImageProfileCell, CharacterProfileViewModel> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            guard let imageURL = itemIdentifier.characterImage,
+                  let url = URL(string: imageURL) else { return }
+            
+            ImageLoader.shared.fetch(url) { image in
+                cell.name = itemIdentifier.characterName
+                cell.server = itemIdentifier.serverName
+                cell.jobClass = itemIdentifier.characterClassName
+                cell.level = itemIdentifier.characterLevel
+                cell.itemLevel = itemIdentifier.itemAvgLevel
+                cell.image = image
+            }
+        }
+    }
+    
+    func createContentSelectCell() -> UICollectionView.CellRegistration<ContentSelectCell, String> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            cell.content = itemIdentifier
         }
     }
 }

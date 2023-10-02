@@ -22,7 +22,7 @@ class ProfileCollectionViewLayoutDirector {
     func getSelectSectionLayout() -> NSCollectionLayoutSection? {
         let section = self.builder
             .setItem(width: .fractionalWidth(1.0), height: .fractionalHeight(1.0))
-            .setGroup(width: .fractionalWidth(0.33), height: .fractionalHeight(0.1), direction: .horizontal)
+            .setGroup(width: .fractionalWidth(0.33), height: .fractionalHeight(0.05), direction: .horizontal)
             .getSectionLayout()
         
         section?.setScrollingBehavior(.continuous)
