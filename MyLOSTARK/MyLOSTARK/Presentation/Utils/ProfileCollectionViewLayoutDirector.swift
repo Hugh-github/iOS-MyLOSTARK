@@ -42,8 +42,9 @@ class ProfileCollectionViewLayoutDirector {
     func getTendencySectionLayout() -> NSCollectionLayoutSection? {
         let section = self.builder
             .setItem(width: .fractionalWidth(0.5), height: .fractionalHeight(1.0))
-            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.1), direction: .vertical)
+            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.1), direction: .horizontal)
             .getSectionLayout()
+        section?.setScrollingBehavior(.none)
         
         return section
     }

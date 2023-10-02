@@ -57,11 +57,19 @@ class ProfileViewController: UIViewController {
     }
     
     private func createCollectionView() {
-        self.collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: setLayout())
+        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: setLayout())
         self.collectionView.backgroundColor = .secondarySystemBackground
         self.collectionView.contentInsetAdjustmentBehavior = .never
+        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            self.collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            self.collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            self.collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     private func setLayout() -> UICollectionViewLayout {
@@ -91,7 +99,9 @@ class ProfileViewController: UIViewController {
     
     private func configureDataSource() {
         let imageProfileCellRegistration = createImageProfileCellRegistration()
-        let selectContentCellRegistration = createContentSelectCell()
+        let selectContentCellRegistration = createContentSelectCellRegistration()
+        let statCellRegistration = createStatCellRegistration()
+        let tendencyCellRegistration = createTendencyCellRegistration()
         
         self.dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, itemIdentifier in
             let sectionIdentifier = self.dataSource.sectionIdentifier(for: indexPath.section)
@@ -109,6 +119,18 @@ class ProfileViewController: UIViewController {
                     for: indexPath,
                     item: itemIdentifier as? String
                 )
+            case .stat:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: statCellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier as? CharacterStatsViewModel
+                )
+            case .tendency:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: tendencyCellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier as? CharacterTendencyViewModel
+                )
             default:
                 return nil
             }
@@ -117,7 +139,7 @@ class ProfileViewController: UIViewController {
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<ProfileViewSection, AnyHashable>()
-        snapshot.appendSections([.imageProfile, .select])
+        snapshot.appendSections([.imageProfile, .select, .stat, .tendency])
         snapshot.appendItems(ProfileViewSection.selectSectionItem, toSection: .select)
         
         self.dataSource.apply(snapshot)
@@ -127,6 +149,17 @@ class ProfileViewController: UIViewController {
         self.viewModel.profile.addObserver(on: self) { profile in
             var snapshot = self.dataSource.snapshot()
             snapshot.appendItems([profile], toSection: .imageProfile)
+            self.dataSource.apply(snapshot)
+        }
+        
+        self.viewModel.stats.addObserver(on: self) { stats in
+            var snapshot = self.dataSource.snapshot()
+            snapshot.appendItems(stats, toSection: .stat)
+            self.dataSource.apply(snapshot)
+        }
+        self.viewModel.tendencies.addObserver(on: self) { tendencies in
+            var snapshot = self.dataSource.snapshot()
+            snapshot.appendItems(tendencies, toSection: .tendency)
             self.dataSource.apply(snapshot)
         }
     }
@@ -149,9 +182,23 @@ extension ProfileViewController {
         }
     }
     
-    func createContentSelectCell() -> UICollectionView.CellRegistration<ContentSelectCell, String> {
+    func createContentSelectCellRegistration() -> UICollectionView.CellRegistration<ContentSelectCell, String> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.content = itemIdentifier
+        }
+    }
+    
+    func createStatCellRegistration() -> UICollectionView.CellRegistration<StatLabelCell, CharacterStatsViewModel> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            cell.type = itemIdentifier.type
+            cell.value = itemIdentifier.value
+        }
+    }
+    
+    func createTendencyCellRegistration() -> UICollectionView.CellRegistration<StatLabelCell, CharacterTendencyViewModel> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            cell.type = itemIdentifier.type
+            cell.value = String(itemIdentifier.point)
         }
     }
 }
