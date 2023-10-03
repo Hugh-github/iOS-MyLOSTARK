@@ -24,6 +24,7 @@
 		720D9EED2A61143F0070EFEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 720D9EEB2A61143F0070EFEA /* LaunchScreen.storyboard */; };
 		720D9EFD2A611FF60070EFEA /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720D9EFC2A611FF60070EFEA /* EndPoint.swift */; };
 		721476A22A932B1100156019 /* WebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721476A12A932B1100156019 /* WebViewDelegate.swift */; };
+		7214AF0C2ACBE02F00E13F84 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7214AF0B2ACBE02F00E13F84 /* ProfileHeaderView.swift */; };
 		7221E3172A807DB500035649 /* ButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7221E3162A807DB500035649 /* ButtonFooterView.swift */; };
 		722C3BE62A67ABBE00E91914 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BE32A67ABBE00E91914 /* Notice.swift */; };
 		722C3BE72A67ABBE00E91914 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C3BE42A67ABBE00E91914 /* Event.swift */; };
@@ -130,6 +131,7 @@
 		720D9EEE2A61143F0070EFEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		720D9EFC2A611FF60070EFEA /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		721476A12A932B1100156019 /* WebViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewDelegate.swift; sourceTree = "<group>"; };
+		7214AF0B2ACBE02F00E13F84 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		7221E3162A807DB500035649 /* ButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterView.swift; sourceTree = "<group>"; };
 		722C3BE32A67ABBE00E91914 /* Notice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		722C3BE42A67ABBE00E91914 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				7221E3162A807DB500035649 /* ButtonFooterView.swift */,
 				72C47B622A690433007A16D1 /* CommonHeaderView.swift */,
 				724F738E2A7E054E008923F8 /* SectionBackgroundView.swift */,
+				7214AF0B2ACBE02F00E13F84 /* ProfileHeaderView.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */,
 				72D203352A7371C5005A71A2 /* ContentInfoViewController.swift in Sources */,
 				72B84F122A71F8AD006656BF /* WebViewController.swift in Sources */,
+				7214AF0C2ACBE02F00E13F84 /* ProfileHeaderView.swift in Sources */,
 				72C8816A2A7C8CA60057FADF /* BookmarkCell.swift in Sources */,
 				72C204D92ABEA09F006048E2 /* EventViewModel.swift in Sources */,
 				72AFADD02AA5E86700D345D8 /* Bookmark+extension.swift in Sources */,

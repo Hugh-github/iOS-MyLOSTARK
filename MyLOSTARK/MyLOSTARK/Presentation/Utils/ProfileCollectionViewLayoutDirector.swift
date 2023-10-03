@@ -33,8 +33,9 @@ class ProfileCollectionViewLayoutDirector {
     func getStatSectionLayout() -> NSCollectionLayoutSection? {
         let section = self.builder
             .setItem(width: .fractionalWidth(1.0), height: .fractionalHeight(1.0))
-            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.1), direction: .vertical)
+            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.05), direction: .vertical)
             .getSectionLayout()
+        section?.boundarySupplementaryItems = [self.getHeader()]
         
         return section
     }
@@ -42,10 +43,24 @@ class ProfileCollectionViewLayoutDirector {
     func getTendencySectionLayout() -> NSCollectionLayoutSection? {
         let section = self.builder
             .setItem(width: .fractionalWidth(0.5), height: .fractionalHeight(1.0))
-            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.1), direction: .horizontal)
+            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.05), direction: .horizontal)
             .getSectionLayout()
         section?.setScrollingBehavior(.none)
+        section?.boundarySupplementaryItems = [self.getHeader()]
         
         return section
+    }
+}
+
+extension ProfileCollectionViewLayoutDirector {
+    private func getHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.07))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        
+        return header
     }
 }

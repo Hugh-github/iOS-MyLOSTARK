@@ -19,6 +19,17 @@ class ProfileViewController: UIViewController {
         static var selectSectionItem: [String] {
             return ["특성", "장비", "스킬"]
         }
+        
+        var title: String? {
+            switch self {
+            case .stat:
+                return "전투 특성"
+            case .tendency:
+                return "성향"
+            default:
+                return nil
+            }
+        }
     }
     
     private var collectionView: UICollectionView! = nil
@@ -46,6 +57,7 @@ class ProfileViewController: UIViewController {
         self.createCollectionView()
         self.createViewModel()
         self.configureDataSource()
+        self.configureSupplementaryView()
         self.initialSnapshot()
         self.dataBinding()
         
@@ -61,6 +73,11 @@ class ProfileViewController: UIViewController {
         self.collectionView.backgroundColor = .secondarySystemBackground
         self.collectionView.contentInsetAdjustmentBehavior = .never
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.collectionView.register(
+            ProfileHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: ProfileHeaderView.reuseIdentifier
+        )
         
         view.addSubview(collectionView)
         
@@ -134,6 +151,31 @@ class ProfileViewController: UIViewController {
             default:
                 return nil
             }
+        }
+    }
+    
+    private func configureSupplementaryView() {
+        self.dataSource.supplementaryViewProvider = { collectionView, elementKind, indexPath -> UICollectionReusableView? in
+            let section = self.dataSource.sectionIdentifier(for: indexPath.section)
+            
+            guard let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: elementKind,
+                withReuseIdentifier: ProfileHeaderView.reuseIdentifier,
+                for: indexPath
+            ) as? ProfileHeaderView else {
+                return nil
+            }
+            
+            switch section {
+            case .stat:
+                header.setTitle(section?.title)
+            case .tendency:
+                header.setTitle(section?.title)
+            default:
+                break
+            }
+            
+            return header
         }
     }
     
