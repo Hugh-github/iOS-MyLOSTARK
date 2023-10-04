@@ -59,7 +59,8 @@ final class ContentInfoViewController: UIViewController {
             guard let url = URL(string: itemIdentifier.icon) else { return }
             
             ImageLoader.shared.fetch(url) { image in
-                cell.setContent(name: itemIdentifier.name, image: image)
+                let newImage = image.resize(newHeight: cell.iconImageView.frame.height)
+                cell.setContent(name: itemIdentifier.name, image: newImage)
             }
         }
         

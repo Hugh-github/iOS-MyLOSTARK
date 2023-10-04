@@ -8,9 +8,8 @@
 import UIKit
 
 class HStackImageLabelCell: UICollectionViewCell {
-    private let iconImageView: UIImageView = {
+    private(set) var iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +53,8 @@ class HStackImageLabelCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             self.iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             self.iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 3),
-            self.iconImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3)
+            self.iconImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7),
+            self.iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor)
         ])
         
         NSLayoutConstraint.activate([

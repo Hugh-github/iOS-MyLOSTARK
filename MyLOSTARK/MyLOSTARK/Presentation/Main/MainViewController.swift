@@ -305,7 +305,8 @@ extension MainViewController {
             guard let url = URL(string: itemIdentifier.contentsIcon) else { return }
             
             ImageLoader.shared.fetch(url) { image in
-                cell.setContent(title: itemIdentifier.contentsName, image: image)
+                let newImage = image.resize(newWidth: cell.thumbnailView.frame.width)
+                cell.setContent(title: itemIdentifier.contentsName, image: newImage)
             }
             cell.backgroundColor = .white
         }
@@ -347,7 +348,8 @@ extension MainViewController {
             guard let url = URL(string: itemIdentifier.thumbnail) else { return }
             
             ImageLoader.shared.fetch(url) { image in
-                cell.setContent(title: itemIdentifier.title, image: image)
+                let newImage = image.resize(newWidth: cell.thumbnailView.frame.width)
+                cell.setContent(title: itemIdentifier.title, image: newImage)
             }
             cell.backgroundColor = .darkGray
             cell.setTextColor(.white)

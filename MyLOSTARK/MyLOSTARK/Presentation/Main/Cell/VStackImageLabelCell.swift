@@ -8,7 +8,7 @@
 import UIKit
 
 class VStackImageLabelCell: UICollectionViewCell {
-    private let thumbnailView: UIImageView = {
+    private(set) var thumbnailView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 10
