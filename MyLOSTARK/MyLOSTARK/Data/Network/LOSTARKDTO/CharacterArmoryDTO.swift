@@ -1,11 +1,28 @@
 //
-//  CharacterProfile.swift
+//  CharacterArmoryDTO.swift
 //  MyLOSTARK
 //
 //  Created by dhoney96 on 2023/08/22.
 //
 
 import Foundation
+
+struct CharacterArmoryDTO: Decodable {
+    let armoryProfile: ArmoryProfileDTO
+    let armoryEquipment: [ArmoryEquipmentDTO]?
+    
+    enum CodingKeys: String, CodingKey {
+        case armoryProfile = "ArmoryProfile"
+        case armoryEquipment = "ArmoryEquipment"
+    }
+    
+    func toDomain() -> CharacterArmory {
+        return CharacterArmory(
+            armoryProfile: armoryProfile.toDomain(),
+            armoryEquipment: armoryEquipment?.map{ $0.toDomain() }
+        )
+    }
+}
 
 struct ArmoryProfileDTO: Decodable {
     let characterImage: String?
@@ -73,5 +90,31 @@ struct TendenciesDTO: Decodable {
     
     func toDomain() -> Tendencies {
         return Tendencies(type: type, point: point)
+    }
+}
+
+struct ArmoryEquipmentDTO: Decodable {
+    let type: String
+    let name: String
+    let icon: String
+    let grade: String
+    let tooltip: String
+    
+    enum CodingKeys: String, CodingKey {
+        case type = "Type"
+        case name = "Name"
+        case icon = "Icon"
+        case grade = "Grade"
+        case tooltip = "Tooltip"
+    }
+    
+    func toDomain() -> ArmoryEquipment {
+        return ArmoryEquipment(
+            type: type,
+            name: name,
+            icon: icon,
+            grade: grade,
+            tooltip: tooltip
+        )
     }
 }

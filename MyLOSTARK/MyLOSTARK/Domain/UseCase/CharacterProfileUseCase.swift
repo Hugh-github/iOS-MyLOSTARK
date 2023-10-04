@@ -8,7 +8,7 @@
 class CharacterProfileUseCase {
     struct RequestValue {
         var name: String
-        var responseValue: ArmoryProfile?
+        var responseValue: CharacterArmory?
     }
     
     private let repository: DefaultFetchProfileRepository
@@ -28,7 +28,7 @@ class CharacterProfileUseCase {
         self.request.responseValue = try await repository.fetch(request.name)
     }
     
-    func fetch() -> ArmoryProfile {
+    func fetch() -> CharacterArmory {
         return request.responseValue!
     }
 }
