@@ -67,28 +67,17 @@ class LOSTARKAPIService {
         return model
     }
     
-    func getCharacterProfile(name: String, query: [FilterCondition]) async throws -> ArmoryProfileDTO {
-//        let parmaeterValueList = query.compactMap { condition in
-//            condition.value
-//        }
-        
-//        let endPoint = EndPoint(
-//            path: .character(name),
-//            parameter: .init(key: "filters", value: parmaeterValueList.joined()),
-//            httpMethod: .get,
-//            headers: .init(authorization: self.myAPIKey)
-//        )
+    func getCharacterProfile(name: String, query: [FilterCondition]) async throws -> CharacterArmoryDTO {
         let endPoint = EndPoint(
-            path: .profile(name),
+            path: .character(name),
             parameter: nil,
             httpMethod: .get,
             headers: .init(authorization: self.myAPIKey)
         )
         
-        
         guard let request = endPoint.request else { throw ServiceError.fail }
         let data = try await networkManager.execute(request: request)
-        let model: ArmoryProfileDTO = try jsonManager.decodeSingleData(data)
+        let model: CharacterArmoryDTO = try jsonManager.decodeSingleData(data)
         
         return model
     }
