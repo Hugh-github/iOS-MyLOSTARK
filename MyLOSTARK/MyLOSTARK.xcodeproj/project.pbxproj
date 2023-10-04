@@ -90,6 +90,7 @@
 		72CD89AE2A9C24790001ABC9 /* RecentCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CD89AD2A9C24790001ABC9 /* RecentCharacterCell.swift */; };
 		72CD89B62A9C7DCF0001ABC9 /* SimpleCharacterInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72CD89B42A9C7DCF0001ABC9 /* SimpleCharacterInfo.xcdatamodeld */; };
 		72CF07F32ACD01F5007C7C16 /* DefaultFetchProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF07F22ACD01F5007C7C16 /* DefaultFetchProfileRepository.swift */; };
+		72CF07F52ACD4181007C7C16 /* CharacterProfileItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF07F42ACD4181007C7C16 /* CharacterProfileItemViewModel.swift */; };
 		72D2032F2A736AFA005A71A2 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */; };
 		72D203352A7371C5005A71A2 /* ContentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */; };
 		72D203372A738217005A71A2 /* HStackImageLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D203362A738217005A71A2 /* HStackImageLabelCell.swift */; };
@@ -196,6 +197,7 @@
 		72CD89AD2A9C24790001ABC9 /* RecentCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCharacterCell.swift; sourceTree = "<group>"; };
 		72CD89B52A9C7DCF0001ABC9 /* SimpleCharacterInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleCharacterInfo.xcdatamodel; sourceTree = "<group>"; };
 		72CF07F22ACD01F5007C7C16 /* DefaultFetchProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFetchProfileRepository.swift; sourceTree = "<group>"; };
+		72CF07F42ACD4181007C7C16 /* CharacterProfileItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfileItemViewModel.swift; sourceTree = "<group>"; };
 		72D2032E2A736AFA005A71A2 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		72D203342A7371C5005A71A2 /* ContentInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentInfoViewController.swift; sourceTree = "<group>"; };
 		72D203362A738217005A71A2 /* HStackImageLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackImageLabelCell.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 				72EF81472AA6EA3400F42003 /* RecentSearchListViewModel.swift */,
 				723BD31C2AB9B19000EFA8AF /* RecentSearchItemViewModel.swift */,
 				72C3C6442AC3EDBD003BC2F0 /* ProfileViewModel.swift */,
+				72CF07F42ACD4181007C7C16 /* CharacterProfileItemViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				72C118682AC7E13100152540 /* ImageProfileCell.swift in Sources */,
 				72C204D52ABE9EA9006048E2 /* EventRepository.swift in Sources */,
 				72AFADD62AA5ED4C00D345D8 /* CoreDataStorage.swift in Sources */,
+				72CF07F52ACD4181007C7C16 /* CharacterProfileItemViewModel.swift in Sources */,
 				72520AF02A64E179001B8266 /* EndPointComponents.swift in Sources */,
 				72D2032F2A736AFA005A71A2 /* DateFormatterManager.swift in Sources */,
 				72C204DF2ABEC657006048E2 /* CharacterProfileUseCase.swift in Sources */,
