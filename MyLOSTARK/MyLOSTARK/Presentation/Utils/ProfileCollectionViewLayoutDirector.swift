@@ -50,6 +50,16 @@ class ProfileCollectionViewLayoutDirector {
         
         return section
     }
+    
+    func getArmorySectionLayout() -> NSCollectionLayoutSection? {
+        let section = self.builder
+            .setItem(width: .fractionalWidth(1.0), height: .fractionalHeight(1.0))
+            .setGroup(width: .fractionalWidth(1.0), height: .fractionalHeight(0.1), direction: .vertical)
+            .getSectionLayout()
+        section?.boundarySupplementaryItems = [self.getHeader()]
+        
+        return section
+    }
 }
 
 extension ProfileCollectionViewLayoutDirector {

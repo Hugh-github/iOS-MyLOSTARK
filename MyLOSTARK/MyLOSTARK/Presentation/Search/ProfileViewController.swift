@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
         case select
         case stat
         case tendency
+        case equipment
+        case accessory
         
         static var selectSectionItem: [String] {
             return ["특성", "장비", "스킬"]
@@ -26,8 +28,34 @@ class ProfileViewController: UIViewController {
                 return "전투 특성"
             case .tendency:
                 return "성향"
+            case .equipment:
+                return "장비"
+            case .accessory:
+                return "악세사리"
             default:
                 return nil
+            }
+        }
+    }
+    
+    var currentIndexPath = IndexPath() {
+        didSet {
+            if currentIndexPath.item == 0 {
+                var snapshot = dataSource.snapshot()
+                snapshot.deleteSections([.equipment, .accessory])
+                snapshot.appendSections([.stat, .tendency])
+                
+                self.dataSource.apply(snapshot)
+                self.dataSource.apply(statSectionSnapshot, to: .stat)
+                self.dataSource.apply(tendencySectionSnapshot, to: .tendency)
+            } else if currentIndexPath.item == 1 {
+                var snapshot = dataSource.snapshot()
+                snapshot.deleteSections([.stat, .tendency])
+                snapshot.appendSections([.equipment, .accessory])
+                
+                self.dataSource.apply(snapshot)
+                self.dataSource.apply(equipmentSectionSnapshot, to: .equipment)
+                self.dataSource.apply(accessorySectionSnapshot, to: .accessory)
             }
         }
     }
@@ -35,6 +63,12 @@ class ProfileViewController: UIViewController {
     private var collectionView: UICollectionView! = nil
     private var dataSource: DataSource! = nil
     private let director = ProfileCollectionViewLayoutDirector()
+    
+    var imageProfileSectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+    var statSectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+    var tendencySectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+    var equipmentSectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+    var accessorySectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
     
     private let profileUseCase: CharacterProfileUseCase
     private var viewModel: ProfileViewModel! = nil
@@ -62,6 +96,8 @@ class ProfileViewController: UIViewController {
         self.dataBinding()
         
         self.viewModel.execute(.viewDidLoad)
+        self.collectionView.selectItem(at: IndexPath(item: 0, section: 1), animated: false, scrollPosition: .init())
+        self.currentIndexPath = IndexPath(item: 0, section: 1)
     }
     
     private func createViewModel() {
@@ -72,6 +108,7 @@ class ProfileViewController: UIViewController {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: setLayout())
         self.collectionView.backgroundColor = .secondarySystemBackground
         self.collectionView.contentInsetAdjustmentBehavior = .never
+        self.collectionView.delegate = self
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.register(
             ProfileHeaderView.self,
@@ -103,6 +140,10 @@ class ProfileViewController: UIViewController {
                 return self.director.getStatSectionLayout()
             case .tendency:
                 return self.director.getTendencySectionLayout()
+            case .equipment:
+                return self.director.getArmorySectionLayout()
+            case .accessory:
+                return self.director.getArmorySectionLayout()
             case .none:
                 return nil
             }
@@ -119,6 +160,8 @@ class ProfileViewController: UIViewController {
         let selectContentCellRegistration = createContentSelectCellRegistration()
         let statCellRegistration = createStatCellRegistration()
         let tendencyCellRegistration = createTendencyCellRegistration()
+        let equipmentCellRegistration = createEquipmentCellRegistration()
+        let accessoryCellRegistration = createAccessoryCellRegistration()
         
         self.dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, itemIdentifier in
             let sectionIdentifier = self.dataSource.sectionIdentifier(for: indexPath.section)
@@ -148,6 +191,18 @@ class ProfileViewController: UIViewController {
                     for: indexPath,
                     item: itemIdentifier as? CharacterTendencyViewModel
                 )
+            case .equipment:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: equipmentCellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier as? EquipmentItemViewModel
+                )
+            case .accessory:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: accessoryCellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier as? AccessoryItemViewModel
+                )
             default:
                 return nil
             }
@@ -171,6 +226,10 @@ class ProfileViewController: UIViewController {
                 header.setTitle(section?.title)
             case .tendency:
                 header.setTitle(section?.title)
+            case .equipment:
+                header.setTitle(section?.title)
+            case .accessory:
+                header.setTitle(section?.title)
             default:
                 break
             }
@@ -181,29 +240,62 @@ class ProfileViewController: UIViewController {
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<ProfileViewSection, AnyHashable>()
-        snapshot.appendSections([.imageProfile, .select, .stat, .tendency])
+        snapshot.appendSections([.imageProfile, .select])
         snapshot.appendItems(ProfileViewSection.selectSectionItem, toSection: .select)
         
         self.dataSource.apply(snapshot)
     }
     
     private func dataBinding() {
-        self.viewModel.profile.addObserver(on: self) { profile in
-            var snapshot = self.dataSource.snapshot()
-            snapshot.appendItems([profile], toSection: .imageProfile)
-            self.dataSource.apply(snapshot)
+        self.viewModel.profile.addObserver(on: self) { [weak self] profile in
+            guard let self = self else { return }
+            guard let profile = profile else { return }
+            
+            self.imageProfileSectionSnapshot.append([profile])
+            self.dataSource.apply(imageProfileSectionSnapshot, to: .imageProfile)
         }
         
-        self.viewModel.stats.addObserver(on: self) { stats in
-            var snapshot = self.dataSource.snapshot()
-            snapshot.appendItems(stats, toSection: .stat)
-            self.dataSource.apply(snapshot)
+        self.viewModel.stats.addObserver(on: self) { [weak self] stats in
+            guard let self = self else { return }
+            
+            self.statSectionSnapshot.append(stats)
+            self.dataSource.apply(statSectionSnapshot, to: .stat)
         }
-        self.viewModel.tendencies.addObserver(on: self) { tendencies in
-            var snapshot = self.dataSource.snapshot()
-            snapshot.appendItems(tendencies, toSection: .tendency)
-            self.dataSource.apply(snapshot)
+        
+        self.viewModel.tendencies.addObserver(on: self) { [weak self] tendencies in
+            guard let self = self else { return }
+            
+            self.tendencySectionSnapshot.append(tendencies)
+            self.dataSource.apply(tendencySectionSnapshot, to: .tendency)
         }
+        
+        self.viewModel.equipmentList.addObserver(on: self) { [weak self] equipments in
+            guard let self = self else { return }
+            
+            self.equipmentSectionSnapshot.deleteAll()
+            self.equipmentSectionSnapshot.append(equipments)
+        }
+        
+        self.viewModel.accessoryList.addObserver(on: self) { [weak self] accessories in
+            guard let self = self else { return }
+            
+            self.accessorySectionSnapshot.deleteAll()
+            self.accessorySectionSnapshot.append(accessories)
+        }
+    }
+}
+
+extension ProfileViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 1 {
+            return true
+        }
+        
+        return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.currentIndexPath = indexPath
     }
 }
 
@@ -241,6 +333,28 @@ extension ProfileViewController {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.type = itemIdentifier.type
             cell.value = String(itemIdentifier.point)
+        }
+    }
+    
+    func createEquipmentCellRegistration() -> UICollectionView.CellRegistration<HStackImageLabelCell, EquipmentItemViewModel> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            guard let url = URL(string: itemIdentifier.icon) else { return }
+            
+            ImageLoader.shared.fetch(url) { image in
+                let newImage = image.resize(newHeight: cell.frame.height * 0.7)
+                cell.setContent(name: itemIdentifier.name, image: newImage)
+            }
+        }
+    }
+    
+    func createAccessoryCellRegistration() -> UICollectionView.CellRegistration<HStackImageLabelCell, AccessoryItemViewModel> {
+        return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            guard let url = URL(string: itemIdentifier.icon) else { return }
+            
+            ImageLoader.shared.fetch(url) { image in
+                let newImage = image.resize(newHeight: cell.iconImageView.frame.height)
+                cell.setContent(name: itemIdentifier.name, image: newImage)
+            }
         }
     }
 }
