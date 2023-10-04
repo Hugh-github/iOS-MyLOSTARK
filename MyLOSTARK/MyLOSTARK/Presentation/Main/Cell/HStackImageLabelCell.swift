@@ -50,6 +50,8 @@ class HStackImageLabelCell: UICollectionViewCell {
     }
     
     private func setLayout() {
+        let spacing = contentView.frame.width * 0.05
+        
         NSLayoutConstraint.activate([
             self.iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             self.iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 3),
@@ -59,7 +61,7 @@ class HStackImageLabelCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             self.nameLabel.centerYAnchor.constraint(equalTo: self.iconImageView.centerYAnchor),
-            self.nameLabel.leadingAnchor.constraint(equalTo: self.iconImageView.trailingAnchor, constant: 5),
+            self.nameLabel.leadingAnchor.constraint(equalTo: self.iconImageView.trailingAnchor, constant: spacing),
             self.nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5)
         ])
     }
