@@ -16,7 +16,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        // TabViewController에 연결
         let mainViewController = MainViewController()
         let searchViewController = SearchViewController()
         let scheduleViewController = ScheduleViewController()
