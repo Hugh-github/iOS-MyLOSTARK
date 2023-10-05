@@ -18,9 +18,12 @@ protocol ProfileViewModelOUTPUT {
 class ProfileViewModel: ProfileViewModelOUTPUT {
     enum Action {
         case viewDidLoad
+        case didTabBackButton
     }
     
     private let profileUseCase: CharacterProfileUseCase
+//    private let interactionUseCase = InterActionCoreDataUseCase()
+    private let interactionUseCase: InterActionCoreDataUseCase
     
     var profile: Observable<CharacterProfileViewModel?> = .init(nil)
     var stats: Observable<[CharacterStatsViewModel]> = .init([])
@@ -28,8 +31,12 @@ class ProfileViewModel: ProfileViewModelOUTPUT {
     var equipmentList: Observable<[EquipmentItemViewModel]> = .init([])
     var accessoryList: Observable<[AccessoryItemViewModel]> = .init([])
     
-    init(profileUseCase: CharacterProfileUseCase) {
+    init(
+        profileUseCase: CharacterProfileUseCase,
+        interactionUseCase: InterActionCoreDataUseCase
+    ) {
         self.profileUseCase = profileUseCase
+        self.interactionUseCase = interactionUseCase
     }
     
     func execute(_ action: Action) {

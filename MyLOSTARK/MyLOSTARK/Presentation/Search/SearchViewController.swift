@@ -189,8 +189,11 @@ extension SearchViewController {
     }
     
     private func setSearchCompletionHandler() {
-        self.viewModel.searchCompletionHandler = { usecase in
-            let profileController = ProfileViewController(profileUseCase: usecase)
+        self.viewModel.searchCompletionHandler = { profileUseCase, interactionUseCase in
+            let profileController = ProfileViewController(
+                profileUseCase: profileUseCase,
+                interactionUseCase: interactionUseCase
+            )
             
             self.navigationController?.pushViewController(profileController, animated: true)
         }

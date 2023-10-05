@@ -23,12 +23,12 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
     
     private let fetchCoreDataUseCase: FetchCoreDataUseCase<RecentCharacterInfo>
     private let searchUseCase: DefaultSearchUseCase
-    private let interactiveUseCase = InterActionCoreDataUseCase()
+    private let interactionUseCase = InterActionCoreDataUseCase()
     private let profileUseCase = CharacterProfileUseCase(repository: CharacterProfileRepository())
     
     var itemList: Observable<[RecentSearchItemViewModel]> = .init([])
     
-    var searchCompletionHandler: ((CharacterProfileUseCase) -> Void) = { _ in }
+    var searchCompletionHandler: ((CharacterProfileUseCase, InterActionCoreDataUseCase) -> Void) = { _,_  in }
     var errorHandling: ((String) -> Void) = { _ in }
     
     init(fetchRepo: any DefaultCoreDataRepository, searchRepo: DefaultRecentSearchRepository) {
@@ -52,13 +52,13 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
             }
         case .didTabBookmarkButton(let index):
             if itemList.value[index].isBookmark == false {
-                self.interactiveUseCase.regist(itemList.value[index].toBookmarkEntity())
+                self.interactionUseCase.regist(itemList.value[index].toBookmarkEntity())
             } else {
-                self.interactiveUseCase.unregist(itemList.value[index].toBookmarkEntity())
+                self.interactionUseCase.unregist(itemList.value[index].toBookmarkEntity())
             }
             
             self.itemList.value[index].toggle()
-            self.interactiveUseCase.update(itemList.value[index].toSearchEntity())
+            self.interactionUseCase.update(itemList.value[index].toSearchEntity())
         case .didTabDeleteButton(let index):
             self.searchUseCase.delete(itemList.value[index].toSearchEntity())
             self.itemList.value.remove(at: index)
@@ -83,7 +83,7 @@ extension RecentSearchListViewModel {
             try await self.profileUseCase.execute()
             
             DispatchQueue.main.async {
-                self.searchCompletionHandler(self.profileUseCase)
+                self.searchCompletionHandler(self.profileUseCase, self.interactionUseCase)
             }
         } catch NetworkError.emptyData {
             DispatchQueue.main.async {
