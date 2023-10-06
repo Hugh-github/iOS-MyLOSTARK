@@ -9,6 +9,7 @@ import Foundation
 
 protocol ProfileViewModelOUTPUT {
     var profile: Observable<CharacterProfileViewModel?> { get }
+    var isBookmark: Observable<Bool> { get }
     var stats: Observable<[CharacterStatsViewModel]> { get }
     var tendencies: Observable<[CharacterTendencyViewModel]> { get }
     var equipmentList: Observable<[EquipmentItemViewModel]> { get }
@@ -19,13 +20,15 @@ class ProfileViewModel: ProfileViewModelOUTPUT {
     enum Action {
         case viewDidLoad
         case didTabBackButton
+        case didTabBookmarkButton
     }
     
     private let profileUseCase: CharacterProfileUseCase
-//    private let interactionUseCase = InterActionCoreDataUseCase()
     private let interactionUseCase: InterActionCoreDataUseCase
+    private let searchUseCase: DefaultSearchUseCase
     
     var profile: Observable<CharacterProfileViewModel?> = .init(nil)
+    var isBookmark: Observable<Bool> = .init(false)
     var stats: Observable<[CharacterStatsViewModel]> = .init([])
     var tendencies: Observable<[CharacterTendencyViewModel]> = .init([])
     var equipmentList: Observable<[EquipmentItemViewModel]> = .init([])
@@ -57,7 +60,40 @@ class ProfileViewModel: ProfileViewModelOUTPUT {
                     accessoryList.value.append(AccessoryItemViewModel(equipment))
                 }
             }
+            
+            self.isBookmark.value = interactionUseCase.isBookmark(name: entity.armoryProfile.characterName)
+        case .didTabBackButton:
+            guard let profile = self.profile.value else { return }
+            self.searchUseCase.create(createQuery(profile))
+            
+            if isBookmark.value {
+                self.interactionUseCase.regist(createBookmark(profile))
+            } else {
+                self.interactionUseCase.unregist(createBookmark(profile))
+            }
+            
+        case .didTabBookmarkButton:
+            self.isBookmark.value.toggle()
         }
+    }
+}
+
+extension ProfileViewModel {
+    private func createBookmark(_ profile: CharacterProfileViewModel) -> CharacterBookmark {
+        return CharacterBookmark(
+            jobClass: profile.characterClassName,
+            itemLevel: profile.itemAvgLevel,
+            name: profile.characterName
+        )
+    }
+    
+    private func createQuery(_ profile: CharacterProfileViewModel) -> RecentCharacterInfo {
+        return RecentCharacterInfo(
+            name: profile.characterName,
+            jobClass: profile.characterClassName,
+            itemLevel: profile.itemAvgLevel,
+            isBookmark: isBookmark.value
+        )
     }
 }
 

@@ -60,6 +60,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    private let bookmarkButton = BookmarkButton()
     private var collectionView: UICollectionView! = nil
     private var dataSource: DataSource! = nil
     private let director = ProfileCollectionViewLayoutDirector()
@@ -71,10 +72,18 @@ class ProfileViewController: UIViewController {
     var accessorySectionSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
     
     private let profileUseCase: CharacterProfileUseCase
+    private let interactionUseCase: InterActionCoreDataUseCase
+    private let searchUseCase: DefaultSearchUseCase
     private var viewModel: ProfileViewModel! = nil
     
-    init(profileUseCase: CharacterProfileUseCase) {
+    init(
+        profileUseCase: CharacterProfileUseCase,
+        interactionUseCase: InterActionCoreDataUseCase,
+        searchUseCase: DefaultSearchUseCase
+    ) {
         self.profileUseCase = profileUseCase
+        self.interactionUseCase = interactionUseCase
+        self.searchUseCase = searchUseCase
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -86,9 +95,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: BookmarkButton())
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: bookmarkButton)
+        navigationItem.backAction = createBackButtonAction()
         
         self.createCollectionView()
+        self.configureBookmarkButtonAction()
         self.createViewModel()
         self.configureDataSource()
         self.configureSupplementaryView()
@@ -101,9 +112,50 @@ class ProfileViewController: UIViewController {
     }
     
     private func createViewModel() {
-        self.viewModel = ProfileViewModel(profileUseCase: profileUseCase)
+        self.viewModel = ProfileViewModel(
+            profileUseCase: profileUseCase,
+            interactionUseCase: interactionUseCase,
+            searchUseCase: searchUseCase
+        )
     }
     
+    private func createBackButtonAction() -> UIAction {
+        return UIAction { _ in
+            self.viewModel.execute(.didTabBackButton)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { // 현재 이 방법이 가장 무난하다.
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    private func configureBookmarkButtonAction() {
+        let action = UIAction { action in
+            let button = action.sender as? BookmarkButton
+            button?.toggle()
+            self.viewModel.execute(.didTabBookmarkButton)
+        }
+        
+        self.bookmarkButton.addAction(action, for: .touchUpInside)
+    }
+}
+
+extension ProfileViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 1 {
+            return true
+        }
+        
+        return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.currentIndexPath = indexPath
+    }
+}
+
+// MARK: Configure CollectionView
+extension ProfileViewController {
     private func createCollectionView() {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: setLayout())
         self.collectionView.backgroundColor = .secondarySystemBackground
@@ -154,7 +206,11 @@ class ProfileViewController: UIViewController {
         
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
     }
-    
+}
+
+
+// MARK: Confioure DataSource & SupplementaryView
+extension ProfileViewController {
     private func configureDataSource() {
         let imageProfileCellRegistration = createImageProfileCellRegistration()
         let selectContentCellRegistration = createContentSelectCellRegistration()
@@ -245,7 +301,10 @@ class ProfileViewController: UIViewController {
         
         self.dataSource.apply(snapshot)
     }
-    
+}
+
+// MARK: DataBinding
+extension ProfileViewController {
     private func dataBinding() {
         self.viewModel.profile.addObserver(on: self) { [weak self] profile in
             guard let self = self else { return }
@@ -253,6 +312,10 @@ class ProfileViewController: UIViewController {
             
             self.imageProfileSectionSnapshot.append([profile])
             self.dataSource.apply(imageProfileSectionSnapshot, to: .imageProfile)
+        }
+        
+        self.viewModel.isBookmark.addObserver(on: self) { isBookmark in
+            self.bookmarkButton.isSelected = isBookmark
         }
         
         self.viewModel.stats.addObserver(on: self) { [weak self] stats in
@@ -285,20 +348,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
-extension ProfileViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 1 {
-            return true
-        }
-        
-        return false
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.currentIndexPath = indexPath
-    }
-}
-
+// MARK: Cell Registration
 extension ProfileViewController {
     func createImageProfileCellRegistration() -> UICollectionView.CellRegistration<ImageProfileCell, CharacterProfileViewModel> {
         return UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
