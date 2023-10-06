@@ -18,9 +18,9 @@ class SearchViewController: UIViewController {
     private var dataSource: DataSource! = nil
     private let layoutBuilder = CollectionViewLayoutBuilder()
     
-    
-    private var fetchRepo: (any DefaultCoreDataRepository)! = nil
-    private var searchRepo: DefaultRecentSearchRepository! = nil
+    private var searchUseCase: DefaultSearchUseCase! = nil
+    private var interactionUseCase: InterActionCoreDataUseCase! = nil
+    private var profileUseCase: CharacterProfileUseCase! = nil
     private var viewModel: RecentSearchListViewModel! = nil
     
     override func viewDidLoad() {
@@ -34,7 +34,6 @@ class SearchViewController: UIViewController {
         self.configureSupplementaryView()
         self.initialSnapshot()
         self.setErrorHandling()
-        self.setSearchCompletionHandler()
         
         self.dataBinding(to: viewModel)
     }
@@ -54,11 +53,31 @@ class SearchViewController: UIViewController {
     }
     
     private func createViewModel() {
-        let repo = RecentSearchRepository()
-        self.fetchRepo = repo
-        self.searchRepo = repo
+        let interfaceRepository = RecentSearchRepository()
         
-        self.viewModel = RecentSearchListViewModel(fetchRepo: fetchRepo, searchRepo: searchRepo)
+        self.searchUseCase = DefaultSearchUseCase(repository: interfaceRepository)
+        self.interactionUseCase = InterActionCoreDataUseCase(searchRepository: interfaceRepository)
+        self.profileUseCase = CharacterProfileUseCase()
+        
+        self.viewModel = RecentSearchListViewModel(
+            fetchCoreDataUseCase: FetchCoreDataUseCase(repository: interfaceRepository),
+            searchUseCase: searchUseCase,
+            interactionUseCase: interactionUseCase,
+            profileUseCase: profileUseCase
+        )
+    }
+    
+    private func didTabDeleteAllButton() -> UIAction {
+        return UIAction { _ in
+            self.viewModel.execute(.didTabDeleteAllButton)
+        }
+    }
+    
+    private func didTapBookmarkButton(_ index: Int) -> UIAction {
+        return UIAction { action in
+            let button = action.sender as? BookmarkButton
+            button?.toggle()
+        }
     }
 }
 
@@ -147,19 +166,6 @@ extension SearchViewController {
         }
     }
     
-    private func didTabDeleteAllButton() -> UIAction {
-        return UIAction { _ in
-            self.viewModel.execute(.didTabDeleteAllButton)
-        }
-    }
-    
-    private func didTapBookmarkButton(_ index: Int) -> UIAction {
-        return UIAction { action in
-            let button = action.sender as? BookmarkButton
-            button?.toggle()
-        }
-    }
-    
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<SearchViewSection, RecentSearchItemViewModel>()
         snapshot.appendSections(SearchViewSection.allCases)
@@ -185,17 +191,6 @@ extension SearchViewController {
             
             alert.addAction(action)
             self.present(alert, animated: true)
-        }
-    }
-    
-    private func setSearchCompletionHandler() {
-        self.viewModel.searchCompletionHandler = { profileUseCase, interactionUseCase in
-            let profileController = ProfileViewController(
-                profileUseCase: profileUseCase,
-                interactionUseCase: interactionUseCase
-            )
-            
-            self.navigationController?.pushViewController(profileController, animated: true)
         }
     }
 }
@@ -227,7 +222,17 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        self.viewModel.execute(.search(searchBar.text!))
+        self.viewModel.execute(.search(searchBar.text!) {
+            DispatchQueue.main.async {
+                let profileController = ProfileViewController(
+                    profileUseCase: self.profileUseCase,
+                    interactionUseCase: self.interactionUseCase,
+                    searchUseCase: self.searchUseCase
+                )
+                
+                self.navigationController?.pushViewController(profileController, animated: false)
+            }
+        })
     }
 }
 

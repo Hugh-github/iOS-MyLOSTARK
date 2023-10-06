@@ -15,7 +15,7 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
     enum Action {
         case viewWillAppear
         case viewWillDisappear
-        case search(String)
+        case search(String, () -> Void)
         case didTabBookmarkButton(Int)
         case didTabDeleteButton(Int)
         case didTabDeleteAllButton
@@ -23,17 +23,23 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
     
     private let fetchCoreDataUseCase: FetchCoreDataUseCase<RecentCharacterInfo>
     private let searchUseCase: DefaultSearchUseCase
-    private let interactionUseCase = InterActionCoreDataUseCase()
-    private let profileUseCase = CharacterProfileUseCase(repository: CharacterProfileRepository())
+    private let interactionUseCase: InterActionCoreDataUseCase
+    private let profileUseCase: CharacterProfileUseCase
     
     var itemList: Observable<[RecentSearchItemViewModel]> = .init([])
     
-    var searchCompletionHandler: ((CharacterProfileUseCase, InterActionCoreDataUseCase) -> Void) = { _,_  in }
     var errorHandling: ((String) -> Void) = { _ in }
     
-    init(fetchRepo: any DefaultCoreDataRepository, searchRepo: DefaultRecentSearchRepository) {
-        self.fetchCoreDataUseCase = FetchCoreDataUseCase<RecentCharacterInfo>(repository: fetchRepo)
-        self.searchUseCase = DefaultSearchUseCase(repository: searchRepo)
+    init(
+        fetchCoreDataUseCase: FetchCoreDataUseCase<RecentCharacterInfo>,
+        searchUseCase: DefaultSearchUseCase,
+        interactionUseCase: InterActionCoreDataUseCase,
+        profileUseCase: CharacterProfileUseCase
+    ) {
+        self.fetchCoreDataUseCase = fetchCoreDataUseCase
+        self.searchUseCase = searchUseCase
+        self.interactionUseCase = interactionUseCase
+        self.profileUseCase = profileUseCase
     }
     
     func execute(_ action: Action) {
@@ -44,11 +50,11 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
             }
         case .viewWillDisappear:
             self.itemList.value.removeAll()
-        case .search(let name):
+        case .search(let name, let completion):
             self.profileUseCase.request = .init(name: name)
             
             Task {
-                await self.startSearch()
+                await self.startSearch(completionHandler: completion)
             }
         case .didTabBookmarkButton(let index):
             if itemList.value[index].isBookmark == false {
@@ -78,13 +84,10 @@ extension RecentSearchListViewModel {
         }
     }
     
-    private func startSearch() async {
+    private func startSearch(completionHandler: @escaping () -> Void) async {
         do {
             try await self.profileUseCase.execute()
-            
-            DispatchQueue.main.async {
-                self.searchCompletionHandler(self.profileUseCase, self.interactionUseCase)
-            }
+            completionHandler()
         } catch NetworkError.emptyData {
             DispatchQueue.main.async {
                 self.errorHandling("등록된 캐릭터가 없습니다.")

@@ -33,10 +33,12 @@ class ProfileViewModel: ProfileViewModelOUTPUT {
     
     init(
         profileUseCase: CharacterProfileUseCase,
-        interactionUseCase: InterActionCoreDataUseCase
+        interactionUseCase: InterActionCoreDataUseCase,
+        searchUseCase: DefaultSearchUseCase
     ) {
         self.profileUseCase = profileUseCase
         self.interactionUseCase = interactionUseCase
+        self.searchUseCase = searchUseCase
     }
     
     func execute(_ action: Action) {
