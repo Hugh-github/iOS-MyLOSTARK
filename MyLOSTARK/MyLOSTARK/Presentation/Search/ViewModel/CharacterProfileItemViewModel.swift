@@ -56,6 +56,7 @@ struct EquipmentItemViewModel: Hashable {
 }
 
 struct AccessoryItemViewModel: Hashable {
+    let id = UUID()
     let name: String
     let icon: String
     
