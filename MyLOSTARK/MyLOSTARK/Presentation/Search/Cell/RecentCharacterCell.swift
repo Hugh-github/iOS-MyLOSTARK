@@ -12,7 +12,6 @@ class RecentCharacterCell: UICollectionViewCell {
     
     private(set) var thumbnailView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -98,6 +97,7 @@ class RecentCharacterCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             self.thumbnailView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             self.thumbnailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            self.thumbnailView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8),
             self.thumbnailView.heightAnchor.constraint(equalTo: thumbnailView.widthAnchor)
         ])
         

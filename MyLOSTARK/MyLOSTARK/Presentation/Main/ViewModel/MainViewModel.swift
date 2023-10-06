@@ -27,7 +27,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     
     private let contentUseCase = ContentUseCase(repository: ContentsRepository())
     private let eventUseCase = EventUseCase(repository: EventRepository())
-    private let fetchCoreDataUseCase = FetchCoreDataUseCase<CharacterBookmark>(repository: BookmarkRepository())
+    private let fetchCoreDataUseCase = FetchCoreDataUseCase<CharacterBookmark>(repository: BookmarkRepository.shared)
     private let interactiveUseCase: InterActionCoreDataUseCase
     private let noticeUseCase: FetchNoticeAPIUseCase
 
