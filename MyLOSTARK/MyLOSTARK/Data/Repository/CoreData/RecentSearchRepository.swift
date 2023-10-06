@@ -11,7 +11,7 @@ class RecentSearchRepository: DefaultCoreDataRepository, InteractiveSearchReposi
     private let recentSearchStorage = CoreDataRecentSearchStorage()
     
     func fetch() async -> [RecentCharacterInfo] {
-        var searchList = [RecentCharacterInfo]()
+        var searchList = [RecentCharacterInfo]() 
         
         do {
             let list = try await recentSearchStorage.fetchRecentSearch()
@@ -40,6 +40,6 @@ class RecentSearchRepository: DefaultCoreDataRepository, InteractiveSearchReposi
     }
     
     func update(_ search: RecentCharacterInfo) {
-        self.recentSearchStorage.updateResultSearch(search)
+        self.recentSearchStorage.updateRecentSearch(search)
     }
 }
