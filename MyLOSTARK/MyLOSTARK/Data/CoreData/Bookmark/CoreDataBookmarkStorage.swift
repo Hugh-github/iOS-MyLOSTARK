@@ -21,23 +21,25 @@ class CoreDataBookmarkStorage {
         return try coreDataStorage.viewContext.fetch(request)
     }
     
-    func createBookmark(_ characterBookmark: CharacterBookmark) {
+    func createBookmark(_ characterBookmark: CharacterBookmark, completionHandler: @escaping (Bookmark) -> Void) {
         self.coreDataStorage.performBackgroundTask { [weak self] context in
             guard let self = self else { return }
             let bookmarkObject = NSEntityDescription.insertNewObject(forEntityName: "Bookmark", into: context)
+            
             bookmarkObject.setValue(characterBookmark.name, forKey: "name")
             bookmarkObject.setValue(characterBookmark.jobClass, forKey: "jobClass")
             bookmarkObject.setValue(characterBookmark.itemLevel, forKey: "itemLevel")
             
             do {
                 try context.save()
+                completionHandler(bookmarkObject  as! Bookmark)
             } catch {
                 self.rollBack()
             }
         }
     }
     
-    func deleteBookmark(_ name: String) {
+    func deleteBookmark(_ name: String, completionHandler: @escaping (Bookmark) -> Void) {
         self.coreDataStorage.performBackgroundTask { [weak self] context in
             guard let self = self else { return }
             let request = NSFetchRequest<Bookmark>(entityName: "Bookmark")
@@ -46,6 +48,7 @@ class CoreDataBookmarkStorage {
             do {
                 guard let object = try context.fetch(request).first else { return }
                 context.delete(object)
+                completionHandler(object)
                 try context.save()
             } catch {
                 self.rollBack()

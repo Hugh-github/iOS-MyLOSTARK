@@ -12,7 +12,7 @@ class InterActionCoreDataUseCase {
     private let searchRepository: InteractiveSearchRepository
     
     init(
-        bookmarkRepository: InteractiveBookmarkRepository = BookmarkRepository(),
+        bookmarkRepository: InteractiveBookmarkRepository = BookmarkRepository.shared,
         searchRepository: InteractiveSearchRepository = RecentSearchRepository()
     ) {
         self.bookmarkRepository = bookmarkRepository
@@ -29,5 +29,9 @@ class InterActionCoreDataUseCase {
     
     func update(_ character: RecentCharacterInfo) {
         self.searchRepository.update(character)
+    }
+    
+    func isBookmark(name: String) -> Bool {
+        return bookmarkRepository.hasCharacter(name: name)
     }
 }

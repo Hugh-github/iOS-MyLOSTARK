@@ -8,4 +8,5 @@
 protocol InteractiveBookmarkRepository {
     func create(_ character: CharacterBookmark)
     func delete(_ character: CharacterBookmark)
+    func hasCharacter(name: String) -> Bool
 }
