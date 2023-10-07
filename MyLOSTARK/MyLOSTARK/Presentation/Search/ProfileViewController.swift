@@ -73,13 +73,13 @@ class ProfileViewController: UIViewController {
     
     private let profileUseCase: CharacterProfileUseCase
     private let interactionUseCase: InterActionCoreDataUseCase
-    private let searchUseCase: DefaultSearchUseCase
+    private let searchUseCase: DefaultSearchUseCase?
     private var viewModel: ProfileViewModel! = nil
     
     init(
         profileUseCase: CharacterProfileUseCase,
         interactionUseCase: InterActionCoreDataUseCase,
-        searchUseCase: DefaultSearchUseCase
+        searchUseCase: DefaultSearchUseCase? = nil
     ) {
         self.profileUseCase = profileUseCase
         self.interactionUseCase = interactionUseCase

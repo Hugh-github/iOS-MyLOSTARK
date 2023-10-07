@@ -25,7 +25,7 @@ class ProfileViewModel: ProfileViewModelOUTPUT {
     
     private let profileUseCase: CharacterProfileUseCase
     private let interactionUseCase: InterActionCoreDataUseCase
-    private let searchUseCase: DefaultSearchUseCase
+    private let searchUseCase: DefaultSearchUseCase?
     
     var profile: Observable<CharacterProfileViewModel?> = .init(nil)
     var isBookmark: Observable<Bool> = .init(false)
@@ -37,7 +37,7 @@ class ProfileViewModel: ProfileViewModelOUTPUT {
     init(
         profileUseCase: CharacterProfileUseCase,
         interactionUseCase: InterActionCoreDataUseCase,
-        searchUseCase: DefaultSearchUseCase
+        searchUseCase: DefaultSearchUseCase? = nil
     ) {
         self.profileUseCase = profileUseCase
         self.interactionUseCase = interactionUseCase
@@ -64,8 +64,9 @@ class ProfileViewModel: ProfileViewModelOUTPUT {
             self.isBookmark.value = interactionUseCase.isBookmark(name: entity.armoryProfile.characterName)
         case .didTabBackButton:
             guard let profile = self.profile.value else { return }
-            self.searchUseCase.create(createQuery(profile))
+            self.searchUseCase?.create(createQuery(profile))
             
+            // 이미 북마크가 존재하면 만들 필요가 없다. 이부분 코드 수정 필요
             if isBookmark.value {
                 self.interactionUseCase.regist(createBookmark(profile))
             } else {

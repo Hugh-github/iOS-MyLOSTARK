@@ -40,6 +40,8 @@ final class MainViewController: UIViewController {
     private let director = MainCollectionViewLayoutDirector()
     
     private var noticeRepository: DefaultNoticeRepository! = nil
+    private var interactionUseCase: InterActionCoreDataUseCase! = nil
+    private var profileUseCase: CharacterProfileUseCase! = nil
     private var viewModel: MainViewModel! = nil
     
     override func viewDidLoad() {
@@ -70,9 +72,13 @@ final class MainViewController: UIViewController {
     
     private func createViewModel() {
         self.noticeRepository = NoticeRepository()
+        self.interactionUseCase = InterActionCoreDataUseCase()
+        self.profileUseCase = CharacterProfileUseCase()
+        
         self.viewModel = MainViewModel(
-            interactiveUseCase: InterActionCoreDataUseCase(),
-            noticeUseCase: FetchNoticeAPIUseCase(repository: noticeRepository)
+            interactiveUseCase: interactionUseCase,
+            noticeUseCase: FetchNoticeAPIUseCase(repository: noticeRepository),
+            profileUseCase: profileUseCase
         )
     }
 }
@@ -94,7 +100,11 @@ extension MainViewController: UICollectionViewDelegate {
         case .calendar:
             self.presentContentView(indexPath.row)
         case .characterBookmark:
-            return
+            self.viewModel.execute(.selectBookmarkCell(indexPath.row) {
+                DispatchQueue.main.async {
+                    self.presentProfileView()
+                }
+            })
         case .notice:
             self.presentWebView(.all, index: indexPath.row)
         case .event:
@@ -116,6 +126,12 @@ extension MainViewController: UICollectionViewDelegate {
         }
         
         present(infoViewController, animated: true, completion: nil)
+    }
+    
+    private func presentProfileView() {
+        let profileViewController = ProfileViewController(profileUseCase: profileUseCase, interactionUseCase: interactionUseCase)
+        
+        self.navigationController?.pushViewController(profileViewController, animated: true)
     }
     
     private func presentWebView(_ link: LinkCase, index: Int) {

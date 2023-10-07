@@ -20,6 +20,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
         case viewDidLoad(() -> Void)
         case viewWillAppear
         case selectContentCell(Int)
+        case selectBookmarkCell(Int, () -> Void)
         case selectNoticeCell(Int)
         case selectEventCell(Int)
         case unRegistCharacter(Int)
@@ -30,6 +31,7 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     private let fetchCoreDataUseCase = FetchCoreDataUseCase<CharacterBookmark>(repository: BookmarkRepository.shared)
     private let interactiveUseCase: InterActionCoreDataUseCase
     private let noticeUseCase: FetchNoticeAPIUseCase
+    private let profileUseCase: CharacterProfileUseCase
 
     
     // MARK: OUTPUT
@@ -42,10 +44,12 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
     
     init(
         interactiveUseCase: InterActionCoreDataUseCase,
-        noticeUseCase: FetchNoticeAPIUseCase
+        noticeUseCase: FetchNoticeAPIUseCase,
+        profileUseCase: CharacterProfileUseCase
     ) {
         self.interactiveUseCase = interactiveUseCase
         self.noticeUseCase = noticeUseCase
+        self.profileUseCase = profileUseCase
     }
     
     func execute(_ action: Action) {
@@ -61,6 +65,13 @@ final class MainViewModel: MainViewModelOUTPUT, WebConnectableViewModel {
             }
         case .selectContentCell(let index):
             self.content.value = contents.value[index]
+        case .selectBookmarkCell(let index, let completion):
+            guard let characterName = self.bookmark.value?[index].name else { return }
+            self.profileUseCase.request = .init(name: characterName)
+            Task {
+                try await self.profileUseCase.execute()
+                completion()
+            }
         case .selectNoticeCell(let index):
             self.webLink.value = notices.value[index]
         case .selectEventCell(let index):
