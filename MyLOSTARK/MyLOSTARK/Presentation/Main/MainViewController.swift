@@ -102,7 +102,7 @@ extension MainViewController: UICollectionViewDelegate {
         case .characterBookmark:
             self.viewModel.execute(.selectBookmarkCell(indexPath.row) {
                 DispatchQueue.main.async {
-                    self.presentProfileView()
+                    self.pushProfileView()
                 }
             })
         case .notice:
@@ -128,7 +128,7 @@ extension MainViewController: UICollectionViewDelegate {
         present(infoViewController, animated: true, completion: nil)
     }
     
-    private func presentProfileView() {
+    private func pushProfileView() {
         let profileViewController = ProfileViewController(profileUseCase: profileUseCase, interactionUseCase: interactionUseCase)
         
         self.navigationController?.pushViewController(profileViewController, animated: true)
