@@ -16,6 +16,7 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
         case viewWillAppear
         case viewWillDisappear
         case search(String, () -> Void)
+        case selectSearchCell(Int, () -> Void)
         case didTabBookmarkButton(Int)
         case didTabDeleteButton(Int)
         case didTabDeleteAllButton
@@ -56,6 +57,14 @@ class RecentSearchListViewModel: RecentSearchListViewModelOUTPUT {
             Task {
                 await self.startSearch(completionHandler: completion)
             }
+        case .selectSearchCell(let index, let completion):
+            let characterName = self.itemList.value[index].name
+            self.profileUseCase.request = .init(name: characterName)
+            
+            Task {
+                await self.startSearch(completionHandler: completion)
+            }
+            
         case .didTabBookmarkButton(let index):
             if itemList.value[index].isBookmark == false {
                 self.interactionUseCase.regist(itemList.value[index].toBookmarkEntity())

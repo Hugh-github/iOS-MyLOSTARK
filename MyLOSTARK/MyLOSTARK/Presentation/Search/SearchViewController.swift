@@ -85,6 +85,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController {
     private func configureCollectionView() {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: setCollectionViewLayout())
+        self.collectionView.delegate = self
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(
             CommonHeaderView.self,
@@ -209,6 +210,26 @@ extension SearchViewController {
         navigationItem.backButtonDisplayMode = .minimal
         navigationItem.title = "캐릭터 검색"
     }
+    
+    func pushProfileViewController() {
+        let profileController = ProfileViewController(
+            profileUseCase: self.profileUseCase,
+            interactionUseCase: self.interactionUseCase,
+            searchUseCase: self.searchUseCase
+        )
+        
+        self.navigationController?.pushViewController(profileController, animated: false)
+    }
+}
+
+extension SearchViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.viewModel.execute(.selectSearchCell(indexPath.row) {
+            DispatchQueue.main.async {
+                self.pushProfileViewController()
+            }
+        })
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -224,13 +245,7 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.viewModel.execute(.search(searchBar.text!) {
             DispatchQueue.main.async {
-                let profileController = ProfileViewController(
-                    profileUseCase: self.profileUseCase,
-                    interactionUseCase: self.interactionUseCase,
-                    searchUseCase: self.searchUseCase
-                )
-                
-                self.navigationController?.pushViewController(profileController, animated: false)
+                self.pushProfileViewController()
             }
         })
     }
