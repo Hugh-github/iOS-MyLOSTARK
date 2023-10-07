@@ -452,7 +452,8 @@ extension MainViewController {
         
         let leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
         
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+        navigationItem.backButtonDisplayMode = .minimal
     }
 }
 
