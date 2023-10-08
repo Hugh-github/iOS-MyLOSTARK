@@ -64,15 +64,18 @@ class ProfileViewModel: ProfileViewModelOUTPUT {
             self.isBookmark.value = interactionUseCase.isBookmark(name: entity.armoryProfile.characterName)
         case .didTabBackButton:
             guard let profile = self.profile.value else { return }
-            self.searchUseCase?.create(createQuery(profile))
-            
-            // 이미 북마크가 존재하면 만들 필요가 없다. 이부분 코드 수정 필요
+        
             if isBookmark.value {
                 self.interactionUseCase.regist(createBookmark(profile))
             } else {
                 self.interactionUseCase.unregist(createBookmark(profile))
             }
             
+            if searchUseCase == nil {
+                self.interactionUseCase.update(createQuery(profile))
+            }
+            
+            self.searchUseCase?.create(createQuery(profile))
         case .didTabBookmarkButton:
             self.isBookmark.value.toggle()
         }
