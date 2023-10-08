@@ -173,6 +173,7 @@ extension NoticeListViewController: UICollectionViewDelegate {
                 linkCase: .update,
                 index: indexPath.row - 1
             )
+            webViewController.delegate = viewModel
             
             present(webViewController, animated: true)
         case .check:

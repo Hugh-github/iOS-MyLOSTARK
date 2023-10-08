@@ -53,7 +53,7 @@ extension NoticeViewModel {
     private func fetchData() async {
         async let updateList = try await noticeUseCase.execute(.update)
         async let checkList = try await noticeUseCase.execute(.check)
-        async let shopList = try await noticeUseCase.execute(.all)
+        async let shopList = try await noticeUseCase.execute(.shop)
         
         do {
             self.updateNotices.value = try await updateList.map(NoticeItemViewModel.init)
