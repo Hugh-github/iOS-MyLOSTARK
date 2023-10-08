@@ -59,7 +59,9 @@ final class WebViewController: UIViewController {
             
             let request = URLRequest(url: url)
             
-            self.webView.load(request)
+            DispatchQueue.main.async {
+                self.webView.load(request)
+            }
         }
     }
 }
