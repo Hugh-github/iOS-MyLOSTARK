@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
         case accessory
         
         static var selectSectionItem: [String] {
-            return ["특성", "장비", "스킬"]
+            return ["특성", "장비"]
         }
         
         var title: String? {
