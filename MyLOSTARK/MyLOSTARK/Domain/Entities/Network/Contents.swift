@@ -14,7 +14,7 @@ struct Contents {
     let minItemLevel: Int
     let startTimes: [String]?
     let location: String?
-    let rewardItems: [RewardItem]
+    let rewardItems: [RewardItem]?
 }
 
 struct RewardItem {

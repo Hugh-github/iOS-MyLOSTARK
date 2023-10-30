@@ -14,7 +14,7 @@ struct ContentsDTO: Decodable {
     let minItemLevel: Int
     let startTimes: [String]?
     let location: String?
-    let rewardItems: [RewardItemDTO]
+    let rewardItems: [RewardItemDTO]?
     
     enum CodingKeys: String, CodingKey {
         case categoryName = "CategoryName"
@@ -27,7 +27,7 @@ struct ContentsDTO: Decodable {
     }
     
     func toDomain() -> Contents {
-        let items = self.rewardItems.map { dto in
+        let items = rewardItems?.compactMap { dto in
             return dto.toDomain()
         }
         

@@ -23,7 +23,7 @@ class CalendarViewModel: Hashable {
     init(content: Contents) {
         self.contentsName = content.contentsName
         self.contentsIcon = content.contentsIcon
-        self.rewardItems = content.rewardItems.map(RewardItemViewModel.init)
+        self.rewardItems = (content.rewardItems?.compactMap(RewardItemViewModel.init))!
     }
     
     var rewards: [RewardItemViewModel] {
