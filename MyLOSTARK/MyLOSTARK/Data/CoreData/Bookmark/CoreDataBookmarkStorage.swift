@@ -48,8 +48,8 @@ class CoreDataBookmarkStorage {
             do {
                 guard let object = try context.fetch(request).first else { return }
                 context.delete(object)
-                completionHandler(object)
                 try context.save()
+                completionHandler(object)
             } catch {
                 self.rollBack()
             }
