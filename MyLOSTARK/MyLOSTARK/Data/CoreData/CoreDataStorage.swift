@@ -7,8 +7,6 @@
 
 import CoreData
 
-// MARK: BackgroundViewContext에서 동작 하도록 코드를 작성해야 한다.
-
 final class CoreDataStorage {
     static let shared = CoreDataStorage()
     
@@ -28,7 +26,7 @@ final class CoreDataStorage {
     }
     
     private var backgroundContext: NSManagedObjectContext {
-        let context = persistentContainer.newBackgroundContext() // mainContext의 Child Context를 사용한다는 의미이다.
+        let context = persistentContainer.newBackgroundContext()
         context.automaticallyMergesChangesFromParent = true
         return context
     }
@@ -37,6 +35,8 @@ final class CoreDataStorage {
         task(viewContext)
     }
     
+    // 여기를 async / await으로 바꿔야 효과가 있네 (perform을 사용하기 때문에 불가능 하다.)
+    // perform 자체가 escapingClosure기 때문에 non - escaping closure를 캡처할 수 없다.
     func performBackgroundTask(_ task: @escaping (NSManagedObjectContext) -> Void) {
         backgroundContext.perform {
             task(self.backgroundContext)
